@@ -76,6 +76,33 @@ function RouteState:Upcoming(count)
     return result
 end
 
+local function inRegion(self, pos)
+    return pos ~= nil and (self.route.region == nil or pos.region == self.route.region)
+end
+
+-- Makes the open point nearest to pos the current one. False if pos is
+-- elsewhere or nothing is open.
+function RouteState:StartNear(pos)
+    if not inRegion(self, pos) then
+        return false
+    end
+    local Loc = Pathfinder.Loc
+    local best, bestDistance = nil, nil
+    for i, point in ipairs(self.route.points) do
+        if not self.done[point.key] then
+            local d = Loc.Distance(pos.lon, pos.lat, point.lon, point.lat)
+            if bestDistance == nil or d < bestDistance then
+                best, bestDistance = i, d
+            end
+        end
+    end
+    if best == nil then
+        return false
+    end
+    self.index = best
+    return true
+end
+
 function RouteState:MarkDone(point)
     if self.done[point.key] then
         return false
@@ -112,7 +139,7 @@ end
 -- prev to pos counts too (passed a point between two /pos clicks); the
 -- caller only passes prev for short, recent hops. True if anything changed.
 function RouteState:UpdatePosition(pos, radius, prev)
-    if pos == nil or (self.route.region ~= nil and pos.region ~= self.route.region) then
+    if not inRegion(self, pos) then
         return false
     end
     if prev ~= nil and prev.region ~= pos.region then

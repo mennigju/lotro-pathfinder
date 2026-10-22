@@ -114,6 +114,15 @@ check("manual undone", not state:IsDone(route.points[1]) and state:DoneCount() =
 local deeds = state:Deeds()
 check("deeds grouped", #deeds == 2 and deeds[1].name == "Erkundung Eins" and #deeds[1].points == 2
     and deeds[2].points[1].key == "c")
+state:Reset()
+
+-- Start at the nearest open target
+check("start near c", state:StartNear({ region = 1, lon = 0.9, lat = 0 }) and state:Current().key == "c")
+check("start near other region", state:StartNear({ region = 2, lon = 0, lat = 0 }) == false)
+state:SetDone(route.points[2], true)
+check("start near skips done", state:StartNear({ region = 1, lon = 0.5, lat = 0 }) and state:Current().key ~= "b")
+state:Reset()
+
 
 if failures == 0 then
     print("OK")

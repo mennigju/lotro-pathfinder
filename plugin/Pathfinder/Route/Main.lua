@@ -144,6 +144,8 @@ end
 -- State --------------------------------------------------------------------
 
 local state = nil
+-- True until the first position after loading a route picks the start
+local needsStart = false
 local lastPos = nil
 local posTime = nil
 local lastList = {}
@@ -174,13 +176,18 @@ local function toggleWindow(window, name)
     refresh()
 end
 
+local function newState(route)
+    progress.done[route.id] = progress.done[route.id] or {}
+    return Pathfinder.RouteState.New(route, progress.done[route.id])
+end
+
 local function selectRoute(route)
     progress.route = route and route.id or nil
     if route == nil then
         state = nil
     else
-        progress.done[route.id] = progress.done[route.id] or {}
-        state = Pathfinder.RouteState.New(route, progress.done[route.id])
+        state = newState(route)
+        needsStart = not state:StartNear(lastPos)
         write(L("routeSelected", route.name, state:DoneCount(), state:Total()))
     end
     saveProgress()
@@ -275,6 +282,9 @@ local function onPosition(pos)
         if state:UpdatePosition(pos, setting("radius", 25), prev) then
             write(L("reached", state:DoneCount() - before, state:DoneCount(), state:Total()))
             saveProgress()
+        end
+        if needsStart and state:StartNear(pos) then
+            needsStart = false
         end
     elseif #Routes.At(pos) > 0 then
         write(L("routesHereHint"))
@@ -454,9 +464,8 @@ arrowWindow:SetVisible(setting("arrowVisible", 1) == 1)
 mapWindow:SetVisible(setting("mapVisible", 0) == 1)
 listWindow:SetVisible(setting("listVisible", 0) == 1)
 if progress.route ~= nil and Routes.byId[progress.route] ~= nil then
-    local route = Routes.byId[progress.route]
-    progress.done[route.id] = progress.done[route.id] or {}
-    state = Pathfinder.RouteState.New(route, progress.done[route.id])
+    state = newState(Routes.byId[progress.route])
+    needsStart = true
 end
 refresh()
 local version = ""

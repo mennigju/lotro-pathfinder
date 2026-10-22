@@ -15,7 +15,8 @@ Use:
   - Click the arrow: it runs /loc and updates your position. Tip: drag the
     arrow onto a quickbar and bind a key to that slot.
   - /pf here       routes at your position
-  - /pf list bree  search routes, /pf route 1  choose one
+  - /pf list bree  search routes, /pf route 1  choose one; the arrow starts
+    at the open target nearest to you
   - "List" button  tick off targets and whole deeds you already have
   - "Map" button   map with the route; click a point to toggle it
   - /pf            all commands
@@ -44,7 +45,8 @@ Bedienung:
   - Pfeil anklicken: fuehrt /pos aus und aktualisiert die Position. Tipp: den
     Pfeil auf eine Schnellleiste ziehen und den Platz auf eine Taste legen.
   - /pf hier        Routen an deiner Position
-  - /pf liste bree  Routen suchen, /pf route 1  eine waehlen
+  - /pf liste bree  Routen suchen, /pf route 1  eine waehlen; der Pfeil
+    beginnt beim offenen Ziel, das dir am naechsten ist
   - Knopf "Liste"   erledigte Ziele und ganze Taten abhaken
   - Knopf "Karte"   Karte mit Route; Punkt anklicken = erledigt an/aus
   - /pf             alle Befehle
