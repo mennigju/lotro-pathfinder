@@ -26,6 +26,12 @@ lua5.1 tools/test_loc.lua             # tests for parsing, geometry and route st
 python3 -I tools/package.py           # dist/Pathfinder-<version>.zip
 ```
 
+CI (`.github/workflows/ci.yml`) runs the syntax check, the tests and the
+packaging on every push to `main` and on pull requests; the ZIP is attached
+as a build artifact. To release, bump `<Version>` in
+`plugin/Pathfinder/Route.plugin` and push a matching tag (`v0.4`): the
+release workflow builds the ZIP and publishes a GitHub release with it.
+
 For local testing, link `plugin/Pathfinder` into the game's `Plugins` folder
 and run `/plugins load Pathfinder` in game.
 

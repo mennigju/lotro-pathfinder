@@ -1,0 +1,32 @@
+name: Release
+
+# Push a tag like v0.4 that matches <Version> in plugin/Pathfinder/Route.plugin
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Lua 5.1
+        run: sudo apt-get update && sudo apt-get install -y lua5.1
+      - name: Tests
+        run: lua5.1 tools/test_loc.lua
+      - name: Check version
+        run: |
+          version=$(sed -n 's:.*<Version>\(.*\)</Version>.*:\1:p' plugin/Pathfinder/Route.plugin)
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match plugin version $version"
+            exit 1
+          fi
+      - name: Package
+        run: python3 -I tools/package.py
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/*.zip --title "Pathfinder ${GITHUB_REF_NAME#v}" --generate-notes

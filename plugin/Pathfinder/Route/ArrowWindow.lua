@@ -159,7 +159,18 @@ function ArrowWindow:UpdateAge()
         self.ageLabel:SetText(Pathfinder.L("posAge", age))
         self.stale = age > (self.staleSeconds or ArrowWindow.DEFAULT_STALE_SECONDS)
     end
+    -- A distance from an old position is only a rough guide
+    if self.measured and self.stale then
+        self.distLabel:SetText("~ " .. self.distText)
+    else
+        self.distLabel:SetText(self.distText or "")
+    end
     self:ShowArrow()
+end
+
+function ArrowWindow:SetDistance(text, measured)
+    self.distText = text
+    self.measured = measured
 end
 
 -- state: RouteState or nil, pos: last parsed position or nil
@@ -169,7 +180,7 @@ function ArrowWindow:Refresh(state, pos, posTime, flip)
         self.routeLabel:SetText("")
         self.nameLabel:SetText(Pathfinder.L("noRoute"))
         self.deedLabel:SetText(Pathfinder.L("noRouteHint"))
-        self.distLabel:SetText("")
+        self:SetDistance("")
         self:SetRotation(0)
         self:UpdateAge()
         return
@@ -179,7 +190,7 @@ function ArrowWindow:Refresh(state, pos, posTime, flip)
     if point == nil then
         self.nameLabel:SetText(Pathfinder.L("routeFinished"))
         self.deedLabel:SetText("")
-        self.distLabel:SetText("")
+        self:SetDistance("")
         self:SetRotation(0)
         self:UpdateAge()
         return
@@ -188,12 +199,13 @@ function ArrowWindow:Refresh(state, pos, posTime, flip)
     self.deedLabel:SetText(point.deed)
     local Loc = Pathfinder.Loc
     if pos == nil then
-        self.distLabel:SetText(Loc.Format(point.lon, point.lat))
+        self:SetDistance(Loc.Format(point.lon, point.lat))
     elseif state.route.region ~= nil and pos.region ~= state.route.region then
-        self.distLabel:SetText(Pathfinder.L("otherRegion"))
+        self:SetDistance(Pathfinder.L("otherRegion"))
     else
         local meters = Loc.Distance(pos.lon, pos.lat, point.lon, point.lat)
-        self.distLabel:SetText(string.format("%d m", math.floor(meters + 0.5)))
+        self:SetDistance(Pathfinder.L("distance", math.floor(meters + 0.5),
+            Pathfinder.FormatKm(state:Remaining(pos))), true)
         if pos.heading ~= nil then
             local bearing = Loc.Bearing(pos.lon, pos.lat, point.lon, point.lat)
             self:SetRotation(Loc.ArrowRotation(pos.heading, bearing, flip))

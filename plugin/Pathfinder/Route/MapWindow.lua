@@ -159,6 +159,7 @@ end
 
 function MapWindow:Refresh(state, pos, flip)
     self:SetRoute(state and state.route)
+    self.state = state
     if state == nil or self.layer == nil then
         self.info:SetText(Pathfinder.L("noRouteSelected"))
         return
@@ -172,7 +173,9 @@ function MapWindow:Refresh(state, pos, flip)
         if marker == nil and x ~= nil then
             marker = self:Square(7, COLOR_OPEN, x, y, true)
             marker.MouseEnter = function()
-                self.info:SetText(Pathfinder.L("mapHover", i, point.name, point.deed))
+                -- Number in the walking order, which /pf neu may change
+                local number = self.state and self.state:Number(point) or i
+                self.info:SetText(Pathfinder.L("mapHover", number, point.name, point.deed))
             end
             marker.MouseClick = function()
                 self.app.OnTogglePoint(point)

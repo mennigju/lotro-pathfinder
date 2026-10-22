@@ -14,6 +14,7 @@ local Strings = {
         noRouteHint = "/pf hier oder /pf liste",
         routeFinished = "Route fertig!",
         otherRegion = "Andere Region",
+        distance = "%s m, Rest %s km",
         clickArrow = "Pfeil anklicken = Position",
         posAge = "Position vor %s s",
         noMapImage = "Kein Kartenbild fuer diese Route",
@@ -37,7 +38,9 @@ local Strings = {
         routes = "Routen",
         posUnknown = "Position unbekannt: erst den Pfeil anklicken (%s)",
         routeNotFound = "Keine Route gefunden: %s",
-        routeReset = "Route zurueckgesetzt",
+        routeReset = "Route zurueckgesetzt (Fortschritt und Reihenfolge)",
+        rerouted = "Neue Reihenfolge ab deiner Position: %s offene Ziele, %s km",
+        rerouteFailed = "Keine neue Reihenfolge: nichts mehr offen oder du bist nicht in der Region der Route",
         ticked = "Abgehakt: %s",
         radiusSet = "Radius %s m",
         ageSet = "Pfeil wird nach %s s grau",
@@ -52,6 +55,7 @@ local Strings = {
             "  /pf hier - Routen an deiner Position (vorher Pfeil anklicken)",
             "  /pf liste [Text] - Routen suchen, /pf route <Nr|Text> - waehlen",
             "  /pf weiter | zurueck | reset - Ziel ueberspringen, zurueck, Route neu",
+            "  /pf neu - Reihenfolge der offenen Ziele ab deiner Position neu berechnen",
             "  /pf karte | taten | pfeil - Fenster ein/aus (Taten: erledigte Ziele abhaken)",
             "  /pf erledigt - aktuelles Ziel abhaken (auch: Punkt auf der Karte anklicken)",
             "  /pf radius <m> - Abstand zum Abhaken (jetzt %RADIUS% m)",
@@ -60,7 +64,7 @@ local Strings = {
             "  /pf sprache de|en - Sprache, /pf debug - Chat und Positionen ins Script.log",
             "  Pfeil anklicken = %POS%. Tipp: Pfeil auf eine Schnellleiste ziehen und auf eine Taste legen.",
         },
-        commandHelp = "/pf hier | liste | route | weiter | zurueck | erledigt | reset | karte | taten | pfeil | radius | alter | drehen | sprache | debug",
+        commandHelp = "/pf hier | liste | route | weiter | zurueck | neu | erledigt | reset | karte | taten | pfeil | radius | alter | drehen | sprache | debug",
     },
     en = {
         map = "Map",
@@ -69,6 +73,7 @@ local Strings = {
         noRouteHint = "/pf here or /pf list",
         routeFinished = "Route finished!",
         otherRegion = "Other region",
+        distance = "%s m, %s km left",
         clickArrow = "Click arrow = position",
         posAge = "Position %s s ago",
         noMapImage = "No map image for this route",
@@ -91,7 +96,9 @@ local Strings = {
         routes = "Routes",
         posUnknown = "Position unknown: click the arrow first (%s)",
         routeNotFound = "No route found: %s",
-        routeReset = "Route reset",
+        routeReset = "Route reset (progress and order)",
+        rerouted = "New order from your position: %s open targets, %s km",
+        rerouteFailed = "No new order: nothing open or you are not in the route's region",
         ticked = "Ticked off: %s",
         radiusSet = "Radius %s m",
         ageSet = "Arrow turns grey after %s s",
@@ -106,6 +113,7 @@ local Strings = {
             "  /pf here - routes at your position (click the arrow first)",
             "  /pf list [text] - search routes, /pf route <no|text> - choose one",
             "  /pf next | back | reset - skip target, go back, restart route",
+            "  /pf reroute - new order of the open targets from your position",
             "  /pf map | deeds | arrow - toggle windows (deeds: tick off finished targets)",
             "  /pf done - tick off the current target (or click a point on the map)",
             "  /pf radius <m> - distance for ticking off (now %RADIUS% m)",
@@ -114,7 +122,7 @@ local Strings = {
             "  /pf lang de|en - language, /pf debug - write chat and positions to Script.log",
             "  Click arrow = %POS%. Tip: drag the arrow onto a quickbar and bind a key to it.",
         },
-        commandHelp = "/pf here | list | route | next | back | done | reset | map | deeds | arrow | radius | age | flip | lang | debug",
+        commandHelp = "/pf here | list | route | next | back | reroute | done | reset | map | deeds | arrow | radius | age | flip | lang | debug",
     },
 }
 
@@ -131,6 +139,11 @@ function Pathfinder.L(key, ...)
     return text
 end
 
+-- "4,2" in German, "4.2" in English, whatever decimal point the client uses
+function Pathfinder.FormatKm(meters)
+    return (string.format("%.1f", meters / 1000):gsub("[%.,]", Pathfinder.Lang == "en" and "." or ","))
+end
+
 -- Command words in both languages -> internal name
 Pathfinder.COMMANDS = {
     here = "here", hier = "here",
@@ -140,6 +153,7 @@ Pathfinder.COMMANDS = {
     back = "back", zurueck = "back", ["zurück"] = "back",
     done = "done", erledigt = "done",
     reset = "reset",
+    reroute = "reroute", neu = "reroute",
     map = "map", karte = "map",
     deeds = "deeds", taten = "deeds",
     arrow = "arrow", pfeil = "arrow",

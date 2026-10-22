@@ -5,7 +5,8 @@ ENGLISH
 
 Pathfinder guides you along a precomputed short route to the targets of
 explorer and lore deeds: an arrow points to the next target, a map shows the
-route, a list lets you tick off what you have already done.
+route, a list lets you tick off what you have already done. Below the arrow:
+distance to the target and the way left on the route.
 
 Install: unpack the ZIP into
   Documents\The Lord of the Rings Online\Plugins\
@@ -15,7 +16,10 @@ Use:
   - Click the arrow: it runs /loc and updates your position. Tip: drag the
     arrow onto a quickbar and bind a key to that slot.
   - /pf here       routes at your position
-  - /pf list bree  search routes, /pf route 1  choose one
+  - /pf list bree  search routes, /pf route 1  choose one; the arrow starts
+    at the open target nearest to you
+  - /pf reroute    new order of the open targets from where you stand
+                   (/pf reset brings back the original order)
   - "List" button  tick off targets and whole deeds you already have
   - "Map" button   map with the route; click a point to toggle it
   - /pf            all commands
@@ -34,7 +38,8 @@ DEUTSCH
 
 Pathfinder fuehrt dich auf einer vorberechneten kurzen Route zu den Zielen
 von Erkundungs- und Wissens-Taten: ein Pfeil zeigt zum naechsten Ziel, eine
-Karte zeigt die Route, in einer Liste hakst du ab, was du schon hast.
+Karte zeigt die Route, in einer Liste hakst du ab, was du schon hast. Unter
+dem Pfeil: Entfernung zum Ziel und der restliche Weg der Route.
 
 Installation: ZIP entpacken nach
   Dokumente\The Lord of the Rings Online\Plugins\
@@ -44,7 +49,10 @@ Bedienung:
   - Pfeil anklicken: fuehrt /pos aus und aktualisiert die Position. Tipp: den
     Pfeil auf eine Schnellleiste ziehen und den Platz auf eine Taste legen.
   - /pf hier        Routen an deiner Position
-  - /pf liste bree  Routen suchen, /pf route 1  eine waehlen
+  - /pf liste bree  Routen suchen, /pf route 1  eine waehlen; der Pfeil
+    beginnt beim offenen Ziel, das dir am naechsten ist
+  - /pf neu         Reihenfolge der offenen Ziele ab deinem Standort neu
+                    berechnen (/pf reset stellt die urspruengliche wieder her)
   - Knopf "Liste"   erledigte Ziele und ganze Taten abhaken
   - Knopf "Karte"   Karte mit Route; Punkt anklicken = erledigt an/aus
   - /pf             alle Befehle

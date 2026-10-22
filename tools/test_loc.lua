@@ -114,6 +114,50 @@ check("manual undone", not state:IsDone(route.points[1]) and state:DoneCount() =
 local deeds = state:Deeds()
 check("deeds grouped", #deeds == 2 and deeds[1].name == "Erkundung Eins" and #deeds[1].points == 2
     and deeds[2].points[1].key == "c")
+state:Reset()
+
+-- Start at the nearest open target
+check("start near c", state:StartNear({ region = 1, lon = 0.9, lat = 0 }) and state:Current().key == "c")
+check("start near other region", state:StartNear({ region = 2, lon = 0, lat = 0 }) == false)
+state:SetDone(route.points[2], true)
+check("start near skips done", state:StartNear({ region = 1, lon = 0.5, lat = 0 }) and state:Current().key ~= "b")
+state:Reset()
+
+-- Remaining way: player -> current -> open points
+check("remaining all", near(state:Remaining(nil), 200))
+check("remaining from pos", near(state:Remaining({ region = 1, lon = -0.5, lat = 0 }), 300))
+check("remaining other region", near(state:Remaining({ region = 2, lon = -0.5, lat = 0 }), 200))
+state:SetDone(route.points[3], true)
+check("remaining open only", near(state:Remaining(nil), 100))
+check("upcoming wraps", (function()
+    state:Skip()
+    local up = state:Upcoming()
+    return #up == 2 and up[1].key == "b" and up[2].key == "a"
+end)())
+state:Reset()
+
+-- Reorder from the player's position
+local big = { id = "big", name = "Big", region = 1, points = {} }
+for i = 1, 8 do
+    -- Built order zigzags along a line: 1, 8, 2, 7, ...
+    local x = (i % 2 == 1) and (i - 1) / 2 or 8 - i / 2
+    table.insert(big.points, { key = "p" .. i, lon = x * 0.1, lat = 0, name = "P" .. i, deed = "D" })
+end
+local bigState = Pathfinder.RouteState.New(big, {})
+bigState:SetDone(big.points[1], true)
+local before = bigState:Remaining({ region = 1, lon = 0.75, lat = 0 })
+check("reorder", bigState:Reorder({ region = 1, lon = 0.75, lat = 0 }))
+local after = bigState:Remaining({ region = 1, lon = 0.75, lat = 0 })
+check("reorder shorter", after < before and near(after, 0.65 * 200))
+check("reorder done first", bigState.points[1].key == "p1" and bigState:Current().lon > 0.6)
+check("reorder keeps all", bigState:Total() == 8 and bigState:DoneCount() == 1)
+local order = bigState:Order()
+local restored = Pathfinder.RouteState.New(big, bigState.done, order)
+check("order restored", restored.points[3] == bigState.points[3] and restored:Number(bigState.points[3]) == 3)
+check("order missing keys appended", #Pathfinder.RouteState.New(big, {}, { "p8", "x" }).points == 8)
+bigState:Reset()
+check("reset built order", bigState:Order() == nil and bigState.points[2].key == "p2")
+check("reorder other region", bigState:Reorder({ region = 2, lon = 0, lat = 0 }) == false)
 
 if failures == 0 then
     print("OK")

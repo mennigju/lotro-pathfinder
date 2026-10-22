@@ -127,6 +127,16 @@ import "Pathfinder.Route.Routes"
 
 local progress = load(Turbine.DataScope.Character, PROGRESS_KEY)
 progress.done = progress.done or {}
+-- Walking order from /pf neu per route, keys joined with ","
+progress.order = progress.order or {}
+
+local function splitKeys(text)
+    local keys = {}
+    for key in string.gmatch(text or "", "[^,]+") do
+        table.insert(keys, key)
+    end
+    return keys
+end
 
 local function saveProgress()
     local done = {}
@@ -138,12 +148,14 @@ local function saveProgress()
             end
         end
     end
-    save(Turbine.DataScope.Character, PROGRESS_KEY, { route = progress.route, done = done })
+    save(Turbine.DataScope.Character, PROGRESS_KEY, { route = progress.route, done = done, order = progress.order })
 end
 
 -- State --------------------------------------------------------------------
 
 local state = nil
+-- True until the first position after loading a route picks the start
+local needsStart = false
 local lastPos = nil
 local posTime = nil
 local lastList = {}
@@ -174,13 +186,26 @@ local function toggleWindow(window, name)
     refresh()
 end
 
+local function newState(route)
+    progress.done[route.id] = progress.done[route.id] or {}
+    local order = progress.order[route.id]
+    return Pathfinder.RouteState.New(route, progress.done[route.id], order and splitKeys(order) or nil)
+end
+
+local function saveOrder()
+    local keys = state and state:Order()
+    if state ~= nil then
+        progress.order[state.route.id] = keys and table.concat(keys, ",") or nil
+    end
+end
+
 local function selectRoute(route)
     progress.route = route and route.id or nil
     if route == nil then
         state = nil
     else
-        progress.done[route.id] = progress.done[route.id] or {}
-        state = Pathfinder.RouteState.New(route, progress.done[route.id])
+        state = newState(route)
+        needsStart = not state:StartNear(lastPos)
         write(L("routeSelected", route.name, state:DoneCount(), state:Total()))
     end
     saveProgress()
@@ -275,6 +300,9 @@ local function onPosition(pos)
         if state:UpdatePosition(pos, setting("radius", 25), prev) then
             write(L("reached", state:DoneCount() - before, state:DoneCount(), state:Total()))
             saveProgress()
+        end
+        if needsStart and state:StartNear(pos) then
+            needsStart = false
         end
     elseif #Routes.At(pos) > 0 then
         write(L("routesHereHint"))
@@ -377,9 +405,24 @@ function PathfinderCommand:Execute(cmd, arguments)
     elseif verb == "back" then
         if state then state:Back() saveProgress() end
         refresh()
+    elseif verb == "reroute" then
+        if state == nil then
+            write(L("noRouteSelected"))
+        elseif lastPos == nil then
+            write(L("posUnknown", posCommand))
+        elseif state:Reorder(lastPos) then
+            needsStart = false
+            saveOrder()
+            saveProgress()
+            write(L("rerouted", state:Total() - state:DoneCount(), Pathfinder.FormatKm(state:Remaining(lastPos))))
+        else
+            write(L("rerouteFailed"))
+        end
+        refresh()
     elseif verb == "reset" then
         if state then
             state:Reset()
+            saveOrder()
             saveProgress()
             write(L("routeReset"))
         end
@@ -454,9 +497,8 @@ arrowWindow:SetVisible(setting("arrowVisible", 1) == 1)
 mapWindow:SetVisible(setting("mapVisible", 0) == 1)
 listWindow:SetVisible(setting("listVisible", 0) == 1)
 if progress.route ~= nil and Routes.byId[progress.route] ~= nil then
-    local route = Routes.byId[progress.route]
-    progress.done[route.id] = progress.done[route.id] or {}
-    state = Pathfinder.RouteState.New(route, progress.done[route.id])
+    state = newState(Routes.byId[progress.route])
+    needsStart = true
 end
 refresh()
 local version = ""
