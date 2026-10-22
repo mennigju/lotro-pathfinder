@@ -127,6 +127,16 @@ import "Pathfinder.Route.Routes"
 
 local progress = load(Turbine.DataScope.Character, PROGRESS_KEY)
 progress.done = progress.done or {}
+-- Walking order from /pf neu per route, keys joined with ","
+progress.order = progress.order or {}
+
+local function splitKeys(text)
+    local keys = {}
+    for key in string.gmatch(text or "", "[^,]+") do
+        table.insert(keys, key)
+    end
+    return keys
+end
 
 local function saveProgress()
     local done = {}
@@ -138,7 +148,7 @@ local function saveProgress()
             end
         end
     end
-    save(Turbine.DataScope.Character, PROGRESS_KEY, { route = progress.route, done = done })
+    save(Turbine.DataScope.Character, PROGRESS_KEY, { route = progress.route, done = done, order = progress.order })
 end
 
 -- State --------------------------------------------------------------------
@@ -178,7 +188,15 @@ end
 
 local function newState(route)
     progress.done[route.id] = progress.done[route.id] or {}
-    return Pathfinder.RouteState.New(route, progress.done[route.id])
+    local order = progress.order[route.id]
+    return Pathfinder.RouteState.New(route, progress.done[route.id], order and splitKeys(order) or nil)
+end
+
+local function saveOrder()
+    local keys = state and state:Order()
+    if state ~= nil then
+        progress.order[state.route.id] = keys and table.concat(keys, ",") or nil
+    end
 end
 
 local function selectRoute(route)
@@ -387,9 +405,24 @@ function PathfinderCommand:Execute(cmd, arguments)
     elseif verb == "back" then
         if state then state:Back() saveProgress() end
         refresh()
+    elseif verb == "reroute" then
+        if state == nil then
+            write(L("noRouteSelected"))
+        elseif lastPos == nil then
+            write(L("posUnknown", posCommand))
+        elseif state:Reorder(lastPos) then
+            needsStart = false
+            saveOrder()
+            saveProgress()
+            write(L("rerouted", state:Total() - state:DoneCount(), Pathfinder.FormatKm(state:Remaining(lastPos))))
+        else
+            write(L("rerouteFailed"))
+        end
+        refresh()
     elseif verb == "reset" then
         if state then
             state:Reset()
+            saveOrder()
             saveProgress()
             write(L("routeReset"))
         end

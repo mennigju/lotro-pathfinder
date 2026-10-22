@@ -18,6 +18,8 @@ Use:
   - /pf here       routes at your position
   - /pf list bree  search routes, /pf route 1  choose one; the arrow starts
     at the open target nearest to you
+  - /pf reroute    new order of the open targets from where you stand
+                   (/pf reset brings back the original order)
   - "List" button  tick off targets and whole deeds you already have
   - "Map" button   map with the route; click a point to toggle it
   - /pf            all commands
@@ -49,6 +51,8 @@ Bedienung:
   - /pf hier        Routen an deiner Position
   - /pf liste bree  Routen suchen, /pf route 1  eine waehlen; der Pfeil
     beginnt beim offenen Ziel, das dir am naechsten ist
+  - /pf neu         Reihenfolge der offenen Ziele ab deinem Standort neu
+                    berechnen (/pf reset stellt die urspruengliche wieder her)
   - Knopf "Liste"   erledigte Ziele und ganze Taten abhaken
   - Knopf "Karte"   Karte mit Route; Punkt anklicken = erledigt an/aus
   - /pf             alle Befehle
