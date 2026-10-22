@@ -1,0 +1,28 @@
+-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.
+Pathfinder.Routes.Register({
+    id = "R268453367_EXPLORER",
+    name = "Minas Morgul - Erkundung",
+    name_en = "Minas Morgul - Exploration",
+    region = 4,
+    map = { id = 268453367, image = 1092524610, factor = 141.25, lon = -1.36283, lat = -64.56283, file = "Pathfinder/Route/Resources/Maps/268453367.jpg" },
+    points = {
+        { key = "1879395353_18", lon = -0.02714, lat = -68.13567, name = "Zhar Skator", deed = "Die Erkundung von Minas Morgul", deed_en = "Scouting Minas Morgul" },
+        { key = "1879394456_1", lon = 0.71169, lat = -68.01263, name = "Ghashan-kútot, die Hallen des Dunklen Wissens", deed = "Entdeckung: Ghashan-kútot, die Halle des Dunklen Wissens", name_en = "Ghashan-kútot, the Halls of Black Lore", deed_en = "Discovery: Ghashan-kútot - the Hall of Black Lore" },
+        { key = "1879395353_9", lon = 0.71169, lat = -68.01263, name = "Ghashan-kútot, die Hallen des Dunklen Wissens", deed = "Die Erkundung von Minas Morgul", name_en = "Ghashan-kútot, the Halls of Black Lore", deed_en = "Scouting Minas Morgul" },
+        { key = "1879395353_12", lon = 1.11143, lat = -68.13999, name = "Bâr Maenath", deed = "Die Erkundung von Minas Morgul", deed_en = "Scouting Minas Morgul" },
+        { key = "1879395353_16", lon = 1.75414, lat = -67.84667, name = "Barad Cúron, der Turm des Sichelmonds", deed = "Die Erkundung von Minas Morgul", name_en = "Barad Cúron, the Tower of the Crescent Moon", deed_en = "Scouting Minas Morgul" },
+        { key = "1879395353_14", lon = 2.21762, lat = -67.67996, name = "Die Halle des Elends", deed = "Die Erkundung von Minas Morgul", name_en = "The Wracking-hall", deed_en = "Scouting Minas Morgul" },
+        { key = "1879395353_15", lon = 2.54964, lat = -67.81594, name = "Gath Daeroval", deed = "Die Erkundung von Minas Morgul", deed_en = "Scouting Minas Morgul" },
+        { key = "1879397309_1", lon = 2.54964, lat = -67.81594, name = "Gath Daeroval", deed = "Entdecker: Gath Daeroval, der Schattenhorst", deed_en = "Discovery: Gath Daeroval, the Shadow-roost" },
+        { key = "1879395353_10", lon = 2.38709, lat = -67.23356, name = "Das Düsterwasser", deed = "Die Erkundung von Minas Morgul", name_en = "The Gloomwaters", deed_en = "Scouting Minas Morgul" },
+        { key = "1879395353_5", lon = 3.16927, lat = -67.0641, name = "Gesangshaus von Lindalíre", deed = "Die Erkundung von Minas Morgul", name_en = "Song-house of Lindalírë", deed_en = "Scouting Minas Morgul" },
+        { key = "1879395353_17", lon = 3.30068, lat = -66.71378, name = "Zhar Dushgoi", deed = "Die Erkundung von Minas Morgul", deed_en = "Scouting Minas Morgul" },
+        { key = "1879395353_6", lon = 2.28207, lat = -66.33179, name = "Roz Dagalur, das Haus der Schrecken", deed = "Die Erkundung von Minas Morgul", name_en = "Roz Dagalur, the Fiend-house", deed_en = "Scouting Minas Morgul" },
+        { key = "1879395353_11", lon = 1.59991, lat = -66.82311, name = "Die Garth von Angáth", deed = "Die Erkundung von Minas Morgul", name_en = "The Garth of Angáth", deed_en = "Scouting Minas Morgul" },
+        { key = "1879395353_13", lon = 1.5783, lat = -67.41386, name = "Uialrond, die Abendkuppel", deed = "Die Erkundung von Minas Morgul", name_en = "Uialrond, the Dome of Evening", deed_en = "Scouting Minas Morgul" },
+        { key = "1879395353_4", lon = 1.05031, lat = -67.13109, name = "Barad Arthir, die Hohe Wacht", deed = "Die Erkundung von Minas Morgul", name_en = "Barad Arthir, the Lofty Watch-fort", deed_en = "Scouting Minas Morgul" },
+        { key = "1879395353_3", lon = 0.91375, lat = -66.81713, name = "Barad Elenath, der Turm der Sternseher", deed = "Die Erkundung von Minas Morgul", name_en = "Barad Elenath, the Star-gazers' Spire", deed_en = "Scouting Minas Morgul" },
+        { key = "1879395353_2", lon = 0.53605, lat = -66.11131, name = "Barad Orhant, der Turm von Baumgart", deed = "Die Erkundung von Minas Morgul", name_en = "Barad Orhant, the Tower of the Treegarth", deed_en = "Scouting Minas Morgul" },
+        { key = "1879395353_1", lon = 0.71839, lat = -65.84518, name = "Barad Angarth, die Feste der Torwächter", deed = "Die Erkundung von Minas Morgul", name_en = "Barad Angarth, the Gate-wardens' Keep", deed_en = "Scouting Minas Morgul" },
+    },
+})

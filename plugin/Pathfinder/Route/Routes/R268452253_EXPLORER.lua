@@ -1,0 +1,25 @@
+-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.
+Pathfinder.Routes.Register({
+    id = "R268452253_EXPLORER",
+    name = "Talath Úrui - Erkundung",
+    name_en = "Talath Úrui - Exploration",
+    region = 4,
+    map = { id = 268452253, image = 1092326800, factor = 42.5, lon = 6.70588, lat = -47.90588, file = "Pathfinder/Route/Resources/Maps/268452253.jpg" },
+    points = {
+        { key = "1879354871_1", lon = 26.37947, lat = -58.03886, name = "Ashronk", deed = "Die verdorbenen Reserven", deed_en = "The Tainted Reserves" },
+        { key = "1879354880_1", lon = 25.34, lat = -58.80507, name = "Magh Nûl", deed = "Außenposten auf der Brennenden Ebene", deed_en = "Outposts Along the Burning Plain" },
+        { key = "1879354882_5", lon = 25.25558, lat = -58.78263, name = "Seltene Mordor-Truhe", deed = "Seltene Gorgoroth-Truhen von Talath Úrui", name_en = "Rare Mordor Chest", deed_en = "Rare Gorgoroth Chests of Talath Úrui" },
+        { key = "1879354882_4", lon = 24.18498, lat = -58.78908, name = "Seltene Mordor-Truhe", deed = "Seltene Gorgoroth-Truhen von Talath Úrui", name_en = "Rare Mordor Chest", deed_en = "Rare Gorgoroth Chests of Talath Úrui" },
+        { key = "1879354880_2", lon = 24.99473, lat = -61.13565, name = "Magh Groth", deed = "Außenposten auf der Brennenden Ebene", deed_en = "Outposts Along the Burning Plain" },
+        { key = "1879354871_2", lon = 23.47482, lat = -61.43736, name = "Krulronk", deed = "Die verdorbenen Reserven", deed_en = "The Tainted Reserves" },
+        { key = "1879354880_3", lon = 21.18887, lat = -61.797, name = "Magh Vadok", deed = "Außenposten auf der Brennenden Ebene", deed_en = "Outposts Along the Burning Plain" },
+        { key = "1879354882_3", lon = 19.35885, lat = -64.35284, name = "Seltene Mordor-Truhe", deed = "Seltene Gorgoroth-Truhen von Talath Úrui", name_en = "Rare Mordor Chest", deed_en = "Rare Gorgoroth Chests of Talath Úrui" },
+        { key = "1879358605_1", lon = 19.71855, lat = -61.98318, name = "Entdeckung: Die Verliese von Naerband (1)", deed = "Entdeckung: Die Verliese von Naerband", name_en = "Discovery: The Dungeons of Naerband (1)", deed_en = "Discovery: The Dungeons of Naerband" },
+        { key = "1879354882_2", lon = 18.33551, lat = -58.77269, name = "Seltene Mordor-Truhe", deed = "Seltene Gorgoroth-Truhen von Talath Úrui", name_en = "Rare Mordor Chest", deed_en = "Rare Gorgoroth Chests of Talath Úrui" },
+        { key = "1879354880_4", lon = 16.35564, lat = -58.8866, name = "Magh Hátur", deed = "Außenposten auf der Brennenden Ebene", deed_en = "Outposts Along the Burning Plain" },
+        { key = "1879354880_5", lon = 13.31236, lat = -58.4454, name = "Magh Urro", deed = "Außenposten auf der Brennenden Ebene", deed_en = "Outposts Along the Burning Plain" },
+        { key = "1879354871_3", lon = 12.48234, lat = -57.25052, name = "Gakhronk", deed = "Die verdorbenen Reserven", deed_en = "The Tainted Reserves" },
+        { key = "1879354871_4", lon = 10.1811, lat = -54.26153, name = "Zagronk", deed = "Die verdorbenen Reserven", deed_en = "The Tainted Reserves" },
+        { key = "1879354882_1", lon = 10.1212, lat = -53.65649, name = "Seltene Mordor-Truhe", deed = "Seltene Gorgoroth-Truhen von Talath Úrui", name_en = "Rare Mordor Chest", deed_en = "Rare Gorgoroth Chests of Talath Úrui" },
+    },
+})

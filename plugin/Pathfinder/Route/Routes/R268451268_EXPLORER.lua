@@ -1,0 +1,26 @@
+-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.
+Pathfinder.Routes.Register({
+    id = "R268451268_EXPLORER",
+    name = "Taur Drúadan - Erkundung",
+    name_en = "Taur Drúadan - Exploration",
+    region = 3,
+    map = { id = 268451268, image = 1092005776, factor = 48.75, lon = -33.87692, lat = -42.49231, file = "Pathfinder/Route/Resources/Maps/268451268.jpg" },
+    points = {
+        { key = "1879327933_2", lon = -13.80085, lat = -53.34927, name = "Parth Duin", deed = "Höfe von Alt-Anórien", deed_en = "Old Anórien Farms" },
+        { key = "1879327933_9", lon = -14.6135, lat = -56.11247, name = "Parth Forant", deed = "Höfe von Alt-Anórien", deed_en = "Old Anórien Farms" },
+        { key = "1879332147_16", lon = -19.51487, lat = -53.73638, name = "Schatzspeicher", deed = "Schatz des Weiten Anórien", name_en = "Treasure Cache", deed_en = "Treasure of Far Anórien" },
+        { key = "1879327933_1", lon = -18.4424, lat = -48.78786, name = "Parth Lisc", deed = "Höfe von Alt-Anórien", deed_en = "Old Anórien Farms" },
+        { key = "1879332147_15", lon = -19.74023, lat = -45.62331, name = "Schatzspeicher", deed = "Schatz des Weiten Anórien", name_en = "Treasure Cache", deed_en = "Treasure of Far Anórien" },
+        { key = "1879332147_14", lon = -22.74066, lat = -48.49097, name = "Schatzspeicher", deed = "Schatz des Weiten Anórien", name_en = "Treasure Cache", deed_en = "Treasure of Far Anórien" },
+        { key = "1879332157_5", lon = -23.94132, lat = -48.85391, name = "Amon Dîn", deed = "Die Warn-Leuchtfeuer", deed_en = "The Warning Beacons" },
+        { key = "1879332147_13", lon = -24.15582, lat = -48.92647, name = "Schatzspeicher", deed = "Schatz des Weiten Anórien", name_en = "Treasure Cache", deed_en = "Treasure of Far Anórien" },
+        { key = "1879332157_6", lon = -27.14905, lat = -46.82021, name = "Eilenach", deed = "Die Warn-Leuchtfeuer", deed_en = "The Warning Beacons" },
+        { key = "1879332147_12", lon = -29.02994, lat = -44.17727, name = "Schatzspeicher", deed = "Schatz des Weiten Anórien", name_en = "Treasure Cache", deed_en = "Treasure of Far Anórien" },
+        { key = "1879332157_7", lon = -30.53032, lat = -47.78969, name = "Nardol", deed = "Die Warn-Leuchtfeuer", deed_en = "The Warning Beacons" },
+        { key = "1879332147_11", lon = -30.09636, lat = -48.89617, name = "Schatzspeicher", deed = "Schatz des Weiten Anórien", name_en = "Treasure Cache", deed_en = "Treasure of Far Anórien" },
+        { key = "1879332147_10", lon = -32.03982, lat = -48.60467, name = "Schatzspeicher", deed = "Schatz des Weiten Anórien", name_en = "Treasure Cache", deed_en = "Treasure of Far Anórien" },
+        { key = "1879332147_8", lon = -33.9542, lat = -48.54182, name = "Schatzspeicher", deed = "Schatz des Weiten Anórien", name_en = "Treasure Cache", deed_en = "Treasure of Far Anórien" },
+        { key = "1879332157_2", lon = -32.98495, lat = -46.40087, name = "Erelas", deed = "Die Warn-Leuchtfeuer", deed_en = "The Warning Beacons" },
+        { key = "1879332147_9", lon = -32.64387, lat = -46.56556, name = "Schatzspeicher", deed = "Schatz des Weiten Anórien", name_en = "Treasure Cache", deed_en = "Treasure of Far Anórien" },
+    },
+})

@@ -1,0 +1,25 @@
+-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.
+Pathfinder.Routes.Register({
+    id = "R268450892_EXPLORER",
+    name = "Pelargir - Erkundung",
+    name_en = "Pelargir - Exploration",
+    region = 3,
+    map = { id = 268450892, image = 1091942716, factor = 147.5, lon = -37.51864, lat = -81.80339, file = "Pathfinder/Route/Resources/Maps/268450892.jpg" },
+    points = {
+        { key = "1879316264_2", lon = -37.57035, lat = -82.48543, name = "Lager der Schatten", deed = "Der Pfad der Grauen Schar", name_en = "Camp of the Grey Host", deed_en = "Path of the Grey Host" },
+        { key = "1879316268_6", lon = -36.92223, lat = -84.34842, name = "Hata Kebir", deed = "Zentrum von Gondor: Die Lager der Feinde", deed_en = "Central Gondor: Camps of the Enemies" },
+        { key = "1879316336_8", lon = -35.2, lat = -84.79999, name = "Westliches Hafentor", deed = "Das Erbe von Pelargir", name_en = "Western Seagate", deed_en = "The Legacy of Pelargir" },
+        { key = "1879316273_16", lon = -34.90528, lat = -84.27136, name = "Schatzspeicher", deed = "Schatz im Zentrum von Gondor", name_en = "Treasure Cache", deed_en = "Treasure of Central Gondor" },
+        { key = "1879316264_6", lon = -34.89074, lat = -82.9323, name = "Der Pfad der Grauen Schar (6)", deed = "Der Pfad der Grauen Schar", name_en = "Path of the Grey Host (6)", deed_en = "Path of the Grey Host" },
+        { key = "1879316336_6", lon = -34.65658, lat = -83.14314, name = "Statue von Thorongil", deed = "Das Erbe von Pelargir", name_en = "Statue of Thorongil", deed_en = "The Legacy of Pelargir" },
+        { key = "1879316273_17", lon = -33.75935, lat = -84.44738, name = "Schatzspeicher", deed = "Schatz im Zentrum von Gondor", name_en = "Treasure Cache", deed_en = "Treasure of Central Gondor" },
+        { key = "1879316336_7", lon = -33.26985, lat = -84.24365, name = "Tol Ciryarani", deed = "Das Erbe von Pelargir", deed_en = "The Legacy of Pelargir" },
+        { key = "1879316336_4", lon = -33.2669, lat = -83.60931, name = "Monument der See-Könige", deed = "Das Erbe von Pelargir", name_en = "Monument of the Sea-Kings", deed_en = "The Legacy of Pelargir" },
+        { key = "1879316273_18", lon = -33.81367, lat = -82.9677, name = "Schatzspeicher", deed = "Schatz im Zentrum von Gondor", name_en = "Treasure Cache", deed_en = "Treasure of Central Gondor" },
+        { key = "1879316336_5", lon = -33.72062, lat = -82.69582, name = "Monument von König Telumehtar", deed = "Das Erbe von Pelargir", name_en = "Monument of King Telumehtar", deed_en = "The Legacy of Pelargir" },
+        { key = "1879316336_2", lon = -31.8254, lat = -82.72391, name = "König Minardils Denkmal", deed = "Das Erbe von Pelargir", name_en = "King Minardil's Memorial", deed_en = "The Legacy of Pelargir" },
+        { key = "1879316336_3", lon = -31.26529, lat = -83.31783, name = "Zerstörtes Monument von Castamir", deed = "Das Erbe von Pelargir", name_en = "Destroyed Monument of Castamir", deed_en = "The Legacy of Pelargir" },
+        { key = "1879316273_20", lon = -31.06058, lat = -83.66507, name = "Schatzspeicher", deed = "Schatz im Zentrum von Gondor", name_en = "Treasure Cache", deed_en = "Treasure of Central Gondor" },
+        { key = "1879316336_1", lon = -31.2, lat = -84.29479, name = "Östliches Hafentor", deed = "Das Erbe von Pelargir", name_en = "Eastern Seagate", deed_en = "The Legacy of Pelargir" },
+    },
+})

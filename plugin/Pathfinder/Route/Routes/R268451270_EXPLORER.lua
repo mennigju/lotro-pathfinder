@@ -1,0 +1,28 @@
+-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.
+Pathfinder.Routes.Register({
+    id = "R268451270_EXPLORER",
+    name = "Leuchtfeuerhügel - Erkundung",
+    name_en = "Beacon Hills - Exploration",
+    region = 3,
+    map = { id = 268451270, image = 1092005771, factor = 41.25, lon = -51.2606, lat = -31.84242, file = "Pathfinder/Route/Resources/Maps/268451270.jpg" },
+    points = {
+        { key = "1879332147_1", lon = -47.28389, lat = -46.61983, name = "Schatzspeicher", deed = "Schatz des Weiten Anórien", name_en = "Treasure Cache", deed_en = "Treasure of Far Anórien" },
+        { key = "1879332157_3", lon = -46.25717, lat = -45.57257, name = "Halifirien", deed = "Die Warn-Leuchtfeuer", deed_en = "The Warning Beacons" },
+        { key = "1879332147_2", lon = -47.09932, lat = -43.94179, name = "Schatzspeicher", deed = "Schatz des Weiten Anórien", name_en = "Treasure Cache", deed_en = "Treasure of Far Anórien" },
+        { key = "1879332147_4", lon = -41.97251, lat = -43.89182, name = "Schatzspeicher", deed = "Schatz des Weiten Anórien", name_en = "Treasure Cache", deed_en = "Treasure of Far Anórien" },
+        { key = "1879332157_1", lon = -41.78492, lat = -44.56236, name = "Calenhad", deed = "Die Warn-Leuchtfeuer", deed_en = "The Warning Beacons" },
+        { key = "1879332147_3", lon = -41.64695, lat = -45.43539, name = "Schatzspeicher", deed = "Schatz des Weiten Anórien", name_en = "Treasure Cache", deed_en = "Treasure of Far Anórien" },
+        { key = "1879332147_5", lon = -39.50079, lat = -47.89104, name = "Schatzspeicher", deed = "Schatz des Weiten Anórien", name_en = "Treasure Cache", deed_en = "Treasure of Far Anórien" },
+        { key = "1879332157_4", lon = -37.85143, lat = -46.36632, name = "Min-Rimmon", deed = "Die Warn-Leuchtfeuer", deed_en = "The Warning Beacons" },
+        { key = "1879332147_7", lon = -35.91611, lat = -45.63121, name = "Schatzspeicher", deed = "Schatz des Weiten Anórien", name_en = "Treasure Cache", deed_en = "Treasure of Far Anórien" },
+        { key = "1879332161_2", lon = -37.02166, lat = -41.90537, name = "Hügelgrab", deed = "Der verlorene Pfad durch die Entwasser", name_en = "Cairn", deed_en = "The Lost Trail of the Entwash" },
+        { key = "1879332161_3", lon = -36.7813, lat = -41.00839, name = "Hügelgrab", deed = "Der verlorene Pfad durch die Entwasser", name_en = "Cairn", deed_en = "The Lost Trail of the Entwash" },
+        { key = "1879332161_4", lon = -36.64896, lat = -39.63799, name = "Hügelgrab", deed = "Der verlorene Pfad durch die Entwasser", name_en = "Cairn", deed_en = "The Lost Trail of the Entwash" },
+        { key = "1879332161_5", lon = -36.82786, lat = -38.65268, name = "Hügelgrab", deed = "Der verlorene Pfad durch die Entwasser", name_en = "Cairn", deed_en = "The Lost Trail of the Entwash" },
+        { key = "1879332161_6", lon = -36.71392, lat = -37.64051, name = "Hügelgrab", deed = "Der verlorene Pfad durch die Entwasser", name_en = "Cairn", deed_en = "The Lost Trail of the Entwash" },
+        { key = "1879332161_7", lon = -36.60268, lat = -36.3359, name = "Hügelgrab", deed = "Der verlorene Pfad durch die Entwasser", name_en = "Cairn", deed_en = "The Lost Trail of the Entwash" },
+        { key = "1879332161_8", lon = -36.8023, lat = -34.97946, name = "Hügelgrab", deed = "Der verlorene Pfad durch die Entwasser", name_en = "Cairn", deed_en = "The Lost Trail of the Entwash" },
+        { key = "1879332161_1", lon = -37.51927, lat = -34.58134, name = "Hügelgrab", deed = "Der verlorene Pfad durch die Entwasser", name_en = "Cairn", deed_en = "The Lost Trail of the Entwash" },
+        { key = "1879332147_6", lon = -38.94257, lat = -40.53413, name = "Schatzspeicher", deed = "Schatz des Weiten Anórien", name_en = "Treasure Cache", deed_en = "Treasure of Far Anórien" },
+    },
+})

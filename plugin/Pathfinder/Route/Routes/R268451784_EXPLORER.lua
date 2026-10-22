@@ -1,0 +1,27 @@
+-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.
+Pathfinder.Routes.Register({
+    id = "R268451784_EXPLORER",
+    name = "Nord-Ithilien - Erkundung",
+    name_en = "North Ithilien - Exploration",
+    region = 4,
+    map = { id = 268451784, image = 1092240103, factor = 27.5, lon = -28.8, lat = -39.6, file = "Pathfinder/Route/Resources/Maps/268451784.jpg" },
+    points = {
+        { key = "1879338629_6", lon = -9.00425, lat = -44.22838, name = "Schatzspeicher", deed = "Der Schatz von Nord-Ithilien", name_en = "Treasure Cache", deed_en = "Treasure of North Ithilien" },
+        { key = "1879338629_5", lon = -10.58469, lat = -46.48409, name = "Schatzspeicher", deed = "Der Schatz von Nord-Ithilien", name_en = "Treasure Cache", deed_en = "Treasure of North Ithilien" },
+        { key = "1879338629_2", lon = -11.73921, lat = -45.04709, name = "Schatzspeicher", deed = "Der Schatz von Nord-Ithilien", name_en = "Treasure Cache", deed_en = "Treasure of North Ithilien" },
+        { key = "1879338697_5", lon = -13.02013, lat = -43.37192, name = "Bâr Tarnaher", deed = "Ruinen von Nord-Ithilien", deed_en = "Ruins of North Ithilien" },
+        { key = "1879338629_1", lon = -15.22758, lat = -45.90384, name = "Schatzspeicher", deed = "Der Schatz von Nord-Ithilien", name_en = "Treasure Cache", deed_en = "Treasure of North Ithilien" },
+        { key = "1879338697_3", lon = -12.82254, lat = -48.74897, name = "Caladuil", deed = "Ruinen von Nord-Ithilien", deed_en = "Ruins of North Ithilien" },
+        { key = "1879338629_3", lon = -11.35381, lat = -52.17543, name = "Schatzspeicher", deed = "Der Schatz von Nord-Ithilien", name_en = "Treasure Cache", deed_en = "Treasure of North Ithilien" },
+        { key = "1879338629_4", lon = -10.13062, lat = -52.90276, name = "Schatzspeicher", deed = "Der Schatz von Nord-Ithilien", name_en = "Treasure Cache", deed_en = "Treasure of North Ithilien" },
+        { key = "1879338629_9", lon = -8.23343, lat = -51.27065, name = "Schatzspeicher", deed = "Der Schatz von Nord-Ithilien", name_en = "Treasure Cache", deed_en = "Treasure of North Ithilien" },
+        { key = "1879338697_1", lon = -7.19813, lat = -52.83645, name = "Aelin Veren", deed = "Ruinen von Nord-Ithilien", deed_en = "Ruins of North Ithilien" },
+        { key = "1879338629_8", lon = -7.60713, lat = -53.13668, name = "Schatzspeicher", deed = "Der Schatz von Nord-Ithilien", name_en = "Treasure Cache", deed_en = "Treasure of North Ithilien" },
+        { key = "1879338629_7", lon = -8.08189, lat = -56.45641, name = "Schatzspeicher", deed = "Der Schatz von Nord-Ithilien", name_en = "Treasure Cache", deed_en = "Treasure of North Ithilien" },
+        { key = "1879338629_10", lon = -7.255, lat = -56.7229, name = "Schatzspeicher", deed = "Der Schatz von Nord-Ithilien", name_en = "Treasure Cache", deed_en = "Treasure of North Ithilien" },
+        { key = "1879338629_12", lon = -4.96223, lat = -56.43789, name = "Schatzspeicher", deed = "Der Schatz von Nord-Ithilien", name_en = "Treasure Cache", deed_en = "Treasure of North Ithilien" },
+        { key = "1879338697_4", lon = -5.01697, lat = -56.48898, name = "Thargelon", deed = "Ruinen von Nord-Ithilien", deed_en = "Ruins of North Ithilien" },
+        { key = "1879338697_2", lon = -5.75869, lat = -59.45125, name = "Bâr Aroth", deed = "Ruinen von Nord-Ithilien", deed_en = "Ruins of North Ithilien" },
+        { key = "1879338629_11", lon = -6.11666, lat = -59.52238, name = "Schatzspeicher", deed = "Der Schatz von Nord-Ithilien", name_en = "Treasure Cache", deed_en = "Treasure of North Ithilien" },
+    },
+})

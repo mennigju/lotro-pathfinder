@@ -1,0 +1,25 @@
+-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.
+Pathfinder.Routes.Register({
+    id = "R268442347_EXPLORER",
+    name = "Zelem-melek - Erkundung",
+    name_en = "Zelem-melek - Exploration",
+    region = 2,
+    map = { id = 268442347, image = 1091471131, factor = 76, lon = -114.02368, lat = -3.89474, file = "Pathfinder/Route/Resources/Maps/268442347.jpg" },
+    points = {
+        { key = "1879141033_8", lon = -108.41598, lat = -10.54377, name = "Uzbad-bakân", deed = "Zelem-melek" },
+        { key = "1879141033_6", lon = -108.41103, lat = -9.69969, name = "Gabil-hul", deed = "Zelem-melek" },
+        { key = "1879141033_3", lon = -107.73937, lat = -9.17589, name = "Halle der fließenden Wasser", deed = "Zelem-melek", name_en = "Hall of Flowing Water" },
+        { key = "1879141033_4", lon = -107.17102, lat = -9.01904, name = "Gabil-mamach", deed = "Zelem-melek" },
+        { key = "1879141033_7", lon = -106.07431, lat = -7.34446, name = "Die Große Halle Durins", deed = "Zelem-melek", name_en = "The Great Hall of Durin" },
+        { key = "1879141033_1", lon = -105.3019, lat = -5.81616, name = "Die Einundzwanzigste Halle", deed = "Zelem-melek", name_en = "The Twenty-first Hall" },
+        { key = "1879141033_5", lon = -105.25028, lat = -4.75052, name = "Kammer von Mazarbul", deed = "Zelem-melek", name_en = "Chamber of Mazarbul" },
+        { key = "1879141033_2", lon = -108.78813, lat = -6.3921, name = "Mudmul-charâf", deed = "Zelem-melek" },
+        { key = "1879140051_4", lon = -109.72427, lat = -7.56285, name = "Die Einsame Spanne", deed = "Die Großbinge", name_en = "The Lonely Span", deed_en = "The Great Delving" },
+        { key = "1879140051_6", lon = -111.26533, lat = -7.74183, name = "Gazatmur", deed = "Die Großbinge", deed_en = "The Great Delving" },
+        { key = "1879140051_5", lon = -111.93169, lat = -8.92231, name = "Der Steinrat", deed = "Die Großbinge", name_en = "The Stone Council", deed_en = "The Great Delving" },
+        { key = "1879140051_2", lon = -111.97488, lat = -8.15389, name = "Delfblick", deed = "Die Großbinge", name_en = "Dolven-view", deed_en = "The Great Delving" },
+        { key = "1879140051_3", lon = -111.97369, lat = -6.43165, name = "Das Tor des Zwergenfürsten", deed = "Die Großbinge", name_en = "The Dwarf-lords' Gate", deed_en = "The Great Delving" },
+        { key = "1879140051_8", lon = -112.81559, lat = -6.70813, name = "Der Palast von Náin", deed = "Die Großbinge", name_en = "The Palace of Náin", deed_en = "The Great Delving" },
+        { key = "1879140051_7", lon = -114.45355, lat = -7.26848, name = "Shemeldurj", deed = "Die Großbinge", deed_en = "The Great Delving" },
+    },
+})

@@ -1,0 +1,26 @@
+-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.
+Pathfinder.Routes.Register({
+    id = "R268450946_EXPLORER",
+    name = "Osgiliath - Erkundung",
+    name_en = "Osgiliath - Exploration",
+    region = 3,
+    map = { id = 268450946, image = 1091956289, factor = 106.25, lon = -13.49177, lat = -58.74353, file = "Pathfinder/Route/Resources/Maps/268450946.jpg" },
+    points = {
+        { key = "1879323092_7", lon = -11.16117, lat = -61.24618, name = "Palast von Eldacar", deed = "Das Vermächtnis von Osgiliath", name_en = "Palace of Eldacar", deed_en = "The Legacy of Osgiliath" },
+        { key = "1879323092_3", lon = -10.55981, lat = -61.55253, name = "Meneldil-Platz", deed = "Das Vermächtnis von Osgiliath", name_en = "Meneldil's Square", deed_en = "The Legacy of Osgiliath" },
+        { key = "1879323092_6", lon = -10.76772, lat = -62.05727, name = "Cemendurs Theater", deed = "Das Vermächtnis von Osgiliath", name_en = "Theatre of Cemendur", deed_en = "The Legacy of Osgiliath" },
+        { key = "1879323092_9", lon = -10.69307, lat = -62.66535, name = "Die hohen Archive", deed = "Das Vermächtnis von Osgiliath", name_en = "The High Archives", deed_en = "The Legacy of Osgiliath" },
+        { key = "1879323092_10", lon = -9.34241, lat = -61.5315, name = "Halle des Osgiliath-Steins", deed = "Das Vermächtnis von Osgiliath", name_en = "Hall of the Osgiliath-stone", deed_en = "The Legacy of Osgiliath" },
+        { key = "1879323092_1", lon = -9.05511, lat = -61.52414, name = "Der Sternendom", deed = "Das Vermächtnis von Osgiliath", name_en = "The Dome of Stars", deed_en = "The Legacy of Osgiliath" },
+        { key = "1879323086_17", lon = -8.69831, lat = -61.1119, name = "Schatzspeicher", deed = "Der Schatz von Ost-Gondor", name_en = "Treasure Cache", deed_en = "Treasure of Eastern Gondor" },
+        { key = "1879323092_4", lon = -8.00414, lat = -61.58729, name = "Rómendacil-Platz", deed = "Das Vermächtnis von Osgiliath", name_en = "Rómendacil's Square", deed_en = "The Legacy of Osgiliath" },
+        { key = "1879323092_8", lon = -7.44809, lat = -62.01878, name = "Häuser der Heilung", deed = "Das Vermächtnis von Osgiliath", name_en = "Houses of Healing", deed_en = "The Legacy of Osgiliath" },
+        { key = "1879323092_2", lon = -8.81695, lat = -62.69078, name = "Tunnel von Osgiliath", deed = "Das Vermächtnis von Osgiliath", name_en = "Osgiliath Culverts", deed_en = "The Legacy of Osgiliath" },
+        { key = "1879323092_5", lon = -9.4347, lat = -63.02842, name = "Die Große Brücke", deed = "Das Vermächtnis von Osgiliath", name_en = "The Great Bridge", deed_en = "The Legacy of Osgiliath" },
+        { key = "1879323086_14", lon = -9.96351, lat = -62.67979, name = "Schatzspeicher", deed = "Der Schatz von Ost-Gondor", name_en = "Treasure Cache", deed_en = "Treasure of Eastern Gondor" },
+        { key = "1879323086_12", lon = -10.30422, lat = -63.76832, name = "Schatzspeicher", deed = "Der Schatz von Ost-Gondor", name_en = "Treasure Cache", deed_en = "Treasure of Eastern Gondor" },
+        { key = "1879323086_16", lon = -9.05224, lat = -64.59929, name = "Schatzspeicher", deed = "Der Schatz von Ost-Gondor", name_en = "Treasure Cache", deed_en = "Treasure of Eastern Gondor" },
+        { key = "1879323086_15", lon = -8.73621, lat = -65.5718, name = "Schatzspeicher", deed = "Der Schatz von Ost-Gondor", name_en = "Treasure Cache", deed_en = "Treasure of Eastern Gondor" },
+        { key = "1879323072_6", lon = -6.13267, lat = -65.34807, name = "Faramirs Aussichtspunkt", deed = "Festungen der Hoffnung", name_en = "Faramir's Look-out", deed_en = "Strongholds of Hope" },
+    },
+})

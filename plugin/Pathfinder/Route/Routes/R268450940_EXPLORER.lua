@@ -1,0 +1,27 @@
+-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.
+Pathfinder.Routes.Register({
+    id = "R268450940_EXPLORER",
+    name = "Ober-Lebennin - Erkundung",
+    name_en = "Upper Lebennin - Exploration",
+    region = 3,
+    map = { id = 268450940, image = 1091956280, factor = 67.5, lon = -37.36296, lat = -73.86667, file = "Pathfinder/Route/Resources/Maps/268450940.jpg" },
+    points = {
+        { key = "1879316273_15", lon = -36.37068, lat = -77.45145, name = "Schatzspeicher", deed = "Schatz im Zentrum von Gondor", name_en = "Treasure Cache", deed_en = "Treasure of Central Gondor" },
+        { key = "1879316268_7", lon = -36.81355, lat = -80.81801, name = "Thama Aklam", deed = "Zentrum von Gondor: Die Lager der Feinde", deed_en = "Central Gondor: Camps of the Enemies" },
+        { key = "1879316262_3", lon = -34.44964, lat = -80.77538, name = "Lornost", deed = "Zentrum von Gondor: Belagert", deed_en = "Central Gondor: Under Siege" },
+        { key = "1879316273_19", lon = -32.99827, lat = -78.44701, name = "Schatzspeicher", deed = "Schatz im Zentrum von Gondor", name_en = "Treasure Cache", deed_en = "Treasure of Central Gondor" },
+        { key = "1879323086_1", lon = -32.29407, lat = -78.34834, name = "Schatzspeicher", deed = "Der Schatz von Ost-Gondor", name_en = "Treasure Cache", deed_en = "Treasure of Eastern Gondor" },
+        { key = "1879323091_4", lon = -31.95702, lat = -79.34963, name = "Sirthanc", deed = "Die südlichen Leuchtfeuer", deed_en = "The Southern Beacons" },
+        { key = "1879323072_1", lon = -29.8384, lat = -80.79798, name = "Glaniath", deed = "Festungen der Hoffnung", deed_en = "Strongholds of Hope" },
+        { key = "1879323086_2", lon = -28.56762, lat = -82.7732, name = "Schatzspeicher", deed = "Der Schatz von Ost-Gondor", name_en = "Treasure Cache", deed_en = "Treasure of Eastern Gondor" },
+        { key = "1879323086_3", lon = -25.49035, lat = -81.44273, name = "Schatzspeicher", deed = "Der Schatz von Ost-Gondor", name_en = "Treasure Cache", deed_en = "Treasure of Eastern Gondor" },
+        { key = "1879323086_5", lon = -24.30489, lat = -81.20647, name = "Schatzspeicher", deed = "Der Schatz von Ost-Gondor", name_en = "Treasure Cache", deed_en = "Treasure of Eastern Gondor" },
+        { key = "1879323086_6", lon = -22.34026, lat = -78.49985, name = "Schatzspeicher", deed = "Der Schatz von Ost-Gondor", name_en = "Treasure Cache", deed_en = "Treasure of Eastern Gondor" },
+        { key = "1879323072_3", lon = -23.69983, lat = -76.17822, name = "Arnach", deed = "Festungen der Hoffnung", deed_en = "Strongholds of Hope" },
+        { key = "1879323060_6", lon = -24.57994, lat = -75.01547, name = "Tribut für den Erui", deed = "Die fünf Schwestern", name_en = "Tribute to the Erui", deed_en = "The Five Sisters" },
+        { key = "1879323086_4", lon = -25.04798, lat = -75.00482, name = "Schatzspeicher", deed = "Der Schatz von Ost-Gondor", name_en = "Treasure Cache", deed_en = "Treasure of Eastern Gondor" },
+        { key = "1879323072_4", lon = -25.59489, lat = -73.59458, name = "Imloth Melui", deed = "Festungen der Hoffnung", deed_en = "Strongholds of Hope" },
+        { key = "1879323091_5", lon = -25.97678, lat = -76.78172, name = "Minlos", deed = "Die südlichen Leuchtfeuer", deed_en = "The Southern Beacons" },
+        { key = "1879323072_2", lon = -28.81161, lat = -76.81226, name = "Tumladen", deed = "Festungen der Hoffnung", deed_en = "Strongholds of Hope" },
+    },
+})

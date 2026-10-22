@@ -1,0 +1,26 @@
+-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.
+Pathfinder.Routes.Register({
+    id = "R268442349_EXPLORER",
+    name = "Durins Weg - Erkundung",
+    name_en = "Durin's Way - Exploration",
+    region = 2,
+    map = { id = 268442349, image = 1091471133, factor = 64, lon = -114, lat = 1.96562, file = "Pathfinder/Route/Resources/Maps/268442349.jpg" },
+    points = {
+        { key = "1879141035_4", lon = -112.70702, lat = -4.09434, name = "Ninknakh Faltor", deed = "Durins Weg, westlicher Bereich", deed_en = "Western Durin's Way" },
+        { key = "1879141035_1", lon = -112.07526, lat = -5.09454, name = "Die Kammer des Scheidewegs", deed = "Durins Weg, westlicher Bereich", name_en = "The Chamber of the Cross-roads", deed_en = "Western Durin's Way" },
+        { key = "1879141035_2", lon = -111.95633, lat = -4.68103, name = "Die Halle der hohen Treppe", deed = "Durins Weg, westlicher Bereich", name_en = "The Hall of the High Stair", deed_en = "Western Durin's Way" },
+        { key = "1879141035_3", lon = -111.1981, lat = -4.07884, name = "Gloku-ru", deed = "Durins Weg, westlicher Bereich", deed_en = "Western Durin's Way" },
+        { key = "1879146845_1", lon = -110.8035, lat = -2.81702, name = "Die Tür zu den Wolken", deed = "Die Klippen des Zirakzigil", name_en = "The Door to the Clouds", deed_en = "The Cliffs of Zirakzigil" },
+        { key = "1879141035_7", lon = -110.25991, lat = -3.07506, name = "Uflûmp-mur", deed = "Durins Weg, westlicher Bereich", deed_en = "Western Durin's Way" },
+        { key = "1879141035_5", lon = -109.50156, lat = -3.21633, name = "Tharâkh Bazân", deed = "Durins Weg, westlicher Bereich", deed_en = "Western Durin's Way" },
+        { key = "1879141035_6", lon = -107.46408, lat = -3.60529, name = "Salab Nurjundul", deed = "Durins Weg, westlicher Bereich", deed_en = "Western Durin's Way" },
+        { key = "1879141034_1", lon = -105.61084, lat = -3.23472, name = "Jazârgund", deed = "Der Ostteil von Durins Weg", deed_en = "Eastern Durin's Way" },
+        { key = "1879141034_3", lon = -104.79005, lat = -3.01691, name = "Hadâd-dûm", deed = "Der Ostteil von Durins Weg", deed_en = "Eastern Durin's Way" },
+        { key = "1879141034_4", lon = -104.21401, lat = -4.18729, name = "Fehem-dûm", deed = "Der Ostteil von Durins Weg", deed_en = "Eastern Durin's Way" },
+        { key = "1879141034_5", lon = -101.75166, lat = -2.72011, name = "Tith-maudhûl", deed = "Der Ostteil von Durins Weg", deed_en = "Eastern Durin's Way" },
+        { key = "1879141034_6", lon = -100.77344, lat = -2.99065, name = "Gríshurbhrum", deed = "Der Ostteil von Durins Weg", deed_en = "Eastern Durin's Way" },
+        { key = "1879141034_8", lon = -100.56721, lat = -3.57997, name = "Dâr-rukh", deed = "Der Ostteil von Durins Weg", deed_en = "Eastern Durin's Way" },
+        { key = "1879141034_2", lon = -99.89506, lat = -3.4101, name = "Skoiruzg", deed = "Der Ostteil von Durins Weg", deed_en = "Eastern Durin's Way" },
+        { key = "1879141034_7", lon = -100.035, lat = -2.83243, name = "Khulturg", deed = "Der Ostteil von Durins Weg", deed_en = "Eastern Durin's Way" },
+    },
+})

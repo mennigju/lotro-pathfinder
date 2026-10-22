@@ -1,0 +1,27 @@
+-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.
+Pathfinder.Routes.Register({
+    id = "R268442268_LORE",
+    name = "Eregion - Wissen",
+    name_en = "Eregion - Lore",
+    region = 1,
+    map = { id = 268442268, image = 1091470982, factor = 35.625, lon = -26.8, lat = -38.04211, file = "Pathfinder/Route/Resources/Maps/268442268.jpg" },
+    points = {
+        { key = "1879145443_2", lon = -19.45657, lat = -53.6988, name = "Vermodertes Lehrbuch", deed = "Ringkunde von Tham Mírdain", name_en = "Rotten Manual", deed_en = "Ring-lore of Tham Mírdain" },
+        { key = "1879145443_1", lon = -19.15349, lat = -53.4254, name = "Staubiges Lehrbuch", deed = "Ringkunde von Tham Mírdain", name_en = "Dusty Manual", deed_en = "Ring-lore of Tham Mírdain" },
+        { key = "1879145251_3", lon = -16.78769, lat = -52.41686, name = "Seltsamer Schutt", deed = "Ringkunde von Eregion", name_en = "Peculiar Rubble", deed_en = "Ring-lore of Eregion" },
+        { key = "1879145250_3", lon = -16.77805, lat = -52.14564, name = "Echad Mirobel", deed = "Die Ruinen von Eregion", deed_en = "The Ruins of Eregion" },
+        { key = "1879145250_6", lon = -14.03774, lat = -48.16417, name = "Barad Morlas", deed = "Die Ruinen von Eregion", deed_en = "The Ruins of Eregion" },
+        { key = "1879145251_2", lon = -13.86868, lat = -47.93092, name = "Verdächtiger Schutt", deed = "Ringkunde von Eregion", name_en = "Conspicuous Rubble", deed_en = "Ring-lore of Eregion" },
+        { key = "1879145250_2", lon = -12.4794, lat = -46.9742, name = "Echad Eregion", deed = "Die Ruinen von Eregion", deed_en = "The Ruins of Eregion" },
+        { key = "1879140605_4", lon = -12.92563, lat = -43.81496, name = "Der Ring geht nach Süden (4)", deed = "Der Ring geht nach Süden", name_en = "The Ring Goes South (4)", deed_en = "The Ring Goes South" },
+        { key = "1879145250_1", lon = -16.32562, lat = -39.69455, name = "Gwingris", deed = "Die Ruinen von Eregion", deed_en = "The Ruins of Eregion" },
+        { key = "1879145251_4", lon = -16.42464, lat = -39.55595, name = "Ungewöhnlicher Schutt", deed = "Ringkunde von Eregion", name_en = "Unusual Rubble", deed_en = "Ring-lore of Eregion" },
+        { key = "1879145251_1", lon = -11.03085, lat = -44.12584, name = "Interessanter Schutt", deed = "Ringkunde von Eregion", name_en = "Interesting Rubble", deed_en = "Ring-lore of Eregion" },
+        { key = "1879145250_5", lon = -10.76415, lat = -44.14091, name = "Pembar", deed = "Die Ruinen von Eregion", deed_en = "The Ruins of Eregion" },
+        { key = "1879140605_5", lon = -8.72492, lat = -45.86958, name = "Der Ring geht nach Süden (5)", deed = "Der Ring geht nach Süden", name_en = "The Ring Goes South (5)", deed_en = "The Ring Goes South" },
+        { key = "1879140605_1", lon = -10.24653, lat = -49.12053, name = "Brandhügel", deed = "Der Ring geht nach Süden", name_en = "Burnt Tor", deed_en = "The Ring Goes South" },
+        { key = "1879145250_4", lon = -7.90127, lat = -50.50995, name = "Echad Dúnann", deed = "Die Ruinen von Eregion", deed_en = "The Ruins of Eregion" },
+        { key = "1879140605_3", lon = -7.63616, lat = -50.66193, name = "Der Ring geht nach Süden (3)", deed = "Der Ring geht nach Süden", name_en = "The Ring Goes South (3)", deed_en = "The Ring Goes South" },
+        { key = "1879140605_2", lon = -2.65105, lat = -46.63273, name = "Der Ring geht nach Süden (2)", deed = "Der Ring geht nach Süden", name_en = "The Ring Goes South (2)", deed_en = "The Ring Goes South" },
+    },
+})

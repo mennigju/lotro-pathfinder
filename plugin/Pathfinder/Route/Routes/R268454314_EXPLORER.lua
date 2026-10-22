@@ -1,0 +1,28 @@
+-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.
+Pathfinder.Routes.Register({
+    id = "R268454314_EXPLORER",
+    name = "Anfalas - Erkundung",
+    name_en = "Anfalas - Exploration",
+    region = 4,
+    map = { id = 268454314, image = 1092912274, factor = 31.25, lon = -98.79999, lat = -53.904, file = "Pathfinder/Route/Resources/Maps/268454314.jpg" },
+    points = {
+        { key = "1879466408_5", lon = -72.6616, lat = -78.50813, name = "Hashadir", deed = "Erkunder / Erkunderin des wiederaufgebauten Belfalas", deed_en = "Explorer of Belfalas Renewed" },
+        { key = "1879466408_8", lon = -65.67407, lat = -74.93856, name = "Feste Lontir", deed = "Erkunder / Erkunderin des wiederaufgebauten Belfalas", name_en = "Ost Lontir", deed_en = "Explorer of Belfalas Renewed" },
+        { key = "1879466408_3", lon = -66.21222, lat = -74.25674, name = "Amon Lontir", deed = "Erkunder / Erkunderin des wiederaufgebauten Belfalas", deed_en = "Explorer of Belfalas Renewed" },
+        { key = "1879468393_10", lon = -69.71265, lat = -70.58968, name = "Lithengris", deed = "Die Gefahren von Langstrand", deed_en = "Perils of the Langstrand" },
+        { key = "1879468393_8", lon = -70.52416, lat = -67.23221, name = "Bel Tâkhmar", deed = "Die Gefahren von Langstrand", deed_en = "Perils of the Langstrand" },
+        { key = "1879468393_11", lon = -73.03563, lat = -64.96156, name = "Nebelochsenherde", deed = "Die Gefahren von Langstrand", name_en = "Dun Ox Herd", deed_en = "Perils of the Langstrand" },
+        { key = "1879468396_10", lon = -76.75364, lat = -68.74601, name = "Melgobas", deed = "Erkunder / Erkunderin von Anfalas", deed_en = "Explorer of Anfalas" },
+        { key = "1879468393_9", lon = -78.68875, lat = -69.08083, name = "Wrack der Kêl Tezhor", deed = "Die Gefahren von Langstrand", name_en = "Wreck of the Kêl Tezhor", deed_en = "Perils of the Langstrand" },
+        { key = "1879468396_1", lon = -81.28481, lat = -67.57851, name = "Barad Faen", deed = "Erkunder / Erkunderin von Anfalas", deed_en = "Explorer of Anfalas" },
+        { key = "1879468393_7", lon = -79.28257, lat = -63.93875, name = "Flottenbruch", deed = "Die Gefahren von Langstrand", name_en = "Fleetmire", deed_en = "Perils of the Langstrand" },
+        { key = "1879468393_5", lon = -84.81962, lat = -64.81258, name = "Endsprung", deed = "Die Gefahren von Langstrand", name_en = "Springer's Close", deed_en = "Perils of the Langstrand" },
+        { key = "1879468393_4", lon = -87.85156, lat = -66.24761, name = "Lachshall", deed = "Die Gefahren von Langstrand", name_en = "Loxhall", deed_en = "Perils of the Langstrand" },
+        { key = "1879468393_6", lon = -85.58574, lat = -71.03606, name = "Khâla Niket", deed = "Die Gefahren von Langstrand", deed_en = "Perils of the Langstrand" },
+        { key = "1879468396_4", lon = -89.39062, lat = -69.34817, name = "Lond Cirion", deed = "Erkunder / Erkunderin von Anfalas", deed_en = "Explorer of Anfalas" },
+        { key = "1879468393_2", lon = -93.66035, lat = -68.72178, name = "Wirrwald", deed = "Die Gefahren von Langstrand", name_en = "Snarlwood", deed_en = "Perils of the Langstrand" },
+        { key = "1879468396_3", lon = -95.0316, lat = -70.59112, name = "Tumbamálë", deed = "Erkunder / Erkunderin von Anfalas", deed_en = "Explorer of Anfalas" },
+        { key = "1879468393_1", lon = -95.87714, lat = -67.76314, name = "Khatsûr", deed = "Die Gefahren von Langstrand", deed_en = "Perils of the Langstrand" },
+        { key = "1879468393_3", lon = -95.29541, lat = -64.81359, name = "Flutnot", deed = "Die Gefahren von Langstrand", name_en = "Delugel", deed_en = "Perils of the Langstrand" },
+    },
+})
