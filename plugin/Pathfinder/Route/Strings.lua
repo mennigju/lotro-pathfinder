@@ -14,6 +14,7 @@ local Strings = {
         noRouteHint = "/pf hier oder /pf liste",
         routeFinished = "Route fertig!",
         otherRegion = "Andere Region",
+        distance = "%s m, Rest %s km",
         clickArrow = "Pfeil anklicken = Position",
         posAge = "Position vor %s s",
         noMapImage = "Kein Kartenbild fuer diese Route",
@@ -69,6 +70,7 @@ local Strings = {
         noRouteHint = "/pf here or /pf list",
         routeFinished = "Route finished!",
         otherRegion = "Other region",
+        distance = "%s m, %s km left",
         clickArrow = "Click arrow = position",
         posAge = "Position %s s ago",
         noMapImage = "No map image for this route",
@@ -129,6 +131,11 @@ function Pathfinder.L(key, ...)
         return string.format(text, unpack(args))
     end
     return text
+end
+
+-- "4,2" in German, "4.2" in English, whatever decimal point the client uses
+function Pathfinder.FormatKm(meters)
+    return (string.format("%.1f", meters / 1000):gsub("[%.,]", Pathfinder.Lang == "en" and "." or ","))
 end
 
 -- Command words in both languages -> internal name

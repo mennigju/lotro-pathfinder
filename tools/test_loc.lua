@@ -123,6 +123,19 @@ state:SetDone(route.points[2], true)
 check("start near skips done", state:StartNear({ region = 1, lon = 0.5, lat = 0 }) and state:Current().key ~= "b")
 state:Reset()
 
+-- Remaining way: player -> current -> open points
+check("remaining all", near(state:Remaining(nil), 200))
+check("remaining from pos", near(state:Remaining({ region = 1, lon = -0.5, lat = 0 }), 300))
+check("remaining other region", near(state:Remaining({ region = 2, lon = -0.5, lat = 0 }), 200))
+state:SetDone(route.points[3], true)
+check("remaining open only", near(state:Remaining(nil), 100))
+check("upcoming wraps", (function()
+    state:Skip()
+    local up = state:Upcoming()
+    return #up == 2 and up[1].key == "b" and up[2].key == "a"
+end)())
+state:Reset()
+
 
 if failures == 0 then
     print("OK")

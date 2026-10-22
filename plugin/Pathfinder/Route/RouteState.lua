@@ -57,20 +57,23 @@ function RouteState:Current()
     return self.route.points[i], i
 end
 
--- Up to count open points starting with the current one
+-- Up to count open points in route order, starting with the current one
+-- and wrapping around like NextOpen
 function RouteState:Upcoming(count)
     local result = {}
     local points = self.route.points
+    local n = #points
     local _, i = self:Current()
     if i == nil then
         return result
     end
-    for j = i, #points do
-        if #result >= count then
+    for step = 0, n - 1 do
+        if count ~= nil and #result >= count then
             break
         end
-        if not self.done[points[j].key] then
-            table.insert(result, points[j])
+        local point = points[(i - 1 + step) % n + 1]
+        if not self.done[point.key] then
+            table.insert(result, point)
         end
     end
     return result
@@ -78,6 +81,21 @@ end
 
 local function inRegion(self, pos)
     return pos ~= nil and (self.route.region == nil or pos.region == self.route.region)
+end
+
+-- Meters still to walk: from pos (if in the region) to the current target,
+-- then along all open points
+function RouteState:Remaining(pos)
+    local Loc = Pathfinder.Loc
+    local meters = 0
+    local prev = inRegion(self, pos) and pos or nil
+    for _, point in ipairs(self:Upcoming()) do
+        if prev ~= nil then
+            meters = meters + Loc.Distance(prev.lon, prev.lat, point.lon, point.lat)
+        end
+        prev = point
+    end
+    return meters
 end
 
 -- Makes the open point nearest to pos the current one. False if pos is

@@ -5,7 +5,8 @@ ENGLISH
 
 Pathfinder guides you along a precomputed short route to the targets of
 explorer and lore deeds: an arrow points to the next target, a map shows the
-route, a list lets you tick off what you have already done.
+route, a list lets you tick off what you have already done. Below the arrow:
+distance to the target and the way left on the route.
 
 Install: unpack the ZIP into
   Documents\The Lord of the Rings Online\Plugins\
@@ -35,7 +36,8 @@ DEUTSCH
 
 Pathfinder fuehrt dich auf einer vorberechneten kurzen Route zu den Zielen
 von Erkundungs- und Wissens-Taten: ein Pfeil zeigt zum naechsten Ziel, eine
-Karte zeigt die Route, in einer Liste hakst du ab, was du schon hast.
+Karte zeigt die Route, in einer Liste hakst du ab, was du schon hast. Unter
+dem Pfeil: Entfernung zum Ziel und der restliche Weg der Route.
 
 Installation: ZIP entpacken nach
   Dokumente\The Lord of the Rings Online\Plugins\
