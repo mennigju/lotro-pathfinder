@@ -3,7 +3,6 @@ Pathfinder.Routes.Register({
     id = "R1879162304_LORE",
     name = "Barad Guldur - Wissen",
     name_en = "Barad Guldur - Lore",
-    region = 0,
     map = { id = 1879162304, image = 1091575637, factor = 800, lon = 53.8, lat = 73.15, file = "Pathfinder/Route/Resources/Maps/1879162304.jpg" },
     points = {
         { key = "1879163154_1", lon = 54.79959, lat = 71.99451, name = "Zwei auf einen Streich (1)", deed = "Zwei auf einen Streich", name_en = "Two with One Blow (1)", deed_en = "Two with One Blow" },

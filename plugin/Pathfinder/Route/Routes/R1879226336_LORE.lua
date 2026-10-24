@@ -3,7 +3,6 @@ Pathfinder.Routes.Register({
     id = "R1879226336_LORE",
     name = "Gruben von Isengart - Wissen",
     name_en = "Pits of Isengard - Lore",
-    region = 0,
     map = { id = 1879226336, image = 1091686413, factor = 300, lon = 48.79334, lat = 58.87334, file = "Pathfinder/Route/Resources/Maps/1879226336.jpg" },
     points = {
         { key = "1879228033_1", lon = 50.12553, lat = 55.99519, name = "Beseitigt Abscheulichkeiten (1)", deed = "Beseitigt Abscheulichkeiten", name_en = "Abolish Abominations (1)", deed_en = "Abolish Abominations" },

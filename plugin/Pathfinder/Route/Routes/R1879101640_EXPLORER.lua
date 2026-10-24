@@ -3,7 +3,6 @@ Pathfinder.Routes.Register({
     id = "R1879101640_EXPLORER",
     name = "Bilwiss-Dorf - Erkundung",
     name_en = "Goblin-town - Exploration",
-    region = 0,
     map = { id = 1879101640, image = 1091409939, factor = 300, lon = 53.49334, lat = -63.93, file = "Pathfinder/Route/Resources/Maps/1879101640.jpg" },
     points = {
         { key = "1879099040_4", lon = 55.68043, lat = -63.577, name = "Gollums Höhle", deed = "Bilwiss-Dorf", name_en = "Gollum's Cave", deed_en = "Goblin-town" },

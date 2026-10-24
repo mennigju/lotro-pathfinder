@@ -3,7 +3,6 @@ Pathfinder.Routes.Register({
     id = "R1879152319_LORE",
     name = "Dâr Narbugud - Wissen",
     name_en = "Dâr Narbugud - Lore",
-    region = 0,
     map = { id = 1879152319, image = 1091543402, factor = 300, lon = 51.32, lat = 75.04666, file = "Pathfinder/Route/Resources/Maps/1879152319.jpg" },
     points = {
         { key = "1879150855_1", lon = 52.45037, lat = 74.18787, name = "Übelriechender roter Pilz", deed = "Dâr Narbugud-Fungus-Nachforschung", name_en = "Smelly Red Mushroom", deed_en = "Dâr Narbugud Fungus Investigation" },

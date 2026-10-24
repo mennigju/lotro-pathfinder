@@ -3,7 +3,6 @@ Pathfinder.Routes.Register({
     id = "R1879238521_EXPLORER",
     name = "Die Lindwurmgrotte - Erkundung",
     name_en = "Wyrmdelf - Exploration",
-    region = 0,
     map = { id = 1879238521, image = 1091733583, factor = 600, lon = 53.765, lat = 24.4, file = "Pathfinder/Route/Resources/Maps/1879238521.jpg" },
     points = {
         { key = "1879248759_3", lon = 55.58293, lat = 23.54521, name = "Zuchtstätten der Lindwurmgrotte (3)", deed = "Zuchtstätten der Lindwurmgrotte", name_en = "Nurseries of the Wyrmdelf (3)", deed_en = "Nurseries of the Wyrmdelf" },

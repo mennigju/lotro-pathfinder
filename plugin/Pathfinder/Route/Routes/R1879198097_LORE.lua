@@ -3,7 +3,6 @@ Pathfinder.Routes.Register({
     id = "R1879198097_LORE",
     name = "Feste Dunhoth - Wissen",
     name_en = "Ost Dunhoth - Lore",
-    region = 0,
     map = { id = 1879198097, image = 1091618009, factor = 300, lon = -145.59332, lat = 73.75, file = "Pathfinder/Route/Resources/Maps/1879198097.jpg" },
     points = {
         { key = "1879205365_1", lon = -145.46596, lat = 73.86875, name = "Feste Dunhoth - Ivar und Gortheron - Stufe 1 (1)", deed = "Feste Dunhoth - Ivar und Gortheron - Stufe 1", name_en = "Ost Dunhoth: Ivar and Gortheron -- Tier 1 (1)", deed_en = "Ost Dunhoth: Ivar and Gortheron -- Tier 1" },

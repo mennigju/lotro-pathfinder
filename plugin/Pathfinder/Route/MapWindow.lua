@@ -199,7 +199,7 @@ function MapWindow:Refresh(state, pos, flip)
     self.dotCount = 0
     local path = {}
     local px, py
-    if pos ~= nil and pos.region == state.route.region then
+    if pos ~= nil and (state.route.region == nil or pos.region == state.route.region) then
         px, py = self:Project(pos.lon, pos.lat)
         if px ~= nil then
             table.insert(path, { px, py })

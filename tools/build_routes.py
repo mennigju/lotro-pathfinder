@@ -71,9 +71,9 @@ def load_maps(path, names_de):
 
 
 def collect_targets(deeds_path, deed_names, marker_names, types):
-    """Returns {(map_id, type): [target, ...]}; a target has 'options' (alternative points)."""
+    """Returns {(map_id, type): [target, ...]}; a target has 'options' (alternative points).
+    map_id is None for deeds without a map, region 0 where the data has none."""
     groups = defaultdict(list)
-    regions = {}
     for deed in ET.parse(deeds_path).getroot().iter("deed"):
         deed_type = deed.get("type")
         if deed_type not in types:
@@ -82,7 +82,7 @@ def collect_targets(deeds_path, deed_names, marker_names, types):
         if map_el is None:
             continue
         map_id = map_el.get("mapId")
-        regions[map_id] = int(map_el.get("region", "0"))
+        region = int(map_el.get("region", "0"))
         deed_id = deed.get("id")
         deed_name_en = deed.get("name")
         deed_name = deed_names.get(deed_id) or deed_name_en
@@ -111,9 +111,10 @@ def collect_targets(deeds_path, deed_names, marker_names, types):
                         "deed": deed_name,
                         "deed_en": deed_name_en,
                         "deedId": int(deed_id),
+                        "region": region,
                         "options": stop,
                     })
-    return groups, regions
+    return groups
 
 
 def on_map(point, map_info):
@@ -129,31 +130,61 @@ def load_map_regions(path):
             for m in ET.parse(path).getroot().iter("parchmentMap")}
 
 
-def assign_maps(groups, regions, maps, map_regions):
-    """Moves targets that lie outside their deed's map to the most detailed
-    map of the same region that contains them."""
+def find_map(options, region, maps, map_regions):
+    """Most detailed map of the region that contains one of the options;
+    the region's overview maps (factor <= 1) only as a last resort. With an
+    unknown region (deeds of instances) every region is searched, but only a
+    unique answer counts: the regions share their coordinates."""
+    candidates = sorted((m for mid, m in maps.items()
+                         if (map_regions.get(mid) == region if region else mid in map_regions)
+                         and any(on_map(o, m) for o in options)),
+                        key=lambda m: -m["factor"])
+    if not region and len({map_regions[str(m["id"])] for m in candidates}) > 1:
+        return None
+    return candidates[0] if candidates else None
+
+
+def assign_maps(groups, maps, map_regions, report=None):
+    """Moves targets that lie outside their deed's map (or have none) to the
+    most detailed map of the same region that contains them. Returns the new
+    groups and the region per map (0 = unknown, e.g. instances)."""
     result = defaultdict(list)
-    result_regions = dict(regions)
-    moved = dropped = 0
+    map_region = {}
+    moved = 0
+    dropped = []
     for (map_id, deed_type), targets in groups.items():
-        region = regions[map_id]
-        candidates = sorted(
-            (m for mid, m in maps.items() if map_regions.get(mid) == region and m["factor"] > 1.0),
-            key=lambda m: -m["factor"])
         for t in targets:
+            region = t["region"] or map_regions.get(map_id, 0)
             target_map = map_id
-            if not any(on_map(o, maps.get(map_id)) for o in t["options"]):
-                found = next((m for m in candidates if any(on_map(o, m) for o in t["options"])), None)
+            own = maps.get(map_id)
+            if map_id is None or (own is not None and not any(on_map(o, own) for o in t["options"])):
+                found = find_map(t["options"], region, maps, map_regions)
                 if found is None:
-                    dropped += 1
+                    dropped.append((deed_type, map_id, region, t))
                     continue
                 target_map = str(found["id"])
                 moved += 1
             t["options"] = [o for o in t["options"] if on_map(o, maps.get(target_map))]
             result[(target_map, deed_type)].append(t)
-            result_regions[target_map] = region
-    print(f"{moved} Ziele auf eine andere Karte verschoben, {dropped} ohne passende Karte ignoriert")
-    return result, result_regions
+            if not map_region.get(target_map):
+                map_region[target_map] = map_regions.get(target_map) or region
+            t["region"] = map_region[target_map]
+    print(f"{moved} Ziele auf eine andere Karte verschoben, {len(dropped)} ohne passende Karte ignoriert")
+    if report is not None:
+        write_dropped(report, dropped, maps)
+    return result, map_region
+
+
+def write_dropped(path, dropped, maps):
+    lines = ["# Ziele ohne passende Karte (tools/build_routes.py)",
+             "# Typ\tTat\tZiel\tRegion\tKarte der Tat\tPunkte (lon/lat)"]
+    for deed_type, map_id, region, t in sorted(dropped, key=lambda d: (d[0], d[3]["deed_en"], d[3]["key"])):
+        own = maps.get(map_id)
+        map_text = f"{map_id} {own['name_en']}" if own else str(map_id)
+        points = " ".join(f"{lon:.2f}/{lat:.2f}" for lon, lat in t["options"])
+        lines.append("\t".join([deed_type, t["deed_en"], t["name_en"], str(region or "?"), map_text, points]))
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
 def dist(a, b):
@@ -276,8 +307,10 @@ def write_route(path, route_id, name, region, map_info, targets, image_file):
         f"    id = {lua_str(route_id)},",
         f"    name = {lua_str(name[0])},",
         f"    name_en = {lua_str(name[1])},",
-        f"    region = {region},",
     ]
+    # Unknown for instance maps: the plugin then accepts any region
+    if region:
+        lines.append(f"    region = {region},")
     if map_info:
         lines.append(
             f"    map = {{ id = {map_info['id']}, image = {map_info['imageId']}, "
@@ -310,14 +343,14 @@ def main():
     marker_names = load_labels(CACHE / "maps-db/labels/de/markers.xml")
     maps = load_maps(CACHE / "maps-db/maps/maps.xml",
                      load_labels(CACHE / "maps-db/labels/de/basemaps.xml"))
-    groups, regions = collect_targets(CACHE / "lotro-data/deeds.xml", deed_names, marker_names, types)
+    groups = collect_targets(CACHE / "lotro-data/deeds.xml", deed_names, marker_names, types)
 
     OUT.mkdir(parents=True, exist_ok=True)
     for old in OUT.glob("R*.lua"):
         old.unlink()
 
-    groups, regions = assign_maps(groups, regions, maps,
-                                  load_map_regions(CACHE / "lotro-data/parchmentMaps.xml"))
+    groups, regions = assign_maps(groups, maps, load_map_regions(CACHE / "lotro-data/parchmentMaps.xml"),
+                                  CACHE / "dropped_targets.txt")
 
     modules = []
     used_images = set()

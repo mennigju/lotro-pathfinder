@@ -3,7 +3,6 @@ Pathfinder.Routes.Register({
     id = "R1879162303_LORE",
     name = "Sammath Gûl - Wissen",
     name_en = "Sammath Gûl - Lore",
-    region = 0,
     map = { id = 1879162303, image = 1091575482, factor = 400, lon = 52.65, lat = 72.1, file = "Pathfinder/Route/Resources/Maps/1879162303.jpg" },
     points = {
         { key = "1879163167_1", lon = 55.58236, lat = 70.79924, name = "Der Sturz von Sammath Gûl (1)", deed = "Der Sturz von Sammath Gûl", name_en = "Throwing Down Sammath Gûl (1)", deed_en = "Throwing Down Sammath Gûl" },

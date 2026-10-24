@@ -3,7 +3,6 @@ Pathfinder.Routes.Register({
     id = "R1879459099_LORE",
     name = "Thaurisgar, die abscheuliche Apotheke - Wissen",
     name_en = "Thaurisgar, the Vile Apothecary - Lore",
-    region = 0,
     map = { id = 1879459099, image = 1092812735, factor = 599.99994, lon = 43.765, lat = 78.02834, file = "Pathfinder/Route/Resources/Maps/1879459099.jpg" },
     points = {
         { key = "1879459078_2", lon = 45.15414, lat = 77.58211, name = "Sensenschleim", deed = "Alchemie von Thaurisgar", name_en = "Scythespew", deed_en = "Alchemy of Thaurisgar" },

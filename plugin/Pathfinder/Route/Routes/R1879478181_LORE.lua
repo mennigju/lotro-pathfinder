@@ -3,7 +3,6 @@ Pathfinder.Routes.Register({
     id = "R1879478181_LORE",
     name = "Der Mâkhda Khorbo - Versteckter Eingang - Wissen",
     name_en = "The Mâkhda Khorbo -- Hidden Entrance - Lore",
-    region = 0,
     map = { id = 1879478181, image = 1092912569, factor = 360, lon = -147.20833, lat = 73.23334, file = "Pathfinder/Route/Resources/Maps/1879478181.jpg" },
     points = {
         { key = "1879482825_1", lon = -146.20833, lat = 72.40674, name = "Die Tiefen des Mâkhda Khorbo: Azagaths Flucht (1)", deed = "Die Tiefen des Mâkhda Khorbo: Azagaths Flucht", name_en = "The Depths of Mâkhda Khorbo -- Azagath's Escape (1)", deed_en = "The Depths of Mâkhda Khorbo -- Azagath's Escape" },

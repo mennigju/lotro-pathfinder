@@ -3,7 +3,6 @@ Pathfinder.Routes.Register({
     id = "R1879153146_LORE",
     name = "Die Spiegelhallen von Lumul-nar - Wissen",
     name_en = "The Mirror-halls of Lumul-nar - Lore",
-    region = 0,
     map = { id = 1879153146, image = 1091545390, factor = 499.99994, lon = 53.89801, lat = 78.524, file = "Pathfinder/Route/Resources/Maps/1879153146.jpg" },
     points = {
         { key = "1879152741_1", lon = 55.05045, lat = 77.29205, name = "Große Spiegelscherbe", deed = "Die Scherben des Kristallspiegels", name_en = "Large Mirror-shard", deed_en = "The Crystal Mirror-shards" },

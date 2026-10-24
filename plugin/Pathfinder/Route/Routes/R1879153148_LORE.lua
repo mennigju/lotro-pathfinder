@@ -3,7 +3,6 @@ Pathfinder.Routes.Register({
     id = "R1879153148_LORE",
     name = "Die Wasserräder: Nalâ-dûm - Wissen",
     name_en = "The Water Wheels: Nalâ-dûm - Lore",
-    region = 0,
     map = { id = 1879153148, image = 1091545268, factor = 600.00006, lon = 53.66666, lat = 79.95, file = "Pathfinder/Route/Resources/Maps/1879153148.jpg" },
     points = {
         { key = "1879150856_1", lon = 54.44181, lat = 78.79961, name = "Ungewöhnliche Pflanze", deed = "Pflanzen des Wasserwerks", name_en = "Unusual Plant", deed_en = "Plants of the Water-works" },

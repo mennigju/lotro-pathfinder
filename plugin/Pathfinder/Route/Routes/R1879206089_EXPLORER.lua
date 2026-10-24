@@ -3,7 +3,6 @@ Pathfinder.Routes.Register({
     id = "R1879206089_EXPLORER",
     name = "Lhaid Ogo - Erkundung",
     name_en = "Lhaid Ogo - Exploration",
-    region = 0,
     map = { id = 1879206089, image = 1091637920, factor = 600, lon = 54.02834, lat = -94.55333, file = "Pathfinder/Route/Resources/Maps/1879206089.jpg" },
     points = {
         { key = "1879206112_6", lon = 55.94832, lat = -95.5262, name = "Die Erkundung von Lhaid Ogo (6)", deed = "Die Erkundung von Lhaid Ogo", name_en = "Lhaid Ogo Exploration (6)", deed_en = "Lhaid Ogo Exploration" },

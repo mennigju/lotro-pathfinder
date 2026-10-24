@@ -3,7 +3,6 @@ Pathfinder.Routes.Register({
     id = "R1879160246_LORE",
     name = "Die Verliese von Dol Guldur - Wissen",
     name_en = "Dungeons of Dol Guldur - Lore",
-    region = 0,
     map = { id = 1879160246, image = 1091564314, factor = 600, lon = 53.565, lat = 75.2, file = "Pathfinder/Route/Resources/Maps/1879160246.jpg" },
     points = {
         { key = "1879163173_1", lon = 54.79922, lat = 73.62408, name = "Ein neuer Aufseher in den Verliesen (1)", deed = "Ein neuer Aufseher in den Verliesen", name_en = "There is a New Warden in the Dungeons (1)", deed_en = "There is a New Warden in the Dungeons" },

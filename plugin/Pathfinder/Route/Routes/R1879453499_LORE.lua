@@ -3,7 +3,6 @@ Pathfinder.Routes.Register({
     id = "R1879453499_LORE",
     name = "Sagroth - Wissen",
     name_en = "Sagroth - Lore",
-    region = 0,
     map = { id = 1879453499, image = 1092753789, factor = 300, lon = 46.23, lat = 79.04333, file = "Pathfinder/Route/Resources/Maps/1879453499.jpg" },
     points = {
         { key = "1879460770_6", lon = 49.12867, lat = 76.42481, name = "Schleimiges Schwert", deed = "Sagroth, Hort des Ungeziefers: Die Sucher von Sagroth", name_en = "Slimy Sword", deed_en = "Sagroth, Lair of Vermin -- The Seekers of Sagroth" },

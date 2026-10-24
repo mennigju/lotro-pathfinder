@@ -3,7 +3,6 @@ Pathfinder.Routes.Register({
     id = "R1879198102_LORE",
     name = "Feste Dunhoth - Wissen",
     name_en = "Ost Dunhoth - Lore",
-    region = 0,
     map = { id = 1879198102, image = 1091618003, factor = 400, lon = -147.06, lat = 74.765, file = "Pathfinder/Route/Resources/Maps/1879198102.jpg" },
     points = {
         { key = "1879205361_1", lon = -145.46596, lat = 73.86875, name = "Feste Dunhoth: Erscheinungen von Wunden und Furcht - Stufe 1 (1)", deed = "Feste Dunhoth: Erscheinungen von Wunden und Furcht - Stufe 1", name_en = "Ost Dunhoth: Manifestations of Wounds and Fears -- Tier 1 (1)", deed_en = "Ost Dunhoth: Manifestations of Wounds and Fears -- Tier 1" },

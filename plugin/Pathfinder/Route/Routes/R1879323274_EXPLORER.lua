@@ -3,7 +3,6 @@ Pathfinder.Routes.Register({
     id = "R1879323274_EXPLORER",
     name = "Versunkenes Labyrinth - Erkundung",
     name_en = "Sunken Labyrinth - Exploration",
-    region = 0,
     map = { id = 1879323274, image = 1091957975, factor = 300, lon = 52.00666, lat = 56.05, file = "Pathfinder/Route/Resources/Maps/1879323274.jpg" },
     points = {
         { key = "1879323534_9", lon = 55.40572, lat = 54.97037, name = "Vase", deed = "Erinnerungen an das Zweite Zeitalter", deed_en = "Memories of the Second Age" },

@@ -43,11 +43,12 @@ function Routes.Contains(route, lon, lat)
     return x >= 0 and y >= 0 and x <= Routes.MAP_WIDTH and y <= Routes.MAP_HEIGHT
 end
 
--- Routes whose map contains the position, most detailed map first
+-- Routes whose map contains the position, most detailed map first.
+-- Routes without region (instances) count in every region.
 function Routes.At(pos)
     local result = {}
     for _, route in ipairs(Routes.list) do
-        if route.region == pos.region and Routes.Contains(route, pos.lon, pos.lat) then
+        if (route.region == nil or route.region == pos.region) and Routes.Contains(route, pos.lon, pos.lat) then
             table.insert(result, route)
         end
     end
