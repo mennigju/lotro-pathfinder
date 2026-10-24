@@ -286,6 +286,10 @@ listWindow = Pathfinder.ListWindow.Create({
         saveProgress()
         refresh()
     end,
+    OnFilterChanged = function(openOnly)
+        setSetting("listOpenOnly", openOnly)
+        saveSettings()
+    end,
     OnMoved = function(x, y)
         setSetting("listX", x)
         setSetting("listY", y)
@@ -294,7 +298,7 @@ listWindow = Pathfinder.ListWindow.Create({
         setSetting("listVisible", false)
         saveSettings()
     end,
-}, setting("listX", 120), setting("listY", 170))
+}, setting("listX", 120), setting("listY", 170), setting("listOpenOnly", 0) == 1)
 
 -- Chat ---------------------------------------------------------------------
 
