@@ -20,6 +20,7 @@ import "Pathfinder.Route.Strings"
 import "Pathfinder.Route.ArrowWindow"
 import "Pathfinder.Route.MapWindow"
 import "Pathfinder.Route.ListWindow"
+import "Pathfinder.Route.RouteWindow"
 
 local Loc = Pathfinder.Loc
 local Routes = Pathfinder.Routes
@@ -158,7 +159,7 @@ local lastPos = nil
 local posTime = nil
 local lastList = {}
 local debugEnabled = false
-local arrowWindow, mapWindow, listWindow
+local arrowWindow, mapWindow, listWindow, routeWindow
 
 -- The command follows the client, not the plugin language
 local posCommand = germanClient and "/pos" or "/loc"
@@ -178,6 +179,9 @@ local function refresh()
     end
     if listWindow:IsVisible() then
         listWindow:Refresh(state)
+    end
+    if routeWindow:IsVisible() then
+        routeWindow:Refresh(state and state.route, state and state:DoneCount())
     end
 end
 
@@ -256,6 +260,9 @@ arrowWindow = Pathfinder.ArrowWindow.Create({
     OnToggleMap = function()
         toggleWindow(mapWindow, "mapVisible")
     end,
+    OnToggleRoutes = function()
+        toggleWindow(routeWindow, "routesVisible")
+    end,
     OnMoved = function(x, y)
         setSetting("arrowX", x)
         setSetting("arrowY", y)
@@ -299,6 +306,37 @@ listWindow = Pathfinder.ListWindow.Create({
         saveSettings()
     end,
 }, setting("listX", 120), setting("listY", 170), setting("listOpenOnly", 0) == 1)
+
+routeWindow = Pathfinder.RouteWindow.Create({
+    Find = function(text, hereOnly)
+        if not hereOnly then
+            return Routes.Find(text)
+        end
+        if lastPos == nil then
+            return {}, L("posUnknown", posCommand)
+        end
+        local result = {}
+        local needle = string.lower(text or "")
+        for _, route in ipairs(Routes.At(lastPos)) do
+            if string.find(string.lower(route.name), needle, 1, true) then
+                table.insert(result, route)
+            end
+        end
+        return result
+    end,
+    Progress = routeProgress,
+    OnSelect = function(route)
+        selectRoute(route)
+    end,
+    OnMoved = function(x, y)
+        setSetting("routesX", x)
+        setSetting("routesY", y)
+    end,
+    OnClosed = function()
+        setSetting("routesVisible", false)
+        saveSettings()
+    end,
+}, setting("routesX", 140), setting("routesY", 160))
 
 -- Chat ---------------------------------------------------------------------
 
@@ -439,6 +477,8 @@ function PathfinderCommand:Execute(cmd, arguments)
             write(L("routeReset"))
         end
         refresh()
+    elseif verb == "routes" then
+        toggleWindow(routeWindow, "routesVisible")
     elseif verb == "map" then
         toggleWindow(mapWindow, "mapVisible")
     elseif verb == "deeds" then
@@ -514,6 +554,7 @@ arrowWindow:SetVisible(setting("arrowVisible", 1) == 1)
 mapWindow:SetAreasVisible(areasVisible())
 mapWindow:SetVisible(setting("mapVisible", 0) == 1)
 listWindow:SetVisible(setting("listVisible", 0) == 1)
+routeWindow:SetVisible(setting("routesVisible", 0) == 1)
 if progress.route ~= nil and Routes.byId[progress.route] ~= nil then
     state = newState(Routes.byId[progress.route])
     needsStart = true
