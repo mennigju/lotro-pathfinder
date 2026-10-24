@@ -21,6 +21,7 @@ import "Pathfinder.Route.ArrowWindow"
 import "Pathfinder.Route.MapWindow"
 import "Pathfinder.Route.ListWindow"
 import "Pathfinder.Route.RouteWindow"
+import "Pathfinder.Route.SettingsWindow"
 
 local Loc = Pathfinder.Loc
 local Routes = Pathfinder.Routes
@@ -159,7 +160,7 @@ local lastPos = nil
 local posTime = nil
 local lastList = {}
 local debugEnabled = false
-local arrowWindow, mapWindow, listWindow, routeWindow
+local arrowWindow, mapWindow, listWindow, routeWindow, settingsWindow
 
 -- The command follows the client, not the plugin language
 local posCommand = germanClient and "/pos" or "/loc"
@@ -183,13 +184,54 @@ local function refresh()
     if routeWindow:IsVisible() then
         routeWindow:Refresh(state and state.route, state and state:DoneCount())
     end
+    settingsWindow:Refresh()
+end
+
+-- Settings, shared by the /pf commands and the settings window -------------
+
+local function setWindow(window, name, visible)
+    window:SetVisible(visible)
+    setSetting(name, visible)
+    saveSettings()
+    refresh()
 end
 
 local function toggleWindow(window, name)
-    window:SetVisible(not window:IsVisible())
-    setSetting(name, window:IsVisible())
+    setWindow(window, name, not window:IsVisible())
+end
+
+local function setRadius(meters)
+    setSetting("radius", math.max(1, math.floor(meters)))
+    saveSettings()
+    settingsWindow:Refresh()
+end
+
+local function setAge(seconds)
+    setSetting("stale", math.max(1, math.floor(seconds)))
+    saveSettings()
+    arrowWindow.staleSeconds = setting("stale", Pathfinder.ArrowWindow.DEFAULT_STALE_SECONDS)
+    arrowWindow:UpdateAge()
+    settingsWindow:Refresh()
+end
+
+local function setFlip(on)
+    setSetting("flip", on)
     saveSettings()
     refresh()
+end
+
+local function setAreas(on)
+    setSetting("areas", on)
+    saveSettings()
+    mapWindow:SetAreasVisible(on)
+    settingsWindow:Refresh()
+end
+
+-- Takes effect after reloading the plugin: routes are localized on loading
+local function setLang(lang)
+    settings.lang = lang
+    saveSettings()
+    settingsWindow:Refresh()
 end
 
 local function newState(route)
@@ -262,6 +304,9 @@ arrowWindow = Pathfinder.ArrowWindow.Create({
     end,
     OnToggleRoutes = function()
         toggleWindow(routeWindow, "routesVisible")
+    end,
+    OnToggleSettings = function()
+        toggleWindow(settingsWindow, "settingsVisible")
     end,
     OnMoved = function(x, y)
         setSetting("arrowX", x)
@@ -337,6 +382,46 @@ routeWindow = Pathfinder.RouteWindow.Create({
         saveSettings()
     end,
 }, setting("routesX", 140), setting("routesY", 160))
+
+local windowSettings = {
+    arrow = { "arrowVisible", function() return arrowWindow end },
+    routes = { "routesVisible", function() return routeWindow end },
+    list = { "listVisible", function() return listWindow end },
+    map = { "mapVisible", function() return mapWindow end },
+}
+
+settingsWindow = Pathfinder.SettingsWindow.Create({
+    Values = function()
+        return {
+            radius = setting("radius", 25),
+            age = setting("stale", Pathfinder.ArrowWindow.DEFAULT_STALE_SECONDS),
+            flip = flip(),
+            areas = areasVisible(),
+            lang = settings.lang or Pathfinder.Lang,
+            arrow = arrowWindow:IsVisible(),
+            routes = routeWindow:IsVisible(),
+            list = listWindow:IsVisible(),
+            map = mapWindow:IsVisible(),
+        }
+    end,
+    SetRadius = setRadius,
+    SetAge = setAge,
+    SetFlip = setFlip,
+    SetAreas = setAreas,
+    SetLang = setLang,
+    SetWindow = function(name, visible)
+        local entry = windowSettings[name]
+        setWindow(entry[2](), entry[1], visible)
+    end,
+    OnMoved = function(x, y)
+        setSetting("settingsX", x)
+        setSetting("settingsY", y)
+    end,
+    OnClosed = function()
+        setSetting("settingsVisible", false)
+        saveSettings()
+    end,
+}, setting("settingsX", 160), setting("settingsY", 180))
 
 -- Chat ---------------------------------------------------------------------
 
@@ -492,32 +577,23 @@ function PathfinderCommand:Execute(cmd, arguments)
         end
         refresh()
     elseif verb == "areas" then
-        setSetting("areas", not areasVisible())
-        saveSettings()
-        mapWindow:SetAreasVisible(areasVisible())
+        setAreas(not areasVisible())
         write(L(areasVisible() and "areasOn" or "areasOff"))
+    elseif verb == "options" then
+        toggleWindow(settingsWindow, "settingsVisible")
     elseif verb == "arrow" then
-        arrowWindow:SetVisible(not arrowWindow:IsVisible())
-        setSetting("arrowVisible", arrowWindow:IsVisible())
-        saveSettings()
+        toggleWindow(arrowWindow, "arrowVisible")
     elseif verb == "radius" and number then
-        setSetting("radius", math.floor(number))
-        saveSettings()
+        setRadius(number)
         write(L("radiusSet", setting("radius", 25)))
     elseif verb == "age" and number and number >= 1 then
-        setSetting("stale", math.floor(number))
-        saveSettings()
-        arrowWindow.staleSeconds = setting("stale", Pathfinder.ArrowWindow.DEFAULT_STALE_SECONDS)
-        arrowWindow:UpdateAge()
+        setAge(number)
         write(L("ageSet", arrowWindow.staleSeconds))
     elseif verb == "flip" then
-        setSetting("flip", not flip())
-        saveSettings()
+        setFlip(not flip())
         write(L(flip() and "flipped" or "notFlipped"))
-        refresh()
     elseif verb == "lang" and (rest == "de" or rest == "en") then
-        settings.lang = rest
-        saveSettings()
+        setLang(rest)
         local current = Pathfinder.Lang
         Pathfinder.Lang = rest
         write(L("langSet"))
@@ -555,6 +631,7 @@ mapWindow:SetAreasVisible(areasVisible())
 mapWindow:SetVisible(setting("mapVisible", 0) == 1)
 listWindow:SetVisible(setting("listVisible", 0) == 1)
 routeWindow:SetVisible(setting("routesVisible", 0) == 1)
+settingsWindow:SetVisible(setting("settingsVisible", 0) == 1)
 if progress.route ~= nil and Routes.byId[progress.route] ~= nil then
     state = newState(Routes.byId[progress.route])
     needsStart = true

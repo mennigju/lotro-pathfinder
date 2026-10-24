@@ -61,7 +61,7 @@ function ArrowWindow.MakeDraggable(window, control, onMoved)
 end
 
 -- app: { posCommand, OnSkip(), OnBack(), OnToggleRoutes(), OnToggleList(),
---        OnToggleMap(), OnMoved(x, y) }
+--        OnToggleMap(), OnToggleSettings(), OnMoved(x, y) }
 function ArrowWindow.Create(app, x, y)
     local self = {}
     local window = Turbine.UI.Window()
@@ -116,6 +116,7 @@ function ArrowWindow.Create(app, x, y)
     button(window, 4, BUTTON_Y, 58, Pathfinder.L("routesButton"), function() app.OnToggleRoutes() end)
     button(window, 66, BUTTON_Y, 50, Pathfinder.L("list"), function() app.OnToggleList() end)
     button(window, 120, BUTTON_Y, 50, Pathfinder.L("map"), function() app.OnToggleMap() end)
+    button(window, 174, BUTTON_Y, 62, Pathfinder.L("optionsButton"), function() app.OnToggleSettings() end)
 
     -- Refresh the "x s ago" text once a second
     local lastTick = 0
