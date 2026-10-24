@@ -1,0 +1,9 @@
+-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.
+Pathfinder.Routes.RegisterAreas({
+    map = 268451785,
+    region = 4,
+    areas = {
+        { lon = -11.03993, lat = -63.34933, radius = 94, count = 14, deed = "Feindbezwinger von Osgiliath", deed_en = "Foe-slayer of Osgiliath" },
+        { lon = -10.81099, lat = -62.33347, radius = 125, count = 12, deed = "Feindbezwinger von Osgiliath", deed_en = "Foe-slayer of Osgiliath" },
+    },
+})

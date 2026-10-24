@@ -1,0 +1,27 @@
+-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.
+Pathfinder.Routes.RegisterAreas({
+    map = 268442341,
+    region = 2,
+    areas = {
+        { lon = -96.05946, lat = -15.03923, radius = 117, count = 222, deed = "Namenlosen-Bezwinger / Namenlosen-Bezwingerin", deed_en = "Nameless-slayer" },
+        { lon = -98.38641, lat = -15.06199, radius = 124, count = 114, deed = "Namenlosen-Bezwinger / Namenlosen-Bezwingerin", deed_en = "Nameless-slayer" },
+        { lon = -96.10982, lat = -15.0162, radius = 130, count = 93, deed = "Spinnen-Bezwinger / Spinnen-Bezwingerin", deed_en = "Spider-slayer" },
+        { lon = -98.99162, lat = -13.01749, radius = 126, count = 64, deed = "Spinnen-Bezwinger / Spinnen-Bezwingerin", deed_en = "Spider-slayer" },
+        { lon = -98.36398, lat = -15.04096, radius = 122, count = 57, deed = "Spinnen-Bezwinger / Spinnen-Bezwingerin", deed_en = "Spider-slayer" },
+        { lon = -98.90805, lat = -13.05822, radius = 126, count = 50, deed = "Ork-Bezwinger / Ork-Bezwingerin", deed_en = "Orc-slayer" },
+        { lon = -98.92535, lat = -13.04315, radius = 128, count = 48, deed = "Bilwiss-Bezwinger / Bilwiss-Bezwingerin", deed_en = "Goblin-slayer" },
+        { lon = -98.92535, lat = -13.04315, radius = 128, count = 48, deed = "Grodbog-Bezwinger / Grodbog-Bezwingerin", deed_en = "Grodbog-slayer" },
+        { lon = -98.92535, lat = -13.04315, radius = 128, count = 48, deed = "Namenlosen-Bezwinger / Namenlosen-Bezwingerin", deed_en = "Nameless-slayer" },
+        { lon = -98.92535, lat = -13.04315, radius = 128, count = 48, deed = "Troll-Bezwinger / Troll-Bezwingerin", deed_en = "Troll-slayer" },
+        { lon = -101.57044, lat = -10.74924, radius = 98, count = 44, deed = "Ork-Bezwinger / Ork-Bezwingerin", deed_en = "Orc-slayer" },
+        { lon = -101.42162, lat = -13.8381, radius = 109, count = 40, deed = "Ork-Bezwinger / Ork-Bezwingerin", deed_en = "Orc-slayer" },
+        { lon = -101.40226, lat = -13.77177, radius = 99, count = 39, deed = "Troll-Bezwinger / Troll-Bezwingerin", deed_en = "Troll-slayer" },
+        { lon = -101.39428, lat = -13.84233, radius = 105, count = 38, deed = "Bilwiss-Bezwinger / Bilwiss-Bezwingerin", deed_en = "Goblin-slayer" },
+        { lon = -101.37048, lat = -13.80204, radius = 104, count = 35, deed = "Grodbog-Bezwinger / Grodbog-Bezwingerin", deed_en = "Grodbog-slayer" },
+        { lon = -97.33261, lat = -13.14107, radius = 118, count = 31, deed = "Bilwiss-Bezwinger / Bilwiss-Bezwingerin", deed_en = "Goblin-slayer" },
+        { lon = -97.33261, lat = -13.14107, radius = 118, count = 31, deed = "Grodbog-Bezwinger / Grodbog-Bezwingerin", deed_en = "Grodbog-slayer" },
+        { lon = -97.33261, lat = -13.14107, radius = 118, count = 31, deed = "Troll-Bezwinger / Troll-Bezwingerin", deed_en = "Troll-slayer" },
+        { lon = -101.40216, lat = -11.27176, radius = 43, count = 10, deed = "Tiefklauen-Bezwinger / Tiefklauen-Bezwingerin", deed_en = "Deep-claw Slayer" },
+        { lon = -101.40216, lat = -11.27176, radius = 43, count = 10, deed = "Zwergdrachen-Bezwinger / Zwergdrachen-Bezwingerin", deed_en = "Dragonet-slayer" },
+    },
+})

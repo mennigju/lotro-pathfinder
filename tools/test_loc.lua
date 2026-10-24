@@ -1,8 +1,9 @@
--- Tests fuer Loc.lua und RouteState.lua ausserhalb des Spiels: lua5.1 tools/test_loc.lua
+-- Tests fuer Loc.lua, RouteState.lua und Registry.lua ausserhalb des Spiels: lua5.1 tools/test_loc.lua
 
 local dir = arg[0]:match("^(.*)/tools/") or "."
 dofile(dir .. "/plugin/Pathfinder/Route/Loc.lua")
 dofile(dir .. "/plugin/Pathfinder/Route/RouteState.lua")
+dofile(dir .. "/plugin/Pathfinder/Route/Registry.lua")
 
 local Loc = Pathfinder.Loc
 local failures = 0
@@ -158,6 +159,20 @@ check("order missing keys appended", #Pathfinder.RouteState.New(big, {}, { "p8",
 bigState:Reset()
 check("reset built order", bigState:Order() == nil and bigState.points[2].key == "p2")
 check("reorder other region", bigState:Reorder({ region = 2, lon = 0, lat = 0 }) == false)
+
+-- Registry: slayer areas per region, routes without region (instances)
+local Routes = Pathfinder.Routes
+Routes.RegisterAreas({ map = 1, region = 1, areas = {
+    { lon = 1, lat = 2, radius = 100, count = 12, deed = "Wolf-Bezwinger", deed_en = "Wolf-slayer" },
+} })
+Routes.RegisterAreas({ map = 2, region = 2, areas = { { lon = 0, lat = 0, radius = 50, count = 5, deed = "X" } } })
+check("areas in region", #Routes.AreasIn(1) == 1 and Routes.AreasIn(1)[1].region == 1 and #Routes.AreasIn(3) == 0)
+local mapInfo = { factor = 10, lon = 0, lat = 10 }
+Routes.Register({ id = "inst", name = "Instanz", map = mapInfo, points = {} })
+Routes.Register({ id = "r2", name = "Region 2", region = 2, map = mapInfo, points = {} })
+local here = Routes.At({ region = 1, lon = 5, lat = 5 })
+check("route without region everywhere", #here == 1 and here[1].id == "inst")
+check("route in its region", #Routes.At({ region = 2, lon = 5, lat = 5 }) == 2)
 
 if failures == 0 then
     print("OK")

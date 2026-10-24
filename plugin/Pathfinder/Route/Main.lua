@@ -169,6 +169,10 @@ local function flip()
     return setting("flip", 0) == 1
 end
 
+local function areasVisible()
+    return setting("areas", 1) == 1
+end
+
 local function refresh()
     arrowWindow:Refresh(state, lastPos, posTime, flip())
     if mapWindow:IsVisible() then
@@ -439,6 +443,11 @@ function PathfinderCommand:Execute(cmd, arguments)
             write(L("ticked", point.name))
         end
         refresh()
+    elseif verb == "areas" then
+        setSetting("areas", not areasVisible())
+        saveSettings()
+        mapWindow:SetAreasVisible(areasVisible())
+        write(L(areasVisible() and "areasOn" or "areasOff"))
     elseif verb == "arrow" then
         arrowWindow:SetVisible(not arrowWindow:IsVisible())
         setSetting("arrowVisible", arrowWindow:IsVisible())
@@ -494,6 +503,7 @@ end
 
 arrowWindow.staleSeconds = setting("stale", Pathfinder.ArrowWindow.DEFAULT_STALE_SECONDS)
 arrowWindow:SetVisible(setting("arrowVisible", 1) == 1)
+mapWindow:SetAreasVisible(areasVisible())
 mapWindow:SetVisible(setting("mapVisible", 0) == 1)
 listWindow:SetVisible(setting("listVisible", 0) == 1)
 if progress.route ~= nil and Routes.byId[progress.route] ~= nil then

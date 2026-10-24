@@ -1,0 +1,28 @@
+-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.
+Pathfinder.Routes.RegisterAreas({
+    map = 268437691,
+    region = 1,
+    areas = {
+        { lon = -11.61239, lat = -33.46362, radius = 44, count = 183, deed = "Troll-Bezwinger / Troll-Bezwingerin", deed_en = "Troll-slayer" },
+        { lon = -11.58292, lat = -33.49183, radius = 48, count = 120, deed = "Riesen-Bezwinger / Riesen-Bezwingerin", deed_en = "Giant-slayer" },
+        { lon = -4.43255, lat = -22.38192, radius = 125, count = 97, deed = "Schneekreaturen-Bezwinger / Schneekreaturen-Bezwingerin", deed_en = "Snow-beast Slayer" },
+        { lon = 4.00463, lat = -29.25776, radius = 132, count = 93, deed = "Riesen-Bezwinger / Riesen-Bezwingerin", deed_en = "Giant-slayer" },
+        { lon = 8.02921, lat = -20.94151, radius = 125, count = 93, deed = "Warg-Bezwinger / Warg-Bezwingerin (mittelschwer)", deed_en = "Warg-slayer (Advanced)" },
+        { lon = 3.71531, lat = -30.85021, radius = 131, count = 85, deed = "Riesen-Bezwinger / Riesen-Bezwingerin", deed_en = "Giant-slayer" },
+        { lon = 0.59798, lat = -21.58898, radius = 135, count = 79, deed = "Warg-Bezwinger / Warg-Bezwingerin (mittelschwer)", deed_en = "Warg-slayer (Advanced)" },
+        { lon = 0.64177, lat = -29.2848, radius = 129, count = 76, deed = "Troll-Bezwinger / Troll-Bezwingerin", deed_en = "Troll-slayer" },
+        { lon = 0.58558, lat = -21.56013, radius = 132, count = 75, deed = "Warg-Bezwinger / Warg-Bezwingerin", deed_en = "Warg-slayer" },
+        { lon = 8.88773, lat = -26.70878, radius = 140, count = 75, deed = "Wurm-Bezwinger / Wurm-Bezwingerin", deed_en = "Worm-slayer" },
+        { lon = -2.7883, lat = -21.82888, radius = 128, count = 72, deed = "Schneekreaturen-Bezwinger / Schneekreaturen-Bezwingerin", deed_en = "Snow-beast Slayer" },
+        { lon = -2.38809, lat = -20.32536, radius = 122, count = 72, deed = "Schneekreaturen-Bezwinger / Schneekreaturen-Bezwingerin", deed_en = "Snow-beast Slayer" },
+        { lon = 0.56013, lat = -31.60951, radius = 118, count = 68, deed = "Troll-Bezwinger / Troll-Bezwingerin", deed_en = "Troll-slayer" },
+        { lon = 2.12727, lat = -22.85167, radius = 138, count = 59, deed = "Warg-Bezwinger / Warg-Bezwingerin (mittelschwer)", deed_en = "Warg-slayer (Advanced)" },
+        { lon = 2.07922, lat = -22.5783, radius = 140, count = 55, deed = "Warg-Bezwinger / Warg-Bezwingerin", deed_en = "Warg-slayer" },
+        { lon = 6.37393, lat = -25.62556, radius = 135, count = 51, deed = "Wurm-Bezwinger / Wurm-Bezwingerin", deed_en = "Worm-slayer" },
+        { lon = 2.93183, lat = -30.52468, radius = 131, count = 43, deed = "Bären-Bezwinger / Bären-Bezwingerin", deed_en = "Bear-slayer" },
+        { lon = 0.43025, lat = -25.06026, radius = 130, count = 42, deed = "Bären-Bezwinger / Bären-Bezwingerin", deed_en = "Bear-slayer" },
+        { lon = 4.00932, lat = -29.23724, radius = 129, count = 41, deed = "Bären-Bezwinger / Bären-Bezwingerin", deed_en = "Bear-slayer" },
+        { lon = -11.58292, lat = -33.49183, radius = 48, count = 40, deed = "Wurm-Bezwinger / Wurm-Bezwingerin", deed_en = "Worm-slayer" },
+        { lon = 1.00969, lat = -22.9891, radius = 131, count = 15, deed = "Warg-Bezwinger / Warg-Bezwingerin", deed_en = "Warg-slayer" },
+    },
+})

@@ -10,6 +10,10 @@ The map images come from lotro-maps-db as PNG (1024x768). The plugin API only
 shows TGA/JPG and can't reliably scale, so they are converted to JPG in the
 final display size (--scale) into plugin/Pathfinder/Route/Resources/Maps/.
 
+Slayer deeds have no targets to walk to. If the map markers are in the cache
+(tools/fetch_data.py --markers), the spots with the most matching monsters
+become farming areas per map, shown as circles on the plugin's map.
+
 Usage: python3 -I tools/build_routes.py [--types EXPLORER,LORE] [--map Breeland] [--scale 0.6]
 Run tools/fetch_data.py first.
 """
@@ -39,6 +43,18 @@ METERS_PER_UNIT = 200
 MIN_TARGETS = 3
 # Points this far outside their deed's map (in lon/lat units) belong elsewhere
 MAP_MARGIN = 0.5
+
+MARKERS = CACHE / "maps-db" / "markers"
+MONSTER_CATEGORY = "71"
+# Farming areas: spawns within AREA_REACH (lon/lat units) of a spawn count as
+# its neighbours, an area needs AREA_MIN_MOBS spawns, at most AREA_MAX per deed
+AREA_REACH = 0.75
+AREA_MIN_MOBS = 5
+AREA_MAX = 3
+AREA_RADIUS_M = (40, 300)
+# monsterSelection attribute -> attribute of the mob in mobs.xml
+SELECTION_FIELDS = {"genus": "genus", "species": "species", "subSpecies": "subSpecies",
+                    "mobDivision": "division"}
 
 
 def load_labels(path):
@@ -70,6 +86,13 @@ def load_maps(path, names_de):
     return maps
 
 
+def is_bestowal(cond, objective, objectives):
+    """Hidden enter trigger that only hands out the deed (e.g. at a raid
+    entrance), not a target: alone in its objective, more objectives follow."""
+    return (cond.tag == "enterDetection" and cond.get("showProgressText") == "false"
+            and len(objective) == 1 and len(objectives) > 1)
+
+
 def collect_targets(deeds_path, deed_names, marker_names, types):
     """Returns {(map_id, type): [target, ...]}; a target has 'options' (alternative points).
     map_id is None for deeds without a map, region 0 where the data has none."""
@@ -87,10 +110,15 @@ def collect_targets(deeds_path, deed_names, marker_names, types):
         deed_name_en = deed.get("name")
         deed_name = deed_names.get(deed_id) or deed_name_en
         number = 0
-        for objective in deed.iter("objective"):
+        objectives = list(deed.iter("objective"))
+        for objective in objectives:
             for cond in objective:
                 points = cond.findall(".//point")
                 if not points:
+                    continue
+                if is_bestowal(cond, objective, objectives):
+                    # Keep counting: the keys of the other targets stay stable
+                    number += 1
                     continue
                 did = (cond.get("landmarkId") or cond.get("itemId") or cond.get("npcId"))
                 base_name_en = cond.get("landmarkName") or cond.get("itemName") or cond.get("npcName")
@@ -184,6 +212,204 @@ def write_dropped(path, dropped, maps):
         points = " ".join(f"{lon:.2f}/{lat:.2f}" for lon, lat in t["options"])
         lines.append("\t".join([deed_type, t["deed_en"], t["name_en"], str(region or "?"), map_text, points]))
     path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def load_mobs(path):
+    """(field, value) -> set of mob ids, for the fields slayer deeds select by."""
+    index = defaultdict(set)
+    for mob in ET.parse(path).getroot().iter("mob"):
+        for field in SELECTION_FIELDS.values():
+            for value in (mob.get(field) or "").replace(",", " ").split():
+                index[(field, value)].add(mob.get("id"))
+    return index
+
+
+def select_mobs(selection, mobs):
+    """Ids of the mobs that match every attribute of a monsterSelection."""
+    sets = [mobs.get((SELECTION_FIELDS[name], value), set()) for name, value in selection.items()]
+    return set.intersection(*sets) if sets else set()
+
+
+def load_territory_maps(geo_path, parchment_path, maps):
+    """Territory id (landId of slayer deeds) -> map id: the map with the most
+    of the territory's areas (geoAreas.xml), only maps with geo data."""
+    parents = {a.get("id"): a.get("parentId") for a in ET.parse(geo_path).getroot().iter("area")}
+    counts = defaultdict(lambda: defaultdict(int))
+    for m in ET.parse(parchment_path).getroot().iter("parchmentMap"):
+        if m.get("id") not in maps:
+            continue
+        for area in m.iter("area"):
+            territory = parents.get(area.get("id"))
+            if territory:
+                counts[territory][m.get("id")] += 1
+    return {t: max(sorted(c), key=lambda mid: c[mid]) for t, c in counts.items()}
+
+
+def collect_slayer_deeds(deeds_path, deed_names, mobs, maps, map_regions, territory_maps):
+    """Slayer deeds: [{id, name, name_en, map, region, mobs}]. The map is the
+    deed's own or the one of the territory it names (landId), None if the
+    deed doesn't say where (then the monsters' division narrows it down)."""
+    result = []
+    skipped = []
+    for deed in ET.parse(deeds_path).getroot().iter("deed"):
+        if deed.get("type") != "SLAYER":
+            continue
+        map_id, region = None, 0
+        for map_el in deed.findall("map"):
+            if map_el.get("mapId") in maps:
+                map_id = map_el.get("mapId")
+                region = int(map_el.get("region", "0")) or map_regions.get(map_id, 0)
+                break
+        if map_id is None:
+            land = next((sel.get("landId") for sel in deed.iter("monsterSelection")
+                         if sel.get("landId") in territory_maps), None)
+            if land is not None:
+                map_id = territory_maps[land]
+                region = map_regions.get(map_id, 0)
+        mob_ids = set()
+        for died in deed.iter("monsterDied"):
+            if died.get("mobId"):
+                mob_ids.add(died.get("mobId"))
+            for selection in died.findall("monsterSelection"):
+                attrs = {k: v for k, v in selection.attrib.items() if k in SELECTION_FIELDS}
+                mob_ids |= select_mobs(attrs, mobs)
+        deed_id = deed.get("id")
+        info = {"id": deed_id, "name_en": deed.get("name"),
+                "name": deed_names.get(deed_id) or deed.get("name"),
+                "map": map_id, "region": region, "mobs": mob_ids}
+        if not mob_ids:
+            if deed.find(".//monsterDied") is not None:
+                skipped.append((info, "keine Mobs"))
+            continue
+        result.append(info)
+    return result, skipped
+
+
+def load_monster_spawns(mob_ids):
+    """Mob id -> [(region, lon, lat)] from the marker files (markers-<region>-...)."""
+    spawns = defaultdict(list)
+    for path in sorted(MARKERS.glob("markers-*.xml")):
+        region = int(path.stem.split("-")[1])
+        for _, el in ET.iterparse(path):
+            if el.tag == "marker":
+                if el.get("category") == MONSTER_CATEGORY and el.get("did") in mob_ids:
+                    spawns[el.get("did")].append(
+                        (region, float(el.get("longitude")), float(el.get("latitude"))))
+                el.clear()
+    return spawns
+
+
+def find_areas(points):
+    """Greedy density clusters: the spawn with the most neighbours, then the
+    next one among the rest. Returns [(center, radius_m, count)]."""
+    points = sorted(points)
+    reach2 = AREA_REACH * AREA_REACH
+
+    def cell(p):
+        return int(p[0] // AREA_REACH), int(p[1] // AREA_REACH)
+
+    cells = defaultdict(set)
+    for i, p in enumerate(points):
+        cells[cell(p)].add(i)
+
+    def neighbours(i):
+        x, y = points[i]
+        cx, cy = cell(points[i])
+        return [j for dx in (-1, 0, 1) for dy in (-1, 0, 1)
+                for j in cells.get((cx + dx, cy + dy), ())
+                if (points[j][0] - x) ** 2 + (points[j][1] - y) ** 2 <= reach2]
+
+    counts = {i: len(neighbours(i)) for i in range(len(points))}
+    areas = []
+    while len(areas) < AREA_MAX and counts:
+        best = max(counts, key=lambda i: (counts[i], -i))
+        if counts[best] < AREA_MIN_MOBS:
+            break
+        members = neighbours(best)
+        center = (sum(points[j][0] for j in members) / len(members),
+                  sum(points[j][1] for j in members) / len(members))
+        spread = sorted(dist(center, points[j]) for j in members)
+        radius = spread[int(0.8 * (len(spread) - 1))] * METERS_PER_UNIT
+        radius = min(max(radius, AREA_RADIUS_M[0]), AREA_RADIUS_M[1])
+        areas.append((center, radius, len(members)))
+        # Everything inside the circle (and a bit around it) is used up
+        reach = max(AREA_REACH, 1.5 * radius / METERS_PER_UNIT)
+        used = [j for j in counts if dist(center, points[j]) <= reach]
+        touched = set()
+        for j in used:
+            cells[cell(points[j])].discard(j)
+            del counts[j]
+            cx, cy = cell(points[j])
+            touched.update((cx + dx, cy + dy) for dx in (-1, 0, 1) for dy in (-1, 0, 1))
+        for c in touched:
+            for j in cells.get(c, ()):
+                counts[j] = len(neighbours(j))
+    return areas
+
+
+def build_areas(deeds_path, deed_names, maps, map_regions):
+    """Farming areas per map: {map_id: (region, [area, ...])}"""
+    mobs = load_mobs(CACHE / "lotro-data/mobs.xml")
+    territory_maps = load_territory_maps(CACHE / "lotro-data/geoAreas.xml",
+                                         CACHE / "lotro-data/parchmentMaps.xml", maps)
+    deeds, skipped = collect_slayer_deeds(deeds_path, deed_names, mobs, maps, map_regions, territory_maps)
+    spawns = load_monster_spawns(set().union(*(d["mobs"] for d in deeds)) if deeds else set())
+    # Tiers of a deed (e.g. advanced) select the same monsters: one set of
+    # circles, named after the shortest deed name
+    by_mobs = defaultdict(list)
+    for deed in deeds:
+        by_mobs[(deed["map"], frozenset(deed["mobs"]))].append(deed)
+    result = defaultdict(lambda: [0, []])
+    for (map_id, mob_ids), group in by_mobs.items():
+        deed = min(group, key=lambda d: (len(d["name_en"]), d["name_en"]))
+        found = sorted(s for mid in mob_ids for s in spawns.get(mid, ()))
+        region = deed["region"]
+        if not region and found:
+            # Deed without a place: the region with the most of its monsters
+            counts = defaultdict(int)
+            for r, _, _ in found:
+                counts[r] += 1
+            region = max(sorted(counts), key=lambda r: counts[r])
+        map_info = maps.get(map_id)
+        points = [(lon, lat) for r, lon, lat in found
+                  if r == region and (map_info is None or on_map((lon, lat), map_info))]
+        areas = find_areas(points)
+        if not areas:
+            skipped.extend((d, "keine Monster-Marker" + (" auf der Karte" if map_info else "")) for d in group)
+            continue
+        for center, radius, count in areas:
+            area_map = map_id or next(
+                (str(m["id"]) for m in [find_map([center], region, maps, map_regions)] if m), None)
+            if area_map is None:
+                continue
+            result[area_map][0] = map_regions.get(area_map) or region
+            result[area_map][1].append({"lon": center[0], "lat": center[1], "radius": round(radius),
+                                        "count": count, "deed": deed["name"], "deed_en": deed["name_en"]})
+    lines = ["# Slayer-Taten ohne Farmgebiet (tools/build_routes.py)", "# Tat\tKarte\tGrund"]
+    for deed, reason in sorted(skipped, key=lambda s: s[0]["name_en"]):
+        lines.append(f"{deed['name_en']}\t{deed['map']}\t{reason}")
+    (CACHE / "slayer_unmatched.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    total = sum(len(areas) for _, areas in result.values())
+    print(f"Slayer: {len(deeds) + len(skipped)} Taten, {total} Gebiete auf {len(result)} Karten, "
+          f"{len(skipped)} ohne Gebiet")
+    return result
+
+
+def write_areas(path, map_id, region, areas):
+    lines = [
+        "-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.",
+        "Pathfinder.Routes.RegisterAreas({",
+        f"    map = {map_id},",
+        f"    region = {region},",
+        "    areas = {",
+    ]
+    for a in sorted(areas, key=lambda a: -a["count"]):
+        lines.append(
+            f"        {{ lon = {lua_num(a['lon'])}, lat = {lua_num(a['lat'])}, radius = {a['radius']}, "
+            f"count = {a['count']}, deed = {lua_str(a['deed'])}" + english(a, "deed") + " },")
+    lines.append("    },")
+    lines.append("})")
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
@@ -336,6 +562,7 @@ def main():
     parser.add_argument("--scale", type=float, default=0.6,
                         help="map size in the game, share of 1024x768 (default 0.6)")
     parser.add_argument("--no-images", action="store_true", help="skip the map images")
+    parser.add_argument("--no-areas", action="store_true", help="keep the slayer areas as they are")
     args = parser.parse_args()
     types = [t.strip().upper() for t in args.types.split(",") if t.strip()]
 
@@ -383,9 +610,21 @@ def main():
             if old.name not in used_images:
                 old.unlink()
 
+    # Without the markers in the cache the existing areas stay as they are
+    if not args.no_areas and MARKERS.exists():
+        areas = build_areas(CACHE / "lotro-data/deeds.xml", deed_names, maps,
+                            load_map_regions(CACHE / "lotro-data/parchmentMaps.xml"))
+        for old in OUT.glob("A*.lua"):
+            old.unlink()
+        for map_id, (region, map_areas) in sorted(areas.items()):
+            write_areas(OUT / f"A{map_id}_SLAYER.lua", map_id, region, map_areas)
+    elif not args.no_areas:
+        print("Keine Monster-Marker im Cache (tools/fetch_data.py --markers): Slayer-Gebiete bleiben unveraendert")
+    area_modules = sorted(path.stem for path in OUT.glob("A*.lua"))
+
     init = ["-- Generiert von tools/build_routes.py. Laedt alle Routen.",
             f"Pathfinder.Routes.MAP_SCALE = {lua_num(args.scale)}"]
-    init += [f'import "{PACKAGE}.{m}"' for m in modules]
+    init += [f'import "{PACKAGE}.{m}"' for m in modules + area_modules]
     (OUT / "__init__.lua").write_text("\n".join(init) + "\n", encoding="utf-8")
     print(f"{len(modules)} Routen, {total_targets} Ziele -> {OUT}")
     return 0

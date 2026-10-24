@@ -1,0 +1,26 @@
+-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.
+Pathfinder.Routes.RegisterAreas({
+    map = 268442268,
+    region = 1,
+    areas = {
+        { lon = -12.20996, lat = -56.06578, radius = 121, count = 250, deed = "Dunländer-Bezwinger / Dunländer-Bezwingerin", deed_en = "Dunlending-slayer" },
+        { lon = -14.26487, lat = -48.72901, radius = 130, count = 250, deed = "Halbork-Bezwinger / Halbork-Bezwingerin", deed_en = "Half-orc Slayer" },
+        { lon = -13.06794, lat = -50.46835, radius = 132, count = 222, deed = "Halbork-Bezwinger / Halbork-Bezwingerin", deed_en = "Half-orc Slayer" },
+        { lon = -17.70237, lat = -50.62613, radius = 136, count = 193, deed = "Halbork-Bezwinger / Halbork-Bezwingerin", deed_en = "Half-orc Slayer" },
+        { lon = -9.31894, lat = -53.41436, radius = 131, count = 186, deed = "Dunländer-Bezwinger / Dunländer-Bezwingerin", deed_en = "Dunlending-slayer" },
+        { lon = -15.68728, lat = -59.29934, radius = 104, count = 185, deed = "Dunländer-Bezwinger / Dunländer-Bezwingerin", deed_en = "Dunlending-slayer" },
+        { lon = -10.03098, lat = -45.64374, radius = 134, count = 168, deed = "Bezwinger / Bezwingerin von Wölfen und Wargen", deed_en = "Wolf and Warg-slayer" },
+        { lon = -9.35506, lat = -53.48612, radius = 129, count = 162, deed = "Bezwinger / Bezwingerin von Wölfen und Wargen", deed_en = "Wolf and Warg-slayer" },
+        { lon = -21.7872, lat = -56.96292, radius = 102, count = 148, deed = "Bezwinger / Bezwingerin von Wölfen und Wargen", deed_en = "Wolf and Warg-slayer" },
+        { lon = -12.32408, lat = -55.86928, radius = 121, count = 140, deed = "Bezwinger / Bezwingerin von Echsen und Kriechern", deed_en = "Lizard and Crawler-slayer" },
+        { lon = -13.26493, lat = -54.21465, radius = 138, count = 105, deed = "Bezwinger / Bezwingerin von Echsen und Kriechern", deed_en = "Lizard and Crawler-slayer" },
+        { lon = -11.10527, lat = -43.72767, radius = 134, count = 102, deed = "Crebain-Bezwinger / Crebain-Bezwingerin", deed_en = "Craban-slayer" },
+        { lon = -10.59074, lat = -41.5546, radius = 131, count = 101, deed = "Crebain-Bezwinger / Crebain-Bezwingerin", deed_en = "Craban-slayer" },
+        { lon = -8.8635, lat = -41.55389, radius = 134, count = 98, deed = "Crebain-Bezwinger / Crebain-Bezwingerin", deed_en = "Craban-slayer" },
+        { lon = -14.30353, lat = -52.59661, radius = 135, count = 90, deed = "Bezwinger / Bezwingerin von Echsen und Kriechern", deed_en = "Lizard and Crawler-slayer" },
+        { lon = -19.17059, lat = -53.46854, radius = 66, count = 46, deed = "Die Gefolgsleute des Blassen Volkes", deed_en = "The Pale Followers" },
+        { lon = -19.15557, lat = -53.68567, radius = 83, count = 39, deed = "Gelehrte aus Angmar", deed_en = "Scholars from Angmar" },
+        { lon = -18.49818, lat = -52.39769, radius = 88, count = 29, deed = "Soldaten des Feindes", deed_en = "Soldiers of the Enemy" },
+        { lon = -16.70296, lat = -52.42532, radius = 40, count = 8, deed = "Gelehrte aus Angmar", deed_en = "Scholars from Angmar" },
+    },
+})

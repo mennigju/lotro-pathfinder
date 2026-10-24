@@ -3,7 +3,7 @@
 
 Pathfinder = Pathfinder or {}
 
-local Routes = { list = {}, byId = {} }
+local Routes = { list = {}, byId = {}, areas = {} }
 Pathfinder.Routes = Routes
 
 -- The map images are 1024x768 pixels, factor = pixels per lon/lat unit
@@ -31,6 +31,27 @@ function Routes.Register(route)
     localize(route)
     table.insert(Routes.list, route)
     Routes.byId[route.id] = route
+end
+
+-- Slayer farming areas of a map: circles where many monsters of a deed are
+function Routes.RegisterAreas(group)
+    for _, area in ipairs(group.areas) do
+        if Pathfinder.Lang == "en" then
+            area.deed = area.deed_en or area.deed
+        end
+        area.region = group.region
+        table.insert(Routes.areas, area)
+    end
+end
+
+function Routes.AreasIn(region)
+    local result = {}
+    for _, area in ipairs(Routes.areas) do
+        if area.region == region then
+            table.insert(result, area)
+        end
+    end
+    return result
 end
 
 function Routes.Contains(route, lon, lat)
