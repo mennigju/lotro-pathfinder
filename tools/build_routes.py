@@ -4,7 +4,9 @@
 Collects every deed objective with coordinates (explorer and lore deeds),
 groups them by map, orders them as a short path (nearest neighbour + 2-opt,
 alternative trigger points of a landmark choose the cheapest) and writes one
-Lua file per map and deed type into plugin/Pathfinder/Route/Routes/.
+Lua file per map and deed type into plugin/Pathfinder/Route/Routes/. Regions
+with several maps also get one route over all of them (G<region>_<type>),
+map by map; its targets keep their keys, so the progress is shared.
 
 The map images come from lotro-maps-db as PNG (1024x768). The plugin API only
 shows TGA/JPG and can't reliably scale, so they are converted to JPG in the
@@ -229,6 +231,12 @@ def select_mobs(selection, mobs):
     """Ids of the mobs that match every attribute of a monsterSelection."""
     sets = [mobs.get((SELECTION_FIELDS[name], value), set()) for name, value in selection.items()]
     return set.intersection(*sets) if sets else set()
+
+
+def load_region_names(path, names_de):
+    """Region code (as in /loc and parchmentMaps.xml) -> (German, English) name."""
+    return {int(r.get("code")): (names_de.get(r.get("id")) or r.get("name"), r.get("name"))
+            for r in ET.parse(path).getroot().iter("region")}
 
 
 def load_territory_maps(geo_path, parchment_path, maps):
@@ -526,7 +534,16 @@ def english(item, field):
     return f", {field}_en = {lua_str(text)}"
 
 
-def write_route(path, route_id, name, region, map_info, targets, image_file):
+def map_lua(map_info, image_file):
+    return (f"{{ id = {map_info['id']}, image = {map_info['imageId']}, "
+            f"factor = {lua_num(map_info['factor'])}, lon = {lua_num(map_info['lon'])}, "
+            f"lat = {lua_num(map_info['lat'])}"
+            + (f", file = {lua_str(image_file)}" if image_file else "") + " }")
+
+
+def write_route(path, route_id, name, region, map_info, targets, image_file, section_maps=None):
+    """section_maps: {map_id: (map_info, image_file)} for a route over several
+    maps; its targets then name their map."""
     lines = [
         "-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.",
         "Pathfinder.Routes.Register({",
@@ -538,21 +555,45 @@ def write_route(path, route_id, name, region, map_info, targets, image_file):
     if region:
         lines.append(f"    region = {region},")
     if map_info:
-        lines.append(
-            f"    map = {{ id = {map_info['id']}, image = {map_info['imageId']}, "
-            f"factor = {lua_num(map_info['factor'])}, lon = {lua_num(map_info['lon'])}, "
-            f"lat = {lua_num(map_info['lat'])}"
-            + (f", file = {lua_str(image_file)}" if image_file else "") + " },")
+        lines.append(f"    map = {map_lua(map_info, image_file)},")
+    if section_maps:
+        lines.append("    maps = {")
+        for map_id, (info, file) in sorted(section_maps.items()):
+            lines.append(f"        [{map_id}] = {map_lua(info, file)},")
+        lines.append("    },")
     lines.append("    points = {")
     for t in targets:
         lon, lat = t["point"]
         lines.append(
             f"        {{ key = {lua_str(t['key'])}, lon = {lua_num(lon)}, lat = {lua_num(lat)}, "
-            f"name = {lua_str(t['name'])}, deed = {lua_str(t['deed'])}"
+            + (f"map = {t['map']}, " if section_maps else "")
+            + f"name = {lua_str(t['name'])}, deed = {lua_str(t['deed'])}"
             + english(t, "name") + english(t, "deed") + " },")
     lines.append("    },")
     lines.append("})")
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def chain_sections(sections):
+    """Joins the ordered targets of several maps: maps by nearest neighbour
+    from the westernmost one, each section turned round where that is shorter."""
+    def center(targets):
+        return (sum(t["point"][0] for t in targets) / len(targets),
+                sum(t["point"][1] for t in targets) / len(targets))
+
+    left = list(sections)
+    current = min(left, key=lambda s: (center(s[1])[0], s[0]))
+    left.remove(current)
+    result = list(current[1])
+    while left:
+        last = result[-1]["point"]
+        current = min(left, key=lambda s: (min(dist(last, s[1][0]["point"]), dist(last, s[1][-1]["point"])), s[0]))
+        left.remove(current)
+        section = current[1]
+        if dist(last, section[-1]["point"]) < dist(last, section[0]["point"]):
+            section = section[::-1]
+        result.extend(section)
+    return result
 
 
 def main():
@@ -573,37 +614,66 @@ def main():
     groups = collect_targets(CACHE / "lotro-data/deeds.xml", deed_names, marker_names, types)
 
     OUT.mkdir(parents=True, exist_ok=True)
-    for old in OUT.glob("R*.lua"):
+    for old in list(OUT.glob("R*.lua")) + list(OUT.glob("G*.lua")):
         old.unlink()
 
-    groups, regions = assign_maps(groups, maps, load_map_regions(CACHE / "lotro-data/parchmentMaps.xml"),
-                                  CACHE / "dropped_targets.txt")
+    map_regions = load_map_regions(CACHE / "lotro-data/parchmentMaps.xml")
+    groups, regions = assign_maps(groups, maps, map_regions, CACHE / "dropped_targets.txt")
 
     modules = []
     used_images = set()
     total_targets = 0
+
+    def image_for(map_id):
+        if args.no_images or map_id not in maps:
+            return None
+        image_file = make_map_image(map_id, args.scale)
+        if image_file:
+            used_images.add(Path(image_file).name)
+        return image_file
+
+    # (region, type) -> [(map_id, ordered targets)] for the region routes
+    sections = defaultdict(list)
     for (map_id, deed_type), targets in sorted(groups.items(), key=lambda kv: (maps.get(kv[0][0], {}).get("name", ""), kv[0][1])):
         map_info = maps.get(map_id)
         map_name = map_info["name"] if map_info else f"Karte {map_id}"
         map_name_en = map_info["name_en"] if map_info else f"Map {map_id}"
         if args.map and args.map.lower() not in (map_name + " " + map_name_en).lower():
             continue
+        ordered = order_targets(targets)
+        if map_info and regions[map_id]:
+            for t in ordered:
+                t["map"] = map_info["id"]
+            sections[(regions[map_id], deed_type)].append((map_id, ordered))
         if len(targets) < MIN_TARGETS:
             continue
-        ordered = order_targets(targets)
         length_m = path_length([t["point"] for t in ordered]) * METERS_PER_UNIT
         module = module_name(map_id, deed_type)
         type_de, type_en = TYPE_NAMES.get(deed_type, (deed_type, deed_type))
         name = (f"{map_name} - {type_de}", f"{map_name_en} - {type_en}")
-        image_file = None
-        if map_info and not args.no_images:
-            image_file = make_map_image(map_id, args.scale)
-            if image_file:
-                used_images.add(Path(image_file).name)
-        write_route(OUT / f"{module}.lua", module, name, regions[map_id], map_info, ordered, image_file)
+        write_route(OUT / f"{module}.lua", module, name, regions[map_id], map_info, ordered, image_for(map_id))
         modules.append(module)
         total_targets += len(ordered)
         print(f"{name[0]}: {len(ordered)} Ziele, {length_m / 1000:.1f} km")
+
+    # One route over all maps of a region
+    region_names = load_region_names(CACHE / "lotro-data/geoAreas.xml",
+                                     load_labels(CACHE / "lotro-data/labels/de/geoAreas.xml"))
+    for (region, deed_type), parts in sorted(sections.items()):
+        if args.map or len(parts) < 2:
+            continue
+        ordered = chain_sections(parts)
+        type_de, type_en = TYPE_NAMES.get(deed_type, (deed_type, deed_type))
+        region_de, region_en = region_names.get(region, (f"Region {region}", f"Region {region}"))
+        name = (f"{region_de} - {type_de} (Region)", f"{region_en} - {type_en} (region)")
+        section_maps = {map_id: (maps[map_id], image_for(map_id)) for map_id, _ in parts}
+        first = parts[0][0] if not ordered else str(ordered[0]["map"])
+        module = f"G{region}_{deed_type}"
+        write_route(OUT / f"{module}.lua", module, name, region, maps[first], ordered,
+                    section_maps[first][1], section_maps)
+        modules.append(module)
+        length_m = path_length([t["point"] for t in ordered]) * METERS_PER_UNIT
+        print(f"{name[0]}: {len(ordered)} Ziele auf {len(parts)} Karten, {length_m / 1000:.1f} km")
 
     if not args.no_images and not args.map:
         for old in MAPS_OUT.glob("*.jpg"):
@@ -612,8 +682,7 @@ def main():
 
     # Without the markers in the cache the existing areas stay as they are
     if not args.no_areas and MARKERS.exists():
-        areas = build_areas(CACHE / "lotro-data/deeds.xml", deed_names, maps,
-                            load_map_regions(CACHE / "lotro-data/parchmentMaps.xml"))
+        areas = build_areas(CACHE / "lotro-data/deeds.xml", deed_names, maps, map_regions)
         for old in OUT.glob("A*.lua"):
             old.unlink()
         for map_id, (region, map_areas) in sorted(areas.items()):
@@ -626,7 +695,7 @@ def main():
             f"Pathfinder.Routes.MAP_SCALE = {lua_num(args.scale)}"]
     init += [f'import "{PACKAGE}.{m}"' for m in modules + area_modules]
     (OUT / "__init__.lua").write_text("\n".join(init) + "\n", encoding="utf-8")
-    print(f"{len(modules)} Routen, {total_targets} Ziele -> {OUT}")
+    print(f"{len(modules)} Routen, {total_targets} Ziele auf Karten -> {OUT}")
     return 0
 
 

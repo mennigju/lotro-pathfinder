@@ -21,6 +21,7 @@ FILES = [
     ("lotro-data", "lore/deeds.xml", "lotro-data/deeds.xml"),
     ("lotro-data", "lore/mobs.xml", "lotro-data/mobs.xml"),
     ("lotro-data", "lore/geoAreas.xml", "lotro-data/geoAreas.xml"),
+    ("lotro-data", "lore/labels/de/geoAreas.xml", "lotro-data/labels/de/geoAreas.xml"),
     ("lotro-data", "lore/labels/de/deeds.xml", "lotro-data/labels/de/deeds.xml"),
     ("lotro-data", "lore/parchmentMaps.xml", "lotro-data/parchmentMaps.xml"),
     ("lotro-maps-db", "maps/maps.xml", "maps-db/maps/maps.xml"),

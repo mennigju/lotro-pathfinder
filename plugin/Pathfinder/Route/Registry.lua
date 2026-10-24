@@ -54,18 +54,27 @@ function Routes.AreasIn(region)
     return result
 end
 
-function Routes.Contains(route, lon, lat)
-    local map = route.map
-    if map == nil then
-        return false
-    end
+local function mapContains(map, lon, lat)
     local x = (lon - map.lon) * map.factor
     local y = (map.lat - lat) * map.factor
     return x >= 0 and y >= 0 and x <= Routes.MAP_WIDTH and y <= Routes.MAP_HEIGHT
 end
 
--- Routes whose map contains the position, most detailed map first.
--- Routes without region (instances) count in every region.
+-- Routes over several maps (region routes) check each of them
+function Routes.Contains(route, lon, lat)
+    if route.maps ~= nil then
+        for _, map in pairs(route.maps) do
+            if mapContains(map, lon, lat) then
+                return true
+            end
+        end
+        return false
+    end
+    return route.map ~= nil and mapContains(route.map, lon, lat)
+end
+
+-- Routes whose map contains the position, most detailed map first, region
+-- routes last. Routes without region (instances) count in every region.
 function Routes.At(pos)
     local result = {}
     for _, route in ipairs(Routes.list) do
@@ -74,6 +83,9 @@ function Routes.At(pos)
         end
     end
     table.sort(result, function(a, b)
+        if (a.maps == nil) ~= (b.maps == nil) then
+            return a.maps == nil
+        end
         if a.map.factor ~= b.map.factor then
             return a.map.factor > b.map.factor
         end

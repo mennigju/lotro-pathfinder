@@ -126,7 +126,8 @@ import "Pathfinder.Route.Routes"
 -- Progress (per character) -------------------------------------------------
 
 local progress = load(Turbine.DataScope.Character, PROGRESS_KEY)
-progress.done = progress.done or {}
+-- Done point keys of all routes in one set: map and region routes share them
+progress.done = Pathfinder.RouteState.FlattenDone(progress.done)
 -- Walking order from /pf neu per route, keys joined with ","
 progress.order = progress.order or {}
 
@@ -140,12 +141,9 @@ end
 
 local function saveProgress()
     local done = {}
-    for routeId, keys in pairs(progress.done) do
-        done[routeId] = {}
-        for key, value in pairs(keys) do
-            if value then
-                done[routeId][key] = "1"
-            end
+    for key, value in pairs(progress.done) do
+        if value then
+            done[key] = "1"
         end
     end
     save(Turbine.DataScope.Character, PROGRESS_KEY, { route = progress.route, done = done, order = progress.order })
@@ -191,9 +189,19 @@ local function toggleWindow(window, name)
 end
 
 local function newState(route)
-    progress.done[route.id] = progress.done[route.id] or {}
     local order = progress.order[route.id]
-    return Pathfinder.RouteState.New(route, progress.done[route.id], order and splitKeys(order) or nil)
+    return Pathfinder.RouteState.New(route, progress.done, order and splitKeys(order) or nil)
+end
+
+-- Done and total points of a route
+local function routeProgress(route)
+    local done = 0
+    for _, point in ipairs(route.points) do
+        if progress.done[point.key] then
+            done = done + 1
+        end
+    end
+    return done, #route.points
 end
 
 local function saveOrder()
@@ -357,11 +365,7 @@ local function printList(list, title)
             write(L("listMore", #list - LIST_MAX))
             break
         end
-        local done = 0
-        for _ in pairs(progress.done[route.id] or {}) do
-            done = done + 1
-        end
-        Turbine.Shell.WriteLine(string.format("  %d. %s  (%d/%d)", i, route.name, done, #route.points))
+        Turbine.Shell.WriteLine(string.format("  %d. %s  (%d/%d)", i, route.name, routeProgress(route)))
     end
 end
 

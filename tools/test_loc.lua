@@ -160,6 +160,36 @@ bigState:Reset()
 check("reset built order", bigState:Order() == nil and bigState.points[2].key == "p2")
 check("reorder other region", bigState:Reorder({ region = 2, lon = 0, lat = 0 }) == false)
 
+-- Shared progress: map and region routes have the same keys
+local flat = Pathfinder.RouteState.FlattenDone({ R1_EXPLORER = { a = "1", b = "1" }, R2_LORE = { c = "1" } })
+check("flatten old format", flat.a and flat.b and flat.c)
+flat = Pathfinder.RouteState.FlattenDone({ a = "1", x = "1" })
+check("flatten new format", flat.a and flat.x and not flat.b)
+check("flatten nil", next(Pathfinder.RouteState.FlattenDone(nil)) == nil)
+local shared = {}
+local mapA = { id = 1, factor = 10, lon = 0, lat = 10 }
+local mapB = { id = 2, factor = 20, lon = 5, lat = 10 }
+local routeA = { id = "RA", region = 1, map = mapA, points = {
+    { key = "k1", lon = 1, lat = 1, name = "Eins", deed = "D" },
+    { key = "k2", lon = 2, lat = 1, name = "Zwei", deed = "D" },
+} }
+local regionRoute = { id = "G1", region = 1, map = mapA, maps = { [1] = mapA, [2] = mapB }, points = {
+    { key = "k1", lon = 1, lat = 1, map = 1, name = "Eins", deed = "D" },
+    { key = "k2", lon = 2, lat = 1, map = 1, name = "Zwei", deed = "D" },
+    { key = "k3", lon = 6, lat = 1, map = 2, name = "Drei", deed = "E" },
+} }
+local stateA = Pathfinder.RouteState.New(routeA, shared)
+local stateG = Pathfinder.RouteState.New(regionRoute, shared)
+stateA:SetDone(routeA.points[1], true)
+check("shared progress", stateG:IsDone(regionRoute.points[1]) and stateG:DoneCount() == 1)
+check("map of point", stateG:MapOf(regionRoute.points[3]) == mapB and stateG:MapOf(regionRoute.points[1]) == mapA)
+check("map of point single map", stateA:MapOf(routeA.points[1]) == mapA)
+stateG:SetDone(regionRoute.points[2], true)
+check("map follows current", stateG:MapOf(stateG:Current()) == mapB)
+stateG:SetDone(regionRoute.points[3], true)
+stateA:Reset()
+check("reset own keys only", not shared.k1 and not shared.k2 and shared.k3)
+
 -- Registry: slayer areas per region, routes without region (instances)
 local Routes = Pathfinder.Routes
 Routes.RegisterAreas({ map = 1, region = 1, areas = {
@@ -173,6 +203,13 @@ Routes.Register({ id = "r2", name = "Region 2", region = 2, map = mapInfo, point
 local here = Routes.At({ region = 1, lon = 5, lat = 5 })
 check("route without region everywhere", #here == 1 and here[1].id == "inst")
 check("route in its region", #Routes.At({ region = 2, lon = 5, lat = 5 }) == 2)
+-- Region route: found on each of its maps, after the map routes
+Routes.Register({ id = "g2", name = "A Region", region = 2, map = mapInfo,
+    maps = { [1] = mapInfo, [2] = { factor = 10, lon = 200, lat = 10 } }, points = {} })
+local inRegion = Routes.At({ region = 2, lon = 205, lat = 5 })
+check("region route on second map", #inRegion == 1 and inRegion[1].id == "g2")
+inRegion = Routes.At({ region = 2, lon = 5, lat = 5 })
+check("region route last", #inRegion == 3 and inRegion[3].id == "g2")
 
 if failures == 0 then
     print("OK")

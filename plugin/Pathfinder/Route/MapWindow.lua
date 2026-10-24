@@ -95,12 +95,14 @@ function MapWindow:IsVisible()
     return self.window:IsVisible()
 end
 
--- New map image for a route (or none)
-function MapWindow:SetRoute(route)
-    if self.route == route then
+-- New map image for a route (or none). Region routes change the map with
+-- the current target.
+function MapWindow:SetMap(route, map)
+    if self.route == route and self.map == map then
         return
     end
     self.route = route
+    self.map = map
     if self.image ~= nil then
         self.image:SetParent(nil)
     end
@@ -119,10 +121,10 @@ function MapWindow:SetRoute(route)
     image:SetPosition(MARGIN_X, MARGIN_TOP)
     image:SetSize(self.width, self.height)
     image:SetMouseVisible(false)
-    if route ~= nil and route.map ~= nil then
+    if route ~= nil and map ~= nil then
         self.window:SetText("Pathfinder - " .. route.name)
-        local ok = route.map.file ~= nil and pcall(function()
-            image:SetBackground(route.map.file)
+        local ok = map.file ~= nil and pcall(function()
+            image:SetBackground(map.file)
         end)
         if not ok then
             self.info:SetText(Pathfinder.L("noMapImage"))
@@ -144,6 +146,7 @@ end
 
 -- Rings for the slayer areas of the route's region that lie on the map
 function MapWindow:BuildAreas(route)
+    local map = self.map
     local layer = Turbine.UI.Control()
     layer:SetParent(self.window)
     layer:SetPosition(MARGIN_X, MARGIN_TOP)
@@ -151,10 +154,10 @@ function MapWindow:BuildAreas(route)
     layer:SetMouseVisible(false)
     layer:SetVisible(self.areasVisible)
     self.areaLayer = layer
-    if route == nil or route.map == nil or route.region == nil then
+    if route == nil or map == nil or route.region == nil then
         return
     end
-    local pixelsPerMeter = route.map.factor * self.scale / Pathfinder.Loc.METERS_PER_UNIT
+    local pixelsPerMeter = map.factor * self.scale / Pathfinder.Loc.METERS_PER_UNIT
     for _, area in ipairs(Pathfinder.Routes.AreasIn(route.region)) do
         local x, y = self:Project(area.lon, area.lat)
         if x ~= nil then
@@ -174,7 +177,7 @@ end
 
 -- lon/lat -> pixel on the scaled map, nil if outside
 function MapWindow:Project(lon, lat)
-    local map = self.route and self.route.map
+    local map = self.map
     if map == nil then
         return nil
     end
@@ -214,18 +217,21 @@ function MapWindow:Line(x1, y1, x2, y2)
 end
 
 function MapWindow:Refresh(state, pos, flip)
-    self:SetRoute(state and state.route)
+    local current = state and state:Current()
+    self:SetMap(state and state.route, state and state:MapOf(current or state.points[1]))
     self.state = state
     if state == nil or self.layer == nil then
         self.info:SetText(Pathfinder.L("noRouteSelected"))
         return
     end
 
-    -- Markers: one per point, recoloured on every refresh
-    local current = state:Current()
+    -- Markers: one per point of the shown map, recoloured on every refresh
     for i, point in ipairs(state.route.points) do
         local marker = self.markers[i]
-        local x, y = self:Project(point.lon, point.lat)
+        local x, y
+        if state:MapOf(point) == self.map then
+            x, y = self:Project(point.lon, point.lat)
+        end
         if marker == nil and x ~= nil then
             marker = self:Square(7, COLOR_OPEN, x, y, true)
             marker.MouseEnter = function()
