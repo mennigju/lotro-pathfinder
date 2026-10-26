@@ -1,0 +1,75 @@
+name: Data update
+
+# Regenerates routes, map images and slayer areas from the current
+# LotroCompanion data and opens (or updates) a PR on the branch data-update.
+on:
+  schedule:
+    - cron: '17 4 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency: data-update
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Install Lua 5.1
+        run: sudo apt-get update && sudo apt-get install -y lua5.1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install Pillow
+        run: pip install pillow
+      - name: Fetch data
+        run: python3 -I tools/fetch_data.py --markers
+      - name: Build routes
+        run: python3 -I tools/build_routes.py
+      - name: Check for changes
+        id: changes
+        run: |
+          if [ -n "$(git status --porcelain -- plugin tools/map_sources.txt)" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No changes"
+          fi
+      # PRs opened with the GITHUB_TOKEN don't trigger ci.yml: test here
+      - name: Syntax check
+        if: steps.changes.outputs.changed
+        run: for f in plugin/Pathfinder/Route/*.lua plugin/Pathfinder/Route/Routes/*.lua; do luac5.1 -p "$f"; done
+      - name: Tests
+        if: steps.changes.outputs.changed
+        run: lua5.1 tools/test_loc.lua
+      - name: Open pull request
+        if: steps.changes.outputs.changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 -I tools/summarize_changes.py > "$RUNNER_TEMP/body.md" || true
+          {
+            echo
+            echo "---"
+            for repo in lotro-data lotro-maps-db; do
+              sha=$(git ls-remote "https://github.com/LotroCompanion/$repo" HEAD | cut -c1-10)
+              echo "LotroCompanion/$repo: \`$sha\`  "
+            done
+            echo "Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          } >> "$RUNNER_TEMP/body.md"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -C data-update
+          git add plugin tools/map_sources.txt
+          git commit -q -m "Data update from LotroCompanion"
+          git push -f origin data-update
+          if [ "$(gh pr view data-update --json state -q .state 2>/dev/null)" = "OPEN" ]; then
+            gh pr edit data-update --body-file "$RUNNER_TEMP/body.md"
+          else
+            gh pr create --base main --head data-update --title "Data update from LotroCompanion" \
+              --body-file "$RUNNER_TEMP/body.md" --label enhancement
+          fi
