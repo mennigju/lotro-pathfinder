@@ -3,6 +3,6 @@ Pathfinder.Routes.RegisterAreas({
     map = 1879459099,
     region = 1,
     areas = {
-        { lon = 45.04995, lat = 76.62427, radius = 73, count = 121, deed = "Bezwinger von Thaurisgar", deed_en = "Slayer of Thaurisgar" },
+        { lon = 45.0527, lat = 76.61533, radius = 72, count = 110, deed = "Bezwinger von Thaurisgar", deed_en = "Slayer of Thaurisgar" },
     },
 })

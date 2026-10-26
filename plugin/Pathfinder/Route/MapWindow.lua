@@ -33,6 +33,20 @@ local function ringSize(diameter)
     return best
 end
 
+-- Spawn points in a slayer circle -> rough level. Not all of them are taken
+-- at once, so a number would promise too much (bounds: quartiles of all areas)
+local AREA_SOME = 40
+local AREA_LOTS = 85
+
+local function areaLevel(count)
+    if count < AREA_SOME then
+        return "areaSome"
+    elseif count < AREA_LOTS then
+        return "areaMany"
+    end
+    return "areaLots"
+end
+
 -- app: { OnMoved(x, y), OnClosed(), OnTogglePoint(point) }
 -- scale must match the JPGs from tools/build_routes.py (Routes.MAP_SCALE):
 -- the images are shown 1:1, the game doesn't scale them
@@ -170,7 +184,7 @@ function MapWindow:BuildAreas(route)
             ring:SetBlendMode(Turbine.UI.BlendMode.AlphaBlend)
             ring:SetBackground(RESOURCES .. "ring_" .. size .. ".tga")
             ring.MouseEnter = function()
-                self.info:SetText(Pathfinder.L("mapArea", area.deed, area.count))
+                self.info:SetText(Pathfinder.L("mapArea", area.deed, Pathfinder.L(areaLevel(area.count))))
             end
         end
     end

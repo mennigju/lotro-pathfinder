@@ -28,10 +28,11 @@ python3 -I tools/package.py           # dist/Pathfinder-<version>.zip
 ```
 
 The slayer areas need the map markers (`fetch_data.py --markers`): every
-spawn of every monster. `build_routes.py` matches the slayer deeds' monster
-selection against `mobs.xml`, takes the deed's map (or the map of the
-territory it names) and puts circles on the densest spots. Deeds it can't
-place are listed in `cache/slayer_unmatched.txt`, targets without a map in
+spawn point, once per monster that may appear there. `build_routes.py`
+matches the slayer deeds' monster selection against `mobs.xml`, takes the
+deed's map (or the map of the territory it names) and puts circles on the
+densest spots. Deeds it can't place are listed in
+`cache/slayer_unmatched.txt`, targets without a map in
 `cache/dropped_targets.txt`. Without the markers (or with `--no-areas`)
 the existing area files stay as they are.
 

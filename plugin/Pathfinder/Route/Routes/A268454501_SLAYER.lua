@@ -3,6 +3,6 @@ Pathfinder.Routes.RegisterAreas({
     map = 268454501,
     region = 5,
     areas = {
-        { lon = -139.03356, lat = -114.36715, radius = 112, count = 332, deed = "Kultisten-Bezwinger von Kamrabezûr", deed_en = "Cultist-slayer of Kamrabezûr" },
+        { lon = -139.02877, lat = -114.36579, radius = 111, count = 112, deed = "Kultisten-Bezwinger von Kamrabezûr", deed_en = "Cultist-slayer of Kamrabezûr" },
     },
 })

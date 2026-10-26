@@ -371,7 +371,10 @@ def build_areas(deeds_path, deed_names, maps, map_regions):
     result = defaultdict(lambda: [0, []])
     for (map_id, mob_ids), group in by_mobs.items():
         deed = min(group, key=lambda d: (len(d["name_en"]), d["name_en"]))
-        found = sorted(s for mid in mob_ids for s in spawns.get(mid, ()))
+        # A spawn point lists every monster that may appear there, one marker
+        # each: count the place once
+        found = sorted({(r, round(lon, 4), round(lat, 4))
+                        for mid in mob_ids for r, lon, lat in spawns.get(mid, ())})
         region = deed["region"]
         if not region and found:
             # Deed without a place: the region with the most of its monsters

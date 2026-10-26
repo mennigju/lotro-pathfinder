@@ -3,6 +3,6 @@ Pathfinder.Routes.RegisterAreas({
     map = 1879520515,
     region = 5,
     areas = {
-        { lon = 53.80475, lat = 47.55576, radius = 84, count = 147, deed = "Ekal-nêbi, der gefallene Palast -- Ordâkhai", deed_en = "Ekal-nêbi, the Fallen Palace -- Ordâkhai" },
+        { lon = 53.80475, lat = 47.55577, radius = 84, count = 147, deed = "Ekal-nêbi, der gefallene Palast -- Ordâkhai", deed_en = "Ekal-nêbi, the Fallen Palace -- Ordâkhai" },
     },
 })

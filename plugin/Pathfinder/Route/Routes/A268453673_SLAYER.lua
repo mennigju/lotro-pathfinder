@@ -3,11 +3,11 @@ Pathfinder.Routes.RegisterAreas({
     map = 268453673,
     region = 2,
     areas = {
-        { lon = -115.15484, lat = -42.60704, radius = 128, count = 932, deed = "Bezwinger der Steinschlund-Grabschänder", deed_en = "Stonejaws Defilers of the Dead Slayer" },
-        { lon = -115.14339, lat = -42.58081, radius = 128, count = 426, deed = "Kreaturen-Bezwinger des Steinschlunds", deed_en = "Stonejaws Beast-slayer" },
-        { lon = -115.85866, lat = -41.0076, radius = 146, count = 236, deed = "Bezwinger der Steinschlund-Grabschänder", deed_en = "Stonejaws Defilers of the Dead Slayer" },
-        { lon = -113.22376, lat = -42.61145, radius = 123, count = 218, deed = "Kreaturen-Bezwinger des Steinschlunds", deed_en = "Stonejaws Beast-slayer" },
-        { lon = -115.32789, lat = -40.6018, radius = 132, count = 188, deed = "Kreaturen-Bezwinger des Steinschlunds", deed_en = "Stonejaws Beast-slayer" },
+        { lon = -115.12677, lat = -42.61637, radius = 127, count = 157, deed = "Bezwinger der Steinschlund-Grabschänder", deed_en = "Stonejaws Defilers of the Dead Slayer" },
+        { lon = -115.15163, lat = -42.59207, radius = 128, count = 126, deed = "Kreaturen-Bezwinger des Steinschlunds", deed_en = "Stonejaws Beast-slayer" },
+        { lon = -115.77833, lat = -41.041, radius = 140, count = 49, deed = "Bezwinger der Steinschlund-Grabschänder", deed_en = "Stonejaws Defilers of the Dead Slayer" },
+        { lon = -115.57616, lat = -40.99782, radius = 129, count = 42, deed = "Kreaturen-Bezwinger des Steinschlunds", deed_en = "Stonejaws Beast-slayer" },
+        { lon = -113.22471, lat = -42.61252, radius = 120, count = 32, deed = "Kreaturen-Bezwinger des Steinschlunds", deed_en = "Stonejaws Beast-slayer" },
         { lon = -113.22242, lat = -42.60993, radius = 122, count = 30, deed = "Bezwinger der Steinschlund-Grabschänder", deed_en = "Stonejaws Defilers of the Dead Slayer" },
     },
 })

@@ -3,12 +3,11 @@ Pathfinder.Routes.RegisterAreas({
     map = 268453922,
     region = 1,
     areas = {
-        { lon = -86.36093, lat = -27.17303, radius = 112, count = 486, deed = "Feinde der Fernen Auen", deed_en = "Enemies of Yondershire" },
-        { lon = -74.47581, lat = -21.50699, radius = 88, count = 480, deed = "Feinde der Fernen Auen", deed_en = "Enemies of Yondershire" },
-        { lon = -83.81329, lat = -23.70639, radius = 132, count = 460, deed = "Kreaturen-Bezwinger / Kreaturen-Bezwingerin der Fernen Auen", deed_en = "Beast-slayer of Yondershire" },
-        { lon = -79.69893, lat = -22.69427, radius = 127, count = 440, deed = "Kreaturen-Bezwinger / Kreaturen-Bezwingerin der Fernen Auen", deed_en = "Beast-slayer of Yondershire" },
-        { lon = -84.69452, lat = -26.63659, radius = 127, count = 322, deed = "Feinde der Fernen Auen", deed_en = "Enemies of Yondershire" },
-        { lon = -73.11597, lat = -22.23574, radius = 135, count = 296, deed = "Insekten-Bezwinger / Insekten-Bezwingerin der Fernen Auen", deed_en = "Insect-slayer of Yondershire" },
-        { lon = -81.8157, lat = -28.30043, radius = 134, count = 292, deed = "Insekten-Bezwinger / Insekten-Bezwingerin der Fernen Auen", deed_en = "Insect-slayer of Yondershire" },
+        { lon = -88.34747, lat = -18.96149, radius = 129, count = 105, deed = "Feinde der Fernen Auen", deed_en = "Enemies of Yondershire" },
+        { lon = -81.86718, lat = -21.89282, radius = 119, count = 99, deed = "Feinde der Fernen Auen", deed_en = "Enemies of Yondershire" },
+        { lon = -84.67931, lat = -26.63334, radius = 118, count = 94, deed = "Feinde der Fernen Auen", deed_en = "Enemies of Yondershire" },
+        { lon = -82.50032, lat = -25.25604, radius = 134, count = 86, deed = "Kreaturen-Bezwinger / Kreaturen-Bezwingerin der Fernen Auen", deed_en = "Beast-slayer of Yondershire" },
+        { lon = -83.88273, lat = -24.05946, radius = 138, count = 85, deed = "Kreaturen-Bezwinger / Kreaturen-Bezwingerin der Fernen Auen", deed_en = "Beast-slayer of Yondershire" },
+        { lon = -83.88588, lat = -24.05345, radius = 137, count = 81, deed = "Insekten-Bezwinger / Insekten-Bezwingerin der Fernen Auen", deed_en = "Insect-slayer of Yondershire" },
     },
 })
