@@ -16,9 +16,10 @@ local TRAIL_POINTS = 6
 local TRAIL_SPACING = 9
 
 local COLOR_OPEN = Turbine.UI.Color(1, 0.95, 0.75, 0.2)
-local COLOR_DONE = Turbine.UI.Color(0.6, 0.45, 0.45, 0.45)
+-- Opaque only: a translucent back colour cuts a hole into the map image
+local COLOR_DONE = Turbine.UI.Color(1, 0.35, 0.35, 0.35)
 local COLOR_CURRENT = Turbine.UI.Color(1, 0.2, 0.95, 0.3)
-local COLOR_TRAIL = Turbine.UI.Color(0.9, 1, 1, 1)
+local COLOR_TRAIL = Turbine.UI.Color(1, 0.95, 0.95, 0.95)
 -- Ring diameters from tools/make_images.py (RING_SIZES)
 local RING_SIZES = { 10, 14, 18, 24, 30, 38, 48, 60, 76, 96, 120, 150 }
 
