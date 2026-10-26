@@ -1,0 +1,26 @@
+-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.
+Pathfinder.Routes.RegisterAreas({
+    map = 268437592,
+    region = 1,
+    areas = {
+        { lon = -25.4767, lat = -31.00893, radius = 112, count = 105, deed = "Unhold-Bezwinger / Unhold-Bezwingerin", deed_en = "Wight-slayer" },
+        { lon = -31.22554, lat = -46.9741, radius = 130, count = 89, deed = "Kriecher-Bezwinger / Kriecher-Bezwingerin", deed_en = "Crawler-slayer" },
+        { lon = -32.13891, lat = -46.90097, radius = 132, count = 89, deed = "Die Verfeindung der Warge", deed_en = "Enmity of the Wargs" },
+        { lon = -20.57287, lat = -46.29462, radius = 133, count = 79, deed = "Troll-Bezwinger / Troll-Bezwingerin", deed_en = "Troll-slayer" },
+        { lon = -20.57287, lat = -46.29462, radius = 133, count = 79, deed = "Wurm-Bezwinger / Wurm-Bezwingerin", deed_en = "Worm-slayer" },
+        { lon = -23.38779, lat = -28.22392, radius = 126, count = 76, deed = "Unhold-Bezwinger / Unhold-Bezwingerin", deed_en = "Wight-slayer" },
+        { lon = -14.59971, lat = -27.44688, radius = 133, count = 76, deed = "Unhold-Bezwinger / Unhold-Bezwingerin", deed_en = "Wight-slayer" },
+        { lon = -28.62046, lat = -47.52716, radius = 134, count = 72, deed = "Kriecher-Bezwinger / Kriecher-Bezwingerin", deed_en = "Crawler-slayer" },
+        { lon = -33.16461, lat = -46.68838, radius = 129, count = 71, deed = "Kriecher-Bezwinger / Kriecher-Bezwingerin", deed_en = "Crawler-slayer" },
+        { lon = -18.72695, lat = -43.79525, radius = 135, count = 71, deed = "Troll-Bezwinger / Troll-Bezwingerin", deed_en = "Troll-slayer" },
+        { lon = -16.88204, lat = -26.08824, radius = 133, count = 71, deed = "Troll-Bezwinger / Troll-Bezwingerin", deed_en = "Troll-slayer" },
+        { lon = -18.72695, lat = -43.79525, radius = 135, count = 71, deed = "Wurm-Bezwinger / Wurm-Bezwingerin", deed_en = "Worm-slayer" },
+        { lon = -18.7187, lat = -46.99895, radius = 137, count = 69, deed = "Wurm-Bezwinger / Wurm-Bezwingerin", deed_en = "Worm-slayer" },
+        { lon = -6.14112, lat = -35.08409, radius = 124, count = 55, deed = "Riesen-Bezwinger / Riesen-Bezwingerin", deed_en = "Giant-slayer" },
+        { lon = -10.0396, lat = -45.64463, radius = 134, count = 55, deed = "Wolfs-Bezwinger / Wolfs-Bezwingerin", deed_en = "Wolf-slayer" },
+        { lon = -21.26085, lat = -44.13435, radius = 133, count = 46, deed = "Wolfs-Bezwinger / Wolfs-Bezwingerin", deed_en = "Wolf-slayer" },
+        { lon = -23.26043, lat = -39.16108, radius = 132, count = 45, deed = "Wolfs-Bezwinger / Wolfs-Bezwingerin", deed_en = "Wolf-slayer" },
+        { lon = 0.62764, lat = -29.13959, radius = 122, count = 36, deed = "Riesen-Bezwinger / Riesen-Bezwingerin", deed_en = "Giant-slayer" },
+        { lon = -4.79619, lat = -35.24186, radius = 132, count = 35, deed = "Riesen-Bezwinger / Riesen-Bezwingerin", deed_en = "Giant-slayer" },
+    },
+})

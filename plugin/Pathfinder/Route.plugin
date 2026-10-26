@@ -4,8 +4,8 @@
   <Information>
     <Name>Pathfinder</Name>
     <Author>jmennig</Author>
-    <Version>0.4</Version>
-    <Description>Routes to explorer and lore deeds with arrow and map / Routen zu Erkundungs- und Wissens-Taten mit Pfeil und Karte</Description>
+    <Version>0.5</Version>
+    <Description>Routes to explorer and lore deeds with arrow and map, slayer areas / Routen zu Erkundungs- und Wissens-Taten mit Pfeil und Karte, Jagdgebiete</Description>
   </Information>
   <Package>Pathfinder.Route.Main</Package>
 </Plugin>

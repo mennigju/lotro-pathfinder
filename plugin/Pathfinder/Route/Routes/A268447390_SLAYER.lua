@@ -1,0 +1,25 @@
+-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.
+Pathfinder.Routes.RegisterAreas({
+    map = 268447390,
+    region = 2,
+    areas = {
+        { lon = -51.79906, lat = -33.15012, radius = 123, count = 207, deed = "Ostling-Bezwinger / Ostling-Bezwingerin", deed_en = "Easterling-slayer" },
+        { lon = -71.23219, lat = -36.58198, radius = 125, count = 109, deed = "Spinnen-Bezwinger / Spinnen-Bezwingerin", deed_en = "Spider-slayer" },
+        { lon = -51.12854, lat = -32.89436, radius = 133, count = 76, deed = "Kreaturen-Bezwinger / Kreaturen-Bezwingerin", deed_en = "Beast Slayer" },
+        { lon = -50.4312, lat = -17.4418, radius = 120, count = 56, deed = "Ork-Bezwinger / Ork-Bezwingerin", deed_en = "Orc Slayer" },
+        { lon = -60.1786, lat = -17.36347, radius = 128, count = 55, deed = "Kreaturen-Bezwinger / Kreaturen-Bezwingerin", deed_en = "Beast Slayer" },
+        { lon = -66.34864, lat = -27.05131, radius = 127, count = 55, deed = "Ork-Bezwinger / Ork-Bezwingerin", deed_en = "Orc Slayer" },
+        { lon = -63.23096, lat = -20.35896, radius = 129, count = 55, deed = "Ork-Bezwinger / Ork-Bezwingerin", deed_en = "Orc Slayer" },
+        { lon = -57.87908, lat = -30.24989, radius = 111, count = 52, deed = "Räuber-Bezwinger / Räuber-Bezwingerin", deed_en = "Brigand-slayer" },
+        { lon = -57.93262, lat = -28.53092, radius = 105, count = 52, deed = "Schatten-Bezwinger / Schatten-Bezwingerin", deed_en = "Shade-slayer" },
+        { lon = -49.04029, lat = -18.76481, radius = 129, count = 52, deed = "Schatten-Bezwinger / Schatten-Bezwingerin", deed_en = "Shade-slayer" },
+        { lon = -53.77818, lat = -30.87466, radius = 58, count = 51, deed = "Räuber-Bezwinger / Räuber-Bezwingerin", deed_en = "Brigand-slayer" },
+        { lon = -53.19556, lat = -29.96291, radius = 136, count = 50, deed = "Ostling-Bezwinger / Ostling-Bezwingerin", deed_en = "Easterling-slayer" },
+        { lon = -70.61901, lat = -17.2694, radius = 122, count = 49, deed = "Kreaturen-Bezwinger / Kreaturen-Bezwingerin", deed_en = "Beast Slayer" },
+        { lon = -54.19517, lat = -27.83059, radius = 139, count = 45, deed = "Ostling-Bezwinger / Ostling-Bezwingerin", deed_en = "Easterling-slayer" },
+        { lon = -57.24978, lat = -32.15874, radius = 127, count = 41, deed = "Räuber-Bezwinger / Räuber-Bezwingerin", deed_en = "Brigand-slayer" },
+        { lon = -65.9314, lat = -23.74548, radius = 128, count = 36, deed = "Spinnen-Bezwinger / Spinnen-Bezwingerin", deed_en = "Spider-slayer" },
+        { lon = -67.46999, lat = -23.46196, radius = 114, count = 29, deed = "Spinnen-Bezwinger / Spinnen-Bezwingerin", deed_en = "Spider-slayer" },
+        { lon = -50.44749, lat = -17.91007, radius = 120, count = 27, deed = "Schatten-Bezwinger / Schatten-Bezwingerin", deed_en = "Shade-slayer" },
+    },
+})

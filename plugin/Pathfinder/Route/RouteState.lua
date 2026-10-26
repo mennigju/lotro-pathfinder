@@ -12,7 +12,8 @@ Pathfinder.RouteState = RouteState
 -- Shorter names would match too much chat ("Tor", "Hof")
 local MIN_CHAT_NAME = 4
 
--- done: table key -> true, shared with the caller for saving.
+-- done: table key -> true, shared with the caller for saving and with the
+-- other routes: map and region routes have the same point keys.
 -- order: optional point keys in walking order (from /pf neu), see Order()
 function RouteState.New(route, done, order)
     local self = setmetatable({}, RouteState)
@@ -59,6 +60,28 @@ function RouteState:Order()
         keys[i] = point.key
     end
     return keys
+end
+
+-- Saved progress -> set of done keys. Before 0.5 it was saved per route
+-- (route id -> key -> "1"), now it is one set (key -> "1").
+function RouteState.FlattenDone(saved)
+    local done = {}
+    for name, value in pairs(saved or {}) do
+        if type(value) == "table" then
+            for key in pairs(value) do
+                done[key] = true
+            end
+        elseif value then
+            done[name] = true
+        end
+    end
+    return done
+end
+
+-- Map a point lies on: region routes name it per point
+function RouteState:MapOf(point)
+    local maps = self.route.maps
+    return point ~= nil and maps ~= nil and maps[point.map] or self.route.map
 end
 
 -- Number of a point in the walking order (1-based)
@@ -171,8 +194,10 @@ function RouteState:StartNear(pos)
     return true
 end
 
--- Upper bound for the 2-opt passes, keeps big routes from stalling the game
+-- Upper bound for the 2-opt passes and their work (passes * n^2), keeps
+-- big routes (region routes have hundreds of points) from stalling the game
 local MAX_PASSES = 20
+local MAX_WORK = 2000000
 
 -- New walking order from pos: nearest neighbour through the open points,
 -- then 2-opt on the open path that starts at pos (as tools/build_routes.py
@@ -208,7 +233,7 @@ function RouteState:Reorder(pos)
     end
 
     local n = #path
-    for _ = 1, MAX_PASSES do
+    for _ = 1, math.max(1, math.min(MAX_PASSES, math.floor(MAX_WORK / (n * n)))) do
         local improved = false
         for a = 2, n - 1 do
             for b = a + 1, n do
@@ -351,10 +376,11 @@ function RouteState:Back()
     self.index = prev
 end
 
--- Clears the progress and goes back to the built order
+-- Clears the progress of this route (not of others sharing the set) and
+-- goes back to the built order
 function RouteState:Reset()
-    for key in pairs(self.done) do
-        self.done[key] = nil
+    for _, point in ipairs(self.route.points) do
+        self.done[point.key] = nil
     end
     self.points = self.route.points
     self.index = 1

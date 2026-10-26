@@ -1,0 +1,28 @@
+-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.
+Pathfinder.Routes.RegisterAreas({
+    map = 268443855,
+    region = 2,
+    areas = {
+        { lon = -59.73607, lat = -15.80409, radius = 122, count = 124, deed = "Kopfzahl", deed_en = "Headcount" },
+        { lon = -59.72256, lat = -15.79113, radius = 122, count = 89, deed = "Bezwinger / Bezwingerin von Orks und Uruk-hai", deed_en = "Orc and Uruk-slayer" },
+        { lon = -61.28217, lat = -14.43104, radius = 107, count = 87, deed = "Kopfzahl", deed_en = "Headcount" },
+        { lon = -44.1606, lat = -18.66191, radius = 100, count = 79, deed = "Zauberer-Bezwinger / Zauberer-Bezwingerin", deed_en = "Sorcerer-slayer" },
+        { lon = -44.24256, lat = -18.67599, radius = 106, count = 77, deed = "Bezwinger / Bezwingerin der Toten", deed_en = "Dead-slayer" },
+        { lon = -61.36108, lat = -16.42802, radius = 128, count = 74, deed = "Kopfzahl", deed_en = "Headcount" },
+        { lon = -44.14085, lat = -15.55864, radius = 92, count = 68, deed = "Warg-Bezwinger / Warg-Bezwingerin", deed_en = "Warg-slayer" },
+        { lon = -44.14085, lat = -15.55864, radius = 92, count = 68, deed = "Kreaturen-Bezwinger / Kreaturen-Bezwingerin", deed_en = "Beast-slayer" },
+        { lon = -57.79603, lat = -14.97584, radius = 111, count = 61, deed = "Spinnen-Bezwinger / Spinnen-Bezwingerin", deed_en = "Spider-slayer" },
+        { lon = -54.99763, lat = -11.89708, radius = 104, count = 61, deed = "Kreaturen-Bezwinger / Kreaturen-Bezwingerin", deed_en = "Beast-slayer" },
+        { lon = -45.85272, lat = -19.4174, radius = 123, count = 60, deed = "Bezwinger / Bezwingerin von Orks und Uruk-hai", deed_en = "Orc and Uruk-slayer" },
+        { lon = -50.37428, lat = -17.2773, radius = 116, count = 57, deed = "Bezwinger / Bezwingerin von Orks und Uruk-hai", deed_en = "Orc and Uruk-slayer" },
+        { lon = -60.33807, lat = -17.29326, radius = 129, count = 56, deed = "Warg-Bezwinger / Warg-Bezwingerin", deed_en = "Warg-slayer" },
+        { lon = -60.33807, lat = -17.29326, radius = 129, count = 56, deed = "Kreaturen-Bezwinger / Kreaturen-Bezwingerin", deed_en = "Beast-slayer" },
+        { lon = -48.89791, lat = -18.92479, radius = 131, count = 53, deed = "Bezwinger / Bezwingerin der Toten", deed_en = "Dead-slayer" },
+        { lon = -45.59462, lat = -13.49126, radius = 132, count = 52, deed = "Warg-Bezwinger / Warg-Bezwingerin", deed_en = "Warg-slayer" },
+        { lon = -51.78466, lat = -8.89012, radius = 122, count = 44, deed = "Spinnen-Bezwinger / Spinnen-Bezwingerin", deed_en = "Spider-slayer" },
+        { lon = -55.56042, lat = -14.9971, radius = 120, count = 41, deed = "Spinnen-Bezwinger / Spinnen-Bezwingerin", deed_en = "Spider-slayer" },
+        { lon = -46.6877, lat = -18.57244, radius = 134, count = 36, deed = "Bezwinger / Bezwingerin der Toten", deed_en = "Dead-slayer" },
+        { lon = -48.81616, lat = -18.95042, radius = 115, count = 32, deed = "Zauberer-Bezwinger / Zauberer-Bezwingerin", deed_en = "Sorcerer-slayer" },
+        { lon = -49.57704, lat = -15.09179, radius = 54, count = 18, deed = "Zauberer-Bezwinger / Zauberer-Bezwingerin", deed_en = "Sorcerer-slayer" },
+    },
+})

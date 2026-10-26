@@ -1,0 +1,28 @@
+-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.
+Pathfinder.Routes.RegisterAreas({
+    map = 268448407,
+    region = 2,
+    areas = {
+        { lon = -59.27854, lat = -39.11123, radius = 116, count = 102, deed = "Ork-Bezwinger / Ork-Bezwingerin von Ost-Emnet", deed_en = "Orc-slayer of the Eastemnet" },
+        { lon = -51.12854, lat = -32.89436, radius = 133, count = 76, deed = "Kreaturen-Bezwinger / Kreaturen-Bezwingerin von Ost-Emnet", deed_en = "Beast-slayer of the Eastemnet" },
+        { lon = -63.1372, lat = -48.7957, radius = 125, count = 74, deed = "Uruk-hai-Bezwinger / Uruk-hai-Bezwingerin von Ost-Emnet", deed_en = "Uruk-slayer of the Eastemnet" },
+        { lon = -56.29657, lat = -45.7513, radius = 134, count = 63, deed = "Uruk-hai-Bezwinger / Uruk-hai-Bezwingerin von Ost-Emnet", deed_en = "Uruk-slayer of the Eastemnet" },
+        { lon = -58.88638, lat = -46.03731, radius = 134, count = 60, deed = "Ork-Bezwinger / Ork-Bezwingerin von Ost-Emnet", deed_en = "Orc-slayer of the Eastemnet" },
+        { lon = -56.32619, lat = -45.43354, radius = 131, count = 58, deed = "Ork-Bezwinger / Ork-Bezwingerin von Ost-Emnet", deed_en = "Orc-slayer of the Eastemnet" },
+        { lon = -59.7073, lat = -46.81946, radius = 128, count = 57, deed = "Uruk-hai-Bezwinger / Uruk-hai-Bezwingerin von Ost-Emnet", deed_en = "Uruk-slayer of the Eastemnet" },
+        { lon = -52.62789, lat = -41.42708, radius = 128, count = 56, deed = "Kreaturen-Bezwinger / Kreaturen-Bezwingerin von Ost-Emnet", deed_en = "Beast-slayer of the Eastemnet" },
+        { lon = -57.93608, lat = -30.29006, radius = 110, count = 51, deed = "Räuber-Bezwinger / Räuber-Bezwingerin von Ost-Emnet", deed_en = "Brigand-slayer of the Eastemnet" },
+        { lon = -53.77818, lat = -30.87466, radius = 58, count = 51, deed = "Räuber-Bezwinger / Räuber-Bezwingerin von Ost-Emnet", deed_en = "Brigand-slayer of the Eastemnet" },
+        { lon = -59.70644, lat = -47.47864, radius = 125, count = 49, deed = "Kreaturen-Bezwinger / Kreaturen-Bezwingerin von Ost-Emnet", deed_en = "Beast-slayer of the Eastemnet" },
+        { lon = -50.33253, lat = -44.71221, radius = 135, count = 49, deed = "Warg-Bezwinger / Warg-Bezwingerin von Ost-Emnet", deed_en = "Warg-slayer of the Eastemnet" },
+        { lon = -46.82595, lat = -44.55978, radius = 122, count = 43, deed = "Warg-Bezwinger / Warg-Bezwingerin von Ost-Emnet", deed_en = "Warg-slayer of the Eastemnet" },
+        { lon = -48.4909, lat = -43.78665, radius = 123, count = 42, deed = "Warg-Bezwinger / Warg-Bezwingerin von Ost-Emnet", deed_en = "Warg-slayer of the Eastemnet" },
+        { lon = -50.1912, lat = -44.66674, radius = 131, count = 42, deed = "Drachen-Bezwinger / Drachen-Bezwingerin von Ost-Emnet", deed_en = "Dragon-kind Slayer of the Eastemnet" },
+        { lon = -57.24978, lat = -32.15874, radius = 127, count = 41, deed = "Räuber-Bezwinger / Räuber-Bezwingerin von Ost-Emnet", deed_en = "Brigand-slayer of the Eastemnet" },
+        { lon = -48.50731, lat = -43.97499, radius = 127, count = 38, deed = "Drachen-Bezwinger / Drachen-Bezwingerin von Ost-Emnet", deed_en = "Dragon-kind Slayer of the Eastemnet" },
+        { lon = -56.14649, lat = -32.46526, radius = 133, count = 35, deed = "Drachen-Bezwinger / Drachen-Bezwingerin von Ost-Emnet", deed_en = "Dragon-kind Slayer of the Eastemnet" },
+        { lon = -63.69997, lat = -30.35858, radius = 123, count = 34, deed = "Bezwinger / Bezwingerin uralter böser Mächte in Ost-Emnet", deed_en = "Ancient Evil-slayer of the Eastemnet" },
+        { lon = -48.03397, lat = -48.73446, radius = 126, count = 27, deed = "Bezwinger / Bezwingerin uralter böser Mächte in Ost-Emnet", deed_en = "Ancient Evil-slayer of the Eastemnet" },
+        { lon = -64.08593, lat = -32.02366, radius = 124, count = 23, deed = "Bezwinger / Bezwingerin uralter böser Mächte in Ost-Emnet", deed_en = "Ancient Evil-slayer of the Eastemnet" },
+    },
+})

@@ -1,0 +1,28 @@
+-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.
+Pathfinder.Routes.RegisterAreas({
+    map = 268444443,
+    region = 1,
+    areas = {
+        { lon = -22.36445, lat = -60.11024, radius = 117, count = 133, deed = "Uruk-hai-Bezwinger / Uruk-hai-Bezwingerin der Wildermark", deed_en = "Uruk-slayer of Wildermore" },
+        { lon = -12.18927, lat = -56.04936, radius = 122, count = 104, deed = "Dunländer-Bezwinger / Dunländer-Bezwingerin", deed_en = "Dunlending-slayer" },
+        { lon = -33.15754, lat = -61.23922, radius = 128, count = 85, deed = "Bezwinger / Bezwingerin der Wölfe und Schattenwölfe", deed_en = "Wolf and Shadow-wolf Slayer" },
+        { lon = -9.35867, lat = -53.48173, radius = 126, count = 80, deed = "Dunländer-Bezwinger / Dunländer-Bezwingerin", deed_en = "Dunlending-slayer" },
+        { lon = -29.817, lat = -63.69756, radius = 134, count = 76, deed = "Bezwinger / Bezwingerin der Wölfe und Schattenwölfe", deed_en = "Wolf and Shadow-wolf Slayer" },
+        { lon = -27.14169, lat = -56.54711, radius = 136, count = 76, deed = "Bezwinger / Bezwingerin der Wölfe und Schattenwölfe", deed_en = "Wolf and Shadow-wolf Slayer" },
+        { lon = -12.23091, lat = -56.06948, radius = 124, count = 74, deed = "Halbork-Bezwinger / Halbork-Bezwingerin", deed_en = "Half-orc Slayer" },
+        { lon = -15.60976, lat = -59.40737, radius = 112, count = 73, deed = "Dunländer-Bezwinger / Dunländer-Bezwingerin", deed_en = "Dunlending-slayer" },
+        { lon = -30.31702, lat = -54.69038, radius = 118, count = 66, deed = "Waldtroll-Bezwinger / Waldtroll-Bezwingerin", deed_en = "Wood-troll Slayer" },
+        { lon = -13.42898, lat = -53.70478, radius = 130, count = 51, deed = "Halbork-Bezwinger / Halbork-Bezwingerin", deed_en = "Half-orc Slayer" },
+        { lon = -1.83325, lat = -78.42447, radius = 125, count = 51, deed = "Halbork-Bezwinger / Halbork-Bezwingerin", deed_en = "Half-orc Slayer" },
+        { lon = -21.89173, lat = -71.61307, radius = 139, count = 49, deed = "Bezwinger / Bezwingerin der Cuthraul und Elhudan", deed_en = "Cuthraul and Elhudan-slayer" },
+        { lon = -13.33144, lat = -63.06571, radius = 83, count = 43, deed = "Bezwinger / Bezwingerin der Cuthraul und Elhudan", deed_en = "Cuthraul and Elhudan-slayer" },
+        { lon = -21.64798, lat = -67.61439, radius = 129, count = 40, deed = "Bezwinger / Bezwingerin der Cuthraul und Elhudan", deed_en = "Cuthraul and Elhudan-slayer" },
+        { lon = -21.64798, lat = -67.61439, radius = 129, count = 40, deed = "Waldtroll-Bezwinger / Waldtroll-Bezwingerin", deed_en = "Wood-troll Slayer" },
+        { lon = -23.48585, lat = -66.93421, radius = 123, count = 37, deed = "Waldtroll-Bezwinger / Waldtroll-Bezwingerin", deed_en = "Wood-troll Slayer" },
+        { lon = -10.40673, lat = -68.98564, radius = 138, count = 33, deed = "Riesen-Bezwinger / Riesen-Bezwingerin", deed_en = "Giant-slayer" },
+        { lon = -8.50383, lat = -67.49048, radius = 128, count = 26, deed = "Gwiber-Bezwinger / Gwiber-Bezwingerin", deed_en = "Gwiber-slayer" },
+        { lon = -8.9458, lat = -68.83462, radius = 109, count = 24, deed = "Riesen-Bezwinger / Riesen-Bezwingerin", deed_en = "Giant-slayer" },
+        { lon = -10.21001, lat = -67.64303, radius = 82, count = 15, deed = "Gwiber-Bezwinger / Gwiber-Bezwingerin", deed_en = "Gwiber-slayer" },
+        { lon = -7.37291, lat = -67.87938, radius = 106, count = 10, deed = "Gwiber-Bezwinger / Gwiber-Bezwingerin", deed_en = "Gwiber-slayer" },
+    },
+})

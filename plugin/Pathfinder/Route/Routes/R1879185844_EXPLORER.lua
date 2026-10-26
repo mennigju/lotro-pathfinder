@@ -3,7 +3,6 @@ Pathfinder.Routes.Register({
     id = "R1879185844_EXPLORER",
     name = "Minas Elendúr - Erkundung",
     name_en = "Minas Elendúr - Exploration",
-    region = 0,
     map = { id = 1879185844, image = 1091590165, factor = 300, lon = 49.65334, lat = 24.91667, file = "Pathfinder/Route/Resources/Maps/1879185844.jpg" },
     points = {
         { key = "1879186733_21", lon = 51.50283, lat = 21.1468, name = "Erkundung von oben bis unten (21)", deed = "Erkundung von oben bis unten", name_en = "Exploration from Top to Bottom (21)", deed_en = "Exploration from Top to Bottom" },

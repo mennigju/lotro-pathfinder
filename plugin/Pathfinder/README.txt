@@ -6,7 +6,9 @@ ENGLISH
 Pathfinder guides you along a precomputed short route to the targets of
 explorer and lore deeds: an arrow points to the next target, a map shows the
 route, a list lets you tick off what you have already done. Below the arrow:
-distance to the target and the way left on the route.
+distance to the target and the way left on the route. Besides one route per
+map there is one per region over all its maps; both share the progress.
+The map also shows circles where many foes of a slayer deed gather.
 
 Install: unpack the ZIP into
   Documents\The Lord of the Rings Online\Plugins\
@@ -20,8 +22,13 @@ Use:
     at the open target nearest to you
   - /pf reroute    new order of the open targets from where you stand
                    (/pf reset brings back the original order)
-  - "List" button  tick off targets and whole deeds you already have
-  - "Map" button   map with the route; click a point to toggle it
+  - "Routes" button  search and choose routes, with progress
+                     ("here only": routes at your position)
+  - "List" button  tick off targets and whole deeds you already have;
+                   finished targets can be hidden, deeds folded
+  - "Map" button   map with the route; click a point to toggle it, red
+                   circles = slayer areas (/pf slayer turns them off)
+  - "Options"      radius, arrow, slayer areas, windows, language
   - /pf            all commands
 
 Why no automatic position? The plugin API has no player position and plugins
@@ -39,7 +46,10 @@ DEUTSCH
 Pathfinder fuehrt dich auf einer vorberechneten kurzen Route zu den Zielen
 von Erkundungs- und Wissens-Taten: ein Pfeil zeigt zum naechsten Ziel, eine
 Karte zeigt die Route, in einer Liste hakst du ab, was du schon hast. Unter
-dem Pfeil: Entfernung zum Ziel und der restliche Weg der Route.
+dem Pfeil: Entfernung zum Ziel und der restliche Weg der Route. Neben einer
+Route pro Karte gibt es eine pro Region ueber alle ihre Karten; beide teilen
+den Fortschritt. Die Karte zeigt ausserdem Kreise, wo sich viele Gegner einer
+Slayer-Tat sammeln.
 
 Installation: ZIP entpacken nach
   Dokumente\The Lord of the Rings Online\Plugins\
@@ -53,8 +63,13 @@ Bedienung:
     beginnt beim offenen Ziel, das dir am naechsten ist
   - /pf neu         Reihenfolge der offenen Ziele ab deinem Standort neu
                     berechnen (/pf reset stellt die urspruengliche wieder her)
-  - Knopf "Liste"   erledigte Ziele und ganze Taten abhaken
-  - Knopf "Karte"   Karte mit Route; Punkt anklicken = erledigt an/aus
+  - Knopf "Routen"  Routen suchen und waehlen, mit Fortschritt
+                    ("nur hier": Routen an deiner Position)
+  - Knopf "Liste"   erledigte Ziele und ganze Taten abhaken; erledigte
+                    Ziele ausblendbar, Taten einklappbar
+  - Knopf "Karte"   Karte mit Route; Punkt anklicken = erledigt an/aus,
+                    rote Kreise = Jagdgebiete (/pf jagd schaltet sie aus)
+  - "Optionen"      Radius, Pfeil, Jagdgebiete, Fenster, Sprache
   - /pf             alle Befehle
 
 Warum keine automatische Position? Die Plugin-Schnittstelle kennt keine
@@ -78,7 +93,7 @@ unter die MIT-Lizenz.
 
 CREDITS
 
-Deed coordinates, names and map images: LotroCompanion
+Deed coordinates, names, monster spawns and map images: LotroCompanion
 (github.com/LotroCompanion lotro-data and lotro-maps-db), originally from
 the game data of The Lord of the Rings Online (Standing Stone Games).
 /loc conversion formula as in the Waypoint plugin by Lunarwater.

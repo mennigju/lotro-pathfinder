@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Draws the arrow images for the plugin (TGA, 32 bit, 36 rotations).
+"""Draws the arrow images for the plugin (TGA, 32 bit, 36 rotations) and the
+rings for the slayer areas on the map.
 
 Usage: python3 -I tools/make_images.py
 """
@@ -11,6 +12,9 @@ from PIL import Image, ImageDraw
 OUT = Path(__file__).resolve().parent.parent / "plugin" / "Pathfinder" / "Route" / "Resources"
 SUPERSAMPLE = 4
 FRAMES = 36
+# Ring diameters in pixels, must match RING_SIZES in MapWindow.lua: the game
+# can't scale images, so every size is drawn
+RING_SIZES = [10, 14, 18, 24, 30, 38, 48, 60, 76, 96, 120, 150]
 
 
 def arrow(size, fill, outline, notch=0.62):
@@ -37,6 +41,17 @@ def save_frames(img, size, stem):
         frame.resize((size, size), Image.LANCZOS).save(OUT / f"{stem}_{k:02d}.tga")
 
 
+def ring(size, color):
+    """Circle outline with a faint fill, supersampled."""
+    big = size * SUPERSAMPLE
+    img = Image.new("RGBA", (big, big), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(img)
+    width = max(1, round(1.5 * SUPERSAMPLE))
+    draw.ellipse([width, width, big - width, big - width],
+                 fill=color[:3] + (45,), outline=color, width=width)
+    return img.resize((size, size), Image.LANCZOS)
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     for old in OUT.glob("*.tga"):
@@ -46,6 +61,8 @@ def main():
     save_frames(arrow(64, gold, dark), 64, "arrow")
     save_frames(arrow(64, (150, 150, 150, 200), dark), 64, "arrow_stale")
     save_frames(arrow(24, (230, 60, 50, 255), (255, 255, 255, 255), notch=0.7), 24, "player")
+    for size in RING_SIZES:
+        ring(size, (220, 50, 40, 230)).save(OUT / f"ring_{size}.tga")
     print(f"Bilder in {OUT}")
 
 

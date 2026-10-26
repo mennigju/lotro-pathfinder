@@ -1,5 +1,6 @@
 -- Pathfinder.MapWindow: Gebietskarte mit den Zielen der Route, dem Weg zu
--- den naechsten Zielen und dem eigenen Standort.
+-- den naechsten Zielen, dem eigenen Standort und (abschaltbar) den
+-- Jagdgebieten der Slayer-Taten.
 
 Pathfinder = Pathfinder or {}
 
@@ -15,9 +16,36 @@ local TRAIL_POINTS = 6
 local TRAIL_SPACING = 9
 
 local COLOR_OPEN = Turbine.UI.Color(1, 0.95, 0.75, 0.2)
-local COLOR_DONE = Turbine.UI.Color(0.6, 0.45, 0.45, 0.45)
+-- Opaque only: a translucent back colour cuts a hole into the map image
+local COLOR_DONE = Turbine.UI.Color(1, 0.35, 0.35, 0.35)
 local COLOR_CURRENT = Turbine.UI.Color(1, 0.2, 0.95, 0.3)
-local COLOR_TRAIL = Turbine.UI.Color(0.9, 1, 1, 1)
+local COLOR_TRAIL = Turbine.UI.Color(1, 0.95, 0.95, 0.95)
+-- Ring diameters from tools/make_images.py (RING_SIZES)
+local RING_SIZES = { 10, 14, 18, 24, 30, 38, 48, 60, 76, 96, 120, 150 }
+
+local function ringSize(diameter)
+    local best = RING_SIZES[1]
+    for _, size in ipairs(RING_SIZES) do
+        if math.abs(size - diameter) < math.abs(best - diameter) then
+            best = size
+        end
+    end
+    return best
+end
+
+-- Spawn points in a slayer circle -> rough level. Not all of them are taken
+-- at once, so a number would promise too much (bounds: quartiles of all areas)
+local AREA_SOME = 40
+local AREA_LOTS = 85
+
+local function areaLevel(count)
+    if count < AREA_SOME then
+        return "areaSome"
+    elseif count < AREA_LOTS then
+        return "areaMany"
+    end
+    return "areaLots"
+end
 
 -- app: { OnMoved(x, y), OnClosed(), OnTogglePoint(point) }
 -- scale must match the JPGs from tools/build_routes.py (Routes.MAP_SCALE):
@@ -62,7 +90,16 @@ function MapWindow.Create(app, x, y, scale)
 
     self.dots = {}
     self.markers = {}
+    self.areasVisible = true
     return self
+end
+
+-- Slayer areas on or off
+function MapWindow:SetAreasVisible(visible)
+    self.areasVisible = visible
+    if self.areaLayer ~= nil then
+        self.areaLayer:SetVisible(visible)
+    end
 end
 
 function MapWindow:SetVisible(visible)
@@ -73,17 +110,22 @@ function MapWindow:IsVisible()
     return self.window:IsVisible()
 end
 
--- New map image for a route (or none)
-function MapWindow:SetRoute(route)
-    if self.route == route then
+-- New map image for a route (or none). Region routes change the map with
+-- the current target.
+function MapWindow:SetMap(route, map)
+    if self.route == route and self.map == map then
         return
     end
     self.route = route
+    self.map = map
     if self.image ~= nil then
         self.image:SetParent(nil)
     end
     if self.layer ~= nil then
         self.layer:SetParent(nil)
+    end
+    if self.areaLayer ~= nil then
+        self.areaLayer:SetParent(nil)
     end
     self.dots = {}
     self.markers = {}
@@ -94,10 +136,10 @@ function MapWindow:SetRoute(route)
     image:SetPosition(MARGIN_X, MARGIN_TOP)
     image:SetSize(self.width, self.height)
     image:SetMouseVisible(false)
-    if route ~= nil and route.map ~= nil then
+    if route ~= nil and map ~= nil then
         self.window:SetText("Pathfinder - " .. route.name)
-        local ok = route.map.file ~= nil and pcall(function()
-            image:SetBackground(route.map.file)
+        local ok = map.file ~= nil and pcall(function()
+            image:SetBackground(map.file)
         end)
         if not ok then
             self.info:SetText(Pathfinder.L("noMapImage"))
@@ -106,8 +148,9 @@ function MapWindow:SetRoute(route)
         self.window:SetText("Pathfinder")
     end
     self.image = image
+    self:BuildAreas(route)
 
-    -- Separate layer so markers stay above the image
+    -- Separate layer so markers stay above the image and the areas
     local layer = Turbine.UI.Control()
     layer:SetParent(self.window)
     layer:SetPosition(MARGIN_X, MARGIN_TOP)
@@ -116,9 +159,40 @@ function MapWindow:SetRoute(route)
     self.layer = layer
 end
 
+-- Rings for the slayer areas of the route's region that lie on the map
+function MapWindow:BuildAreas(route)
+    local map = self.map
+    local layer = Turbine.UI.Control()
+    layer:SetParent(self.window)
+    layer:SetPosition(MARGIN_X, MARGIN_TOP)
+    layer:SetSize(self.width, self.height)
+    layer:SetMouseVisible(false)
+    layer:SetVisible(self.areasVisible)
+    self.areaLayer = layer
+    if route == nil or map == nil or route.region == nil then
+        return
+    end
+    local pixelsPerMeter = map.factor * self.scale / Pathfinder.Loc.METERS_PER_UNIT
+    for _, area in ipairs(Pathfinder.Routes.AreasIn(route.region)) do
+        local x, y = self:Project(area.lon, area.lat)
+        if x ~= nil then
+            local size = ringSize(2 * area.radius * pixelsPerMeter)
+            local ring = Turbine.UI.Control()
+            ring:SetParent(layer)
+            ring:SetSize(size, size)
+            ring:SetPosition(math.floor(x - size / 2), math.floor(y - size / 2))
+            ring:SetBlendMode(Turbine.UI.BlendMode.AlphaBlend)
+            ring:SetBackground(RESOURCES .. "ring_" .. size .. ".tga")
+            ring.MouseEnter = function()
+                self.info:SetText(Pathfinder.L("mapArea", area.deed, Pathfinder.L(areaLevel(area.count))))
+            end
+        end
+    end
+end
+
 -- lon/lat -> pixel on the scaled map, nil if outside
 function MapWindow:Project(lon, lat)
-    local map = self.route and self.route.map
+    local map = self.map
     if map == nil then
         return nil
     end
@@ -158,18 +232,21 @@ function MapWindow:Line(x1, y1, x2, y2)
 end
 
 function MapWindow:Refresh(state, pos, flip)
-    self:SetRoute(state and state.route)
+    local current = state and state:Current()
+    self:SetMap(state and state.route, state and state:MapOf(current or state.points[1]))
     self.state = state
     if state == nil or self.layer == nil then
         self.info:SetText(Pathfinder.L("noRouteSelected"))
         return
     end
 
-    -- Markers: one per point, recoloured on every refresh
-    local current = state:Current()
+    -- Markers: one per point of the shown map, recoloured on every refresh
     for i, point in ipairs(state.route.points) do
         local marker = self.markers[i]
-        local x, y = self:Project(point.lon, point.lat)
+        local x, y
+        if state:MapOf(point) == self.map then
+            x, y = self:Project(point.lon, point.lat)
+        end
         if marker == nil and x ~= nil then
             marker = self:Square(7, COLOR_OPEN, x, y, true)
             marker.MouseEnter = function()
@@ -199,7 +276,7 @@ function MapWindow:Refresh(state, pos, flip)
     self.dotCount = 0
     local path = {}
     local px, py
-    if pos ~= nil and pos.region == state.route.region then
+    if pos ~= nil and (state.route.region == nil or pos.region == state.route.region) then
         px, py = self:Project(pos.lon, pos.lat)
         if px ~= nil then
             table.insert(path, { px, py })

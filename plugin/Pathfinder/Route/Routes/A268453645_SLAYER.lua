@@ -1,0 +1,28 @@
+-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.
+Pathfinder.Routes.RegisterAreas({
+    map = 268453645,
+    region = 2,
+    areas = {
+        { lon = -69.39069, lat = 52.60837, radius = 114, count = 80, deed = "Eiserne-Krone-Bezwinger / Eiserne-Krone-Bezwingerin von Câr Bronach", deed_en = "Iron Crown-slayer of Câr Bronach" },
+        { lon = -70.74436, lat = 48.3425, radius = 103, count = 76, deed = "Eiserne-Krone-Bezwinger / Eiserne-Krone-Bezwingerin von Câr Bronach", deed_en = "Iron Crown-slayer of Câr Bronach" },
+        { lon = -70.74566, lat = 48.34054, radius = 103, count = 75, deed = "Die Verfeindung der Grimmhands", deed_en = "Enmity of the Dourhands" },
+        { lon = -76.58898, lat = 48.23569, radius = 134, count = 74, deed = "Kreaturen-Bezwinger des Welkinspeichs", deed_en = "Welkin-lofts Beast-slayer" },
+        { lon = -70.74517, lat = 48.34591, radius = 103, count = 73, deed = "Kreaturen-Bezwinger / Kreaturen-Bezwingerin von Câr Bronach", deed_en = "Beast-slayer of Câr Bronach" },
+        { lon = -70.73681, lat = 48.34043, radius = 101, count = 72, deed = "Riesenbezwinger / Riesenbezwingerin von Câr Bronach", deed_en = "Giant-slayer of Câr Bronach" },
+        { lon = -69.39802, lat = 52.6114, radius = 122, count = 67, deed = "Die Verfeindung der Grimmhands", deed_en = "Enmity of the Dourhands" },
+        { lon = -69.39802, lat = 52.6114, radius = 122, count = 67, deed = "Kreaturen-Bezwinger / Kreaturen-Bezwingerin von Câr Bronach", deed_en = "Beast-slayer of Câr Bronach" },
+        { lon = -69.3043, lat = 52.62534, radius = 107, count = 67, deed = "Riesenbezwinger / Riesenbezwingerin von Câr Bronach", deed_en = "Giant-slayer of Câr Bronach" },
+        { lon = -71.63026, lat = 51.65312, radius = 124, count = 63, deed = "Eiserne-Krone-Bezwinger / Eiserne-Krone-Bezwingerin von Câr Bronach", deed_en = "Iron Crown-slayer of Câr Bronach" },
+        { lon = -71.62737, lat = 51.6595, radius = 124, count = 62, deed = "Kreaturen-Bezwinger / Kreaturen-Bezwingerin von Câr Bronach", deed_en = "Beast-slayer of Câr Bronach" },
+        { lon = -71.62557, lat = 51.6579, radius = 127, count = 58, deed = "Riesenbezwinger / Riesenbezwingerin von Câr Bronach", deed_en = "Giant-slayer of Câr Bronach" },
+        { lon = -76.08207, lat = 48.07402, radius = 135, count = 58, deed = "Drachen-Bezwinger des Welkinspeichs", deed_en = "Welkin-lofts Dragon-kind Slayer" },
+        { lon = -76.06533, lat = 48.05098, radius = 134, count = 54, deed = "Riesen-Bezwinger des Welkinspeichs", deed_en = "Welkin-lofts Giant-slayer" },
+        { lon = -74.09337, lat = 45.20333, radius = 132, count = 46, deed = "Drachen-Bezwinger des Welkinspeichs", deed_en = "Welkin-lofts Dragon-kind Slayer" },
+        { lon = -74.09337, lat = 45.20333, radius = 132, count = 46, deed = "Kreaturen-Bezwinger des Welkinspeichs", deed_en = "Welkin-lofts Beast-slayer" },
+        { lon = -74.09337, lat = 45.20333, radius = 132, count = 46, deed = "Riesen-Bezwinger des Welkinspeichs", deed_en = "Welkin-lofts Giant-slayer" },
+        { lon = -75.98531, lat = 46.97068, radius = 118, count = 40, deed = "Kreaturen-Bezwinger des Welkinspeichs", deed_en = "Welkin-lofts Beast-slayer" },
+        { lon = -77.37804, lat = 45.12547, radius = 81, count = 40, deed = "Riesen-Bezwinger des Welkinspeichs", deed_en = "Welkin-lofts Giant-slayer" },
+        { lon = -73.40975, lat = 43.10578, radius = 108, count = 37, deed = "Drachen-Bezwinger des Welkinspeichs", deed_en = "Welkin-lofts Dragon-kind Slayer" },
+        { lon = -75.37639, lat = 51.73805, radius = 73, count = 28, deed = "Totenbezwinger / Totenbezwingerin von Câr Bronach", deed_en = "Dead-slayer of Câr Bronach" },
+    },
+})

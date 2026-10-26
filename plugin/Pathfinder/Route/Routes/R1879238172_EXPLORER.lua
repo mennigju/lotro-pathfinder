@@ -3,7 +3,6 @@ Pathfinder.Routes.Register({
     id = "R1879238172_EXPLORER",
     name = "Byrgenstock - Erkundung",
     name_en = "Byrgenstow - Exploration",
-    region = 0,
     map = { id = 1879238172, image = 1091733535, factor = 600.00006, lon = 52.83, lat = 22.2, file = "Pathfinder/Route/Resources/Maps/1879238172.jpg" },
     points = {
         { key = "1879248618_1", lon = 54.7165, lat = 20.89661, name = "Kammern von Byrgenstock (1)", deed = "Kammern von Byrgenstock", name_en = "Chambers of Byrgenstow (1)", deed_en = "Chambers of Byrgenstow" },

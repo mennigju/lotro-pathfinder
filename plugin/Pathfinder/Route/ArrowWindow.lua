@@ -8,7 +8,9 @@ Pathfinder.ArrowWindow = ArrowWindow
 
 local RESOURCES = "Pathfinder/Route/Resources/"
 local WIDTH = 240
-local HEIGHT = 140
+local HEIGHT = 164
+-- Window buttons along the bottom
+local BUTTON_Y = HEIGHT - 22
 -- After this many seconds the arrow is greyed out: you have moved on since.
 -- Changed with /pf alter.
 ArrowWindow.DEFAULT_STALE_SECONDS = 15
@@ -58,7 +60,8 @@ function ArrowWindow.MakeDraggable(window, control, onMoved)
     end
 end
 
--- app: { posCommand, OnSkip(), OnBack(), OnToggleMap(), OnToggleList(), OnMoved(x, y) }
+-- app: { posCommand, OnSkip(), OnBack(), OnToggleRoutes(), OnToggleList(),
+--        OnToggleMap(), OnToggleSettings(), OnMoved(x, y) }
 function ArrowWindow.Create(app, x, y)
     local self = {}
     local window = Turbine.UI.Window()
@@ -97,7 +100,7 @@ function ArrowWindow.Create(app, x, y)
     self.stale = true
     arrow:SetBackground(RESOURCES .. "arrow_stale_00.tga")
 
-    self.routeLabel = label(window, 4, 2, WIDTH - 108, 14, Turbine.UI.Lotro.Font.Verdana10,
+    self.routeLabel = label(window, 4, 2, WIDTH - 8, 14, Turbine.UI.Lotro.Font.Verdana10,
         Turbine.UI.Color(1, 0.8, 0.75, 0.6))
     self.routeLabel:SetTextAlignment(Turbine.UI.ContentAlignment.TopLeft)
     self.nameLabel = label(window, 4, 70, WIDTH - 8, 18, Turbine.UI.Lotro.Font.Verdana14,
@@ -110,8 +113,10 @@ function ArrowWindow.Create(app, x, y)
 
     button(window, 4, 112, 28, "<", function() app.OnBack() end)
     button(window, WIDTH - 32, 112, 28, ">", function() app.OnSkip() end)
-    button(window, WIDTH - 100, 2, 48, Pathfinder.L("list"), function() app.OnToggleList() end)
-    button(window, WIDTH - 50, 2, 46, Pathfinder.L("map"), function() app.OnToggleMap() end)
+    button(window, 4, BUTTON_Y, 58, Pathfinder.L("routesButton"), function() app.OnToggleRoutes() end)
+    button(window, 66, BUTTON_Y, 50, Pathfinder.L("list"), function() app.OnToggleList() end)
+    button(window, 120, BUTTON_Y, 50, Pathfinder.L("map"), function() app.OnToggleMap() end)
+    button(window, 174, BUTTON_Y, 62, Pathfinder.L("optionsButton"), function() app.OnToggleSettings() end)
 
     -- Refresh the "x s ago" text once a second
     local lastTick = 0

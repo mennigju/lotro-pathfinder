@@ -3,7 +3,6 @@ Pathfinder.Routes.Register({
     id = "R1879388396_LORE",
     name = "Kidzul-kâlah - Wissen",
     name_en = "Kidzul-kâlah - Lore",
-    region = 0,
     map = { id = 1879388396, image = 1092462956, factor = 600, lon = 50.98334, lat = 37.9, file = "Pathfinder/Route/Resources/Maps/1879388396.jpg" },
     points = {
         { key = "1879391338_1", lon = 51.58748, lat = 37.30414, name = "Tanz des Tentakels (1)", deed = "Tanz des Tentakels", name_en = "Dances with Tentacles (1)", deed_en = "Dances with Tentacles" },

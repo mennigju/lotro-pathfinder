@@ -11,6 +11,5 @@ Pathfinder.Routes.Register({
         { key = "1879458162_2", lon = -31.82683, lat = 72.47982, name = "Sicheldorn", deed = "Pflanzen des Giftgartens", name_en = "Scythe-sting", deed_en = "Plants of the Poison Gardens" },
         { key = "1879458162_4", lon = -32.26014, lat = 72.15267, name = "Wargbiss", deed = "Pflanzen des Giftgartens", name_en = "Wargsbite", deed_en = "Plants of the Poison Gardens" },
         { key = "1879458162_3", lon = -32.23275, lat = 71.75627, name = "Natterzahn", deed = "Pflanzen des Giftgartens", name_en = "Adder's Tooth", deed_en = "Plants of the Poison Gardens" },
-        { key = "1879458162_1", lon = -31.66513, lat = 71.93422, name = "Pflanzen des Giftgartens (1)", deed = "Pflanzen des Giftgartens", name_en = "Plants of the Poison Gardens (1)", deed_en = "Plants of the Poison Gardens" },
     },
 })

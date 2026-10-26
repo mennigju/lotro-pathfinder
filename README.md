@@ -2,7 +2,8 @@
 
 A Lord of the Rings Online plugin that guides you along a short route to the
 targets of explorer and lore deeds: an arrow points to the next target, a map
-shows the route, and a list lets you tick off what you already have.
+shows the route, and a list lets you tick off what you already have. The map
+also marks where the monsters of slayer deeds gather.
 German and English clients are supported.
 
 Player documentation (install, commands): [plugin/Pathfinder/README.txt](plugin/Pathfinder/README.txt)
@@ -12,24 +13,33 @@ Player documentation (install, commands): [plugin/Pathfinder/README.txt](plugin/
 | Path | Content |
 |---|---|
 | `plugin/Pathfinder/` | The plugin as it goes into the LOTRO `Plugins` folder |
-| `plugin/Pathfinder/Route/Routes/` | Generated routes, one Lua file per map and deed type |
-| `plugin/Pathfinder/Route/Resources/` | Arrow frames (generated) and map images (generated) |
+| `plugin/Pathfinder/Route/Routes/` | Generated routes, one Lua file per map and deed type (`R*`), per region (`G*`); slayer areas per map (`A*_SLAYER.lua`) |
+| `plugin/Pathfinder/Route/Resources/` | Arrow frames and rings (generated) and map images (generated) |
 | `tools/` | Generators, tests and packaging |
 
 ## Development
 
 ```sh
-python3 -I tools/fetch_data.py        # LotroCompanion data -> cache/
-python3 -I tools/build_routes.py      # routes + map JPGs (--scale 0.6, --map, --types)
-python3 -I tools/make_images.py       # 36 rotated arrow frames per arrow
+python3 -I tools/fetch_data.py        # LotroCompanion data -> cache/ (--markers: +650 MB monster spawns)
+python3 -I tools/build_routes.py      # routes + map JPGs (--scale 0.6, --map, --types, --no-areas)
+python3 -I tools/make_images.py       # 36 rotated arrow frames per arrow, area rings
 lua5.1 tools/test_loc.lua             # tests for parsing, geometry and route state
 python3 -I tools/package.py           # dist/Pathfinder-<version>.zip
 ```
 
+The slayer areas need the map markers (`fetch_data.py --markers`): every
+spawn point, once per monster that may appear there. `build_routes.py`
+matches the slayer deeds' monster selection against `mobs.xml`, takes the
+deed's map (or the map of the territory it names) and puts circles on the
+densest spots. Deeds it can't place are listed in
+`cache/slayer_unmatched.txt`, targets without a map in
+`cache/dropped_targets.txt`. Without the markers (or with `--no-areas`)
+the existing area files stay as they are.
+
 CI (`.github/workflows/ci.yml`) runs the syntax check, the tests and the
 packaging on every push to `main` and on pull requests; the ZIP is attached
 as a build artifact. To release, bump `<Version>` in
-`plugin/Pathfinder/Route.plugin` and push a matching tag (`v0.4`): the
+`plugin/Pathfinder/Route.plugin` and push a matching tag (`v0.5`): the
 release workflow builds the ZIP and publishes a GitHub release with it.
 
 For local testing, link `plugin/Pathfinder` into the game's `Plugins` folder
