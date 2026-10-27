@@ -26,7 +26,9 @@ jobs:
           fi
       - name: Package
         run: python3 -I tools/package.py
+      - name: LotroInterface description
+        run: python3 -I tools/readme_bbcode.py
       - name: Create release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" dist/*.zip --title "Pathfinder ${GITHUB_REF_NAME#v}" --generate-notes
+        run: gh release create "$GITHUB_REF_NAME" dist/*.zip dist/lotrointerface.txt --title "Pathfinder ${GITHUB_REF_NAME#v}" --generate-notes
