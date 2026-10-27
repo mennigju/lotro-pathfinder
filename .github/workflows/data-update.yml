@@ -10,6 +10,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  statuses: write
 
 concurrency: data-update
 
@@ -67,6 +68,10 @@ jobs:
           git add plugin tools/map_sources.txt
           git commit -q -m "Data update from LotroCompanion"
           git push -f origin data-update
+          # main requires the check "test"; ci.yml doesn't run here, the tests above did
+          gh api "repos/$GITHUB_REPOSITORY/statuses/$(git rev-parse HEAD)" -f state=success -f context=test \
+            -f description="Syntax check and tests in the data update run" \
+            -f target_url="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" > /dev/null
           if [ "$(gh pr view data-update --json state -q .state 2>/dev/null)" = "OPEN" ]; then
             gh pr edit data-update --body-file "$RUNNER_TEMP/body.md"
           else
