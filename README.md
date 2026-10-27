@@ -6,10 +6,12 @@ shows the route, and a list lets you tick off what you already have. The map
 also marks where the monsters of slayer deeds gather.
 German and English clients are supported.
 
-<!-- Screenshots: add docs/screenshots/*.jpg, then remove this comment wrapper
-![Arrow](docs/screenshots/arrow.jpg) ![Map](docs/screenshots/map.jpg)
-![List](docs/screenshots/list.jpg) ![Routes](docs/screenshots/routes.jpg)
--->
+![Arrow](docs/screenshots/arrow.png)
+![Map with route and slayer areas](docs/screenshots/map.png)
+
+![Deed list](docs/screenshots/list.png)
+![Routes](docs/screenshots/routes.png)
+![Options](docs/screenshots/options.png)
 
 ## Features
 
