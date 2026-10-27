@@ -171,7 +171,7 @@ python3 -I tools/fetch_data.py        # LotroCompanion data -> cache/ (--markers
 python3 -I tools/build_routes.py      # routes + map JPGs (--scale 0.6, --map, --types, --no-areas)
 python3 -I tools/make_images.py       # 36 rotated arrow frames per arrow, area rings
 lua5.1 tools/test_loc.lua             # tests for parsing, geometry and route state
-python3 -I tools/package.py           # dist/Pathfinder-<version>.zip
+python3 -I tools/package.py           # dist/Pathfinder-<version>.zip (--version, default git describe)
 python3 -I tools/readme_bbcode.py     # dist/lotrointerface.txt: description as BBCode
 python3 -I tools/summarize_changes.py # Markdown summary of the regenerated routes vs. HEAD
 ```
@@ -218,8 +218,9 @@ CI (`.github/workflows/ci.yml`) runs the syntax check, the tests and the
 packaging on every push to `main` and on pull requests; the ZIP is attached
 as a build artifact.
 
-1. Bump `<Version>` in `plugin/Pathfinder/Route.plugin`, commit, and push a
-   matching tag (`v0.6`).
+1. Push a tag (`git tag v0.6 && git push origin v0.6`). The tag is the only
+   place the version is set: `Route.plugin` in the repository says `dev`,
+   `package.py` writes the version into the copy inside the ZIP.
 2. The release workflow runs the tests, builds the ZIP and
    `lotrointerface.txt` and publishes a GitHub release with both.
 3. On LotroInterface, open the add-on and choose *Update*: upload the ZIP

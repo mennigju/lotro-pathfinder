@@ -1,6 +1,6 @@
 name: Release
 
-# Push a tag like v0.4 that matches <Version> in plugin/Pathfinder/Route.plugin
+# Push a tag like v0.6; the plugin version in the ZIP is taken from it
 on:
   push:
     tags: ['v*']
@@ -17,15 +17,8 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y lua5.1
       - name: Tests
         run: lua5.1 tools/test_loc.lua
-      - name: Check version
-        run: |
-          version=$(sed -n 's:.*<Version>\(.*\)</Version>.*:\1:p' plugin/Pathfinder/Route.plugin)
-          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
-            echo "Tag $GITHUB_REF_NAME does not match plugin version $version"
-            exit 1
-          fi
       - name: Package
-        run: python3 -I tools/package.py
+        run: python3 -I tools/package.py --version "${GITHUB_REF_NAME#v}"
       - name: LotroInterface description
         run: python3 -I tools/readme_bbcode.py
       - name: Create release
