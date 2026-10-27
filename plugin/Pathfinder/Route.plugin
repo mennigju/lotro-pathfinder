@@ -3,8 +3,8 @@
 <Plugin>
   <Information>
     <Name>Pathfinder</Name>
-    <Author>jmennig</Author>
-    <Version>0.5</Version>
+    <Author>mennigju</Author>
+    <Version>0.6</Version>
     <Description>Routes to explorer and lore deeds with arrow and map, slayer areas / Routen zu Erkundungs- und Wissens-Taten mit Pfeil und Karte, Jagdgebiete</Description>
   </Information>
   <Package>Pathfinder.Route.Main</Package>
