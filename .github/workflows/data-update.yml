@@ -16,12 +16,12 @@ concurrency: data-update
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v7
         with:
           ref: main
-      - name: Install Lua 5.1
-        run: sudo apt-get update && sudo apt-get install -y lua5.1
+      - uses: ./.github/actions/lua51
       - uses: actions/setup-python@v7
         with:
           python-version: '3.x'
