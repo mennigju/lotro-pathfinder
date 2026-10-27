@@ -6,13 +6,6 @@ shows the route, and a list lets you tick off what you already have. The map
 also marks where the monsters of slayer deeds gather.
 German and English clients are supported.
 
-![Arrow](docs/screenshots/arrow.png)
-![Map with route and slayer areas](docs/screenshots/map.png)
-
-![Deed list](docs/screenshots/list.png)
-![Routes](docs/screenshots/routes.png)
-![Options](docs/screenshots/options.png)
-
 ## Features
 
 - **Arrow** to the next target, with the distance to it and the way left on
@@ -26,6 +19,41 @@ German and English clients are supported.
   gather
 - **Reroute** the open targets from where you stand
 - German and English, following the game client
+
+## Screenshots
+
+**The arrow** is all you need while travelling. It names the next target
+and its deed, and the top line shows the route and how far you are on it
+(here 22 of 25 in the Lone-lands). Until you click it, the arrow knows no
+position yet and shows the target's coordinates instead of the distance.
+The buttons below open the other windows.
+
+![Arrow](docs/screenshots/arrow.png)
+
+**The map** shows the whole route: open targets in yellow, the next one in
+green, finished ones small and grey, white dots lead from one target to the
+next. The red circles are slayer areas, the spots where most foes of a
+slayer deed spawn, here the Spider-slayer in the Lone-lands. Click a target
+to mark it done or open again.
+
+![Map with route and slayer areas](docs/screenshots/map.png)
+
+**The deed list** groups the targets by deed. Tick what you already have
+from before, a tick on a deed ticks all its targets. With *Hide finished
+targets* only the open ones stay; completed deeds start folded.
+
+![Deed list](docs/screenshots/list.png)
+
+**The route window** lists every route with its progress. Type a part of a
+name to search; *here only* keeps the routes at your position.
+
+![Routes](docs/screenshots/routes.png)
+
+**Options**: how close you must get to tick off a target, when the arrow
+turns grey because your position is old, mirroring the arrow, slayer areas
+on or off, which windows are shown, and the language.
+
+![Options](docs/screenshots/options.png)
 
 ## Install
 
@@ -199,7 +227,8 @@ as a build artifact.
    change log.
 4. If the description above changed, replace the description with the
    content of `lotrointerface.txt`. Upload new screenshots
-   (`docs/screenshots/`) to the add-on's gallery when the windows changed.
+   (`docs/screenshots/`) to the add-on's gallery when the windows changed,
+   with the captions from the Screenshots section.
 
 ## License
 

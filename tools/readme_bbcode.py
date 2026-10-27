@@ -2,8 +2,8 @@
 """Turns the player part of README.md into BBCode for LotroInterface.
 
 Reads README.md up to the marker comment that ends the description and
-writes dist/lotrointerface.txt. Image lines and HTML comments are left out;
-screenshots go into the LotroInterface gallery.
+writes dist/lotrointerface.txt. The Screenshots section, image lines and
+HTML comments are left out; screenshots go into the LotroInterface gallery.
 
 Usage: python3 -I tools/readme_bbcode.py
 """
@@ -22,6 +22,7 @@ HEADING_SIZES = {1: 5, 2: 4, 3: 3}
 def inline(text):
     text = re.sub(r"`([^`]+)`", r"[font=Courier New]\1[/font]", text)
     text = re.sub(r"\*\*([^*]+)\*\*", r"[b]\1[/b]", text)
+    text = re.sub(r"\*([^*]+)\*", r"[i]\1[/i]", text)
     text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r"[url=\2]\1[/url]", text)
     return text
 
@@ -59,6 +60,7 @@ def blocks(lines):
 
 def convert(markdown):
     markdown = re.sub(r"<!--.*?-->", "", markdown, flags=re.S)
+    markdown = re.sub(r"^## Screenshots\n.*?(?=^## )", "", markdown, flags=re.S | re.M)
     lines = [l for l in markdown.splitlines() if not l.lstrip().startswith("![")]
     out = []
     for kind, block in blocks(lines):
