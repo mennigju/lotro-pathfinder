@@ -9,7 +9,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install Lua 5.1
         run: sudo apt-get update && sudo apt-get install -y lua5.1
       - name: Syntax check
@@ -18,7 +18,7 @@ jobs:
         run: lua5.1 tools/test_loc.lua
       - name: Package
         run: python3 -I tools/package.py
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: Pathfinder
           path: dist/*.zip
