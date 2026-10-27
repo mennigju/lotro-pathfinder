@@ -11,6 +11,8 @@ map by map; its targets keep their keys, so the progress is shared.
 The map images come from lotro-maps-db as PNG (1024x768). The plugin API only
 shows TGA/JPG and can't reliably scale, so they are converted to JPG in the
 final display size (--scale) into plugin/Pathfinder/Route/Resources/Maps/.
+tools/map_sources.txt keeps the hash of each source PNG, so a JPG is only
+encoded again when its PNG (or the scale) changed.
 
 Slayer deeds have no targets to walk to. If the map markers are in the cache
 (tools/fetch_data.py --markers), the spots with the most matching monsters
@@ -21,6 +23,7 @@ Run tools/fetch_data.py first.
 """
 
 import argparse
+import hashlib
 import math
 import re
 import sys
@@ -38,6 +41,7 @@ MAPS_OUT = ROOT / "plugin" / "Pathfinder" / "Route" / "Resources" / "Maps"
 MAPS_PLUGIN_PATH = "Pathfinder/Route/Resources/Maps/"
 MAP_PNG_URL = "https://raw.githubusercontent.com/LotroCompanion/lotro-maps-db/master/maps/{id}.png"
 MAP_SIZE = (1024, 768)
+MAP_SOURCES = ROOT / "tools" / "map_sources.txt"
 
 # German and English route name suffix per deed type
 TYPE_NAMES = {"EXPLORER": ("Erkundung", "Exploration"), "LORE": ("Wissen", "Lore")}
@@ -502,8 +506,23 @@ def module_name(map_id, deed_type):
     return f"R{map_id}_{deed_type}"
 
 
-def make_map_image(map_id, scale):
-    """Returns the plugin path of the JPG for a map, None if there is no image."""
+def load_map_sources():
+    """Map id -> sha256 of the PNG its JPG was made from."""
+    if not MAP_SOURCES.exists():
+        return {}
+    lines = MAP_SOURCES.read_text(encoding="utf-8").splitlines()
+    return dict(line.split("\t") for line in lines if line and not line.startswith("#"))
+
+
+def write_map_sources(sources):
+    lines = ["# Karten-ID\tsha256 des PNG (tools/build_routes.py)"]
+    lines += [f"{map_id}\t{sources[map_id]}" for map_id in sorted(sources, key=int)]
+    MAP_SOURCES.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def make_map_image(map_id, scale, sources):
+    """Returns the plugin path of the JPG for a map, None if there is no image.
+    sources (map id -> PNG hash) is updated."""
     from PIL import Image
 
     png = CACHE / "maps-db" / "maps" / f"{map_id}.png"
@@ -518,10 +537,14 @@ def make_map_image(map_id, scale):
         png.write_bytes(data)
     size = (round(MAP_SIZE[0] * scale), round(MAP_SIZE[1] * scale))
     jpg = MAPS_OUT / f"{map_id}.jpg"
-    stale = not jpg.exists() or jpg.stat().st_mtime < png.stat().st_mtime
+    digest = hashlib.sha256(png.read_bytes()).hexdigest()
+    stale = not jpg.exists()
     if not stale:
         with Image.open(jpg) as existing:
             stale = existing.size != size
+    # Without an entry an existing JPG is taken as made from this PNG
+    stale = stale or sources.get(map_id, digest) != digest
+    sources[map_id] = digest
     if stale:
         MAPS_OUT.mkdir(parents=True, exist_ok=True)
         with Image.open(png) as image:
@@ -625,12 +648,13 @@ def main():
 
     modules = []
     used_images = set()
+    map_sources = load_map_sources()
     total_targets = 0
 
     def image_for(map_id):
         if args.no_images or map_id not in maps:
             return None
-        image_file = make_map_image(map_id, args.scale)
+        image_file = make_map_image(map_id, args.scale, map_sources)
         if image_file:
             used_images.add(Path(image_file).name)
         return image_file
@@ -682,6 +706,9 @@ def main():
         for old in MAPS_OUT.glob("*.jpg"):
             if old.name not in used_images:
                 old.unlink()
+        map_sources = {m: h for m, h in map_sources.items() if f"{m}.jpg" in used_images}
+    if not args.no_images:
+        write_map_sources(map_sources)
 
     # Without the markers in the cache the existing areas stay as they are
     if not args.no_areas and MARKERS.exists():

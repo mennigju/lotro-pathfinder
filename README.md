@@ -25,7 +25,11 @@ python3 -I tools/build_routes.py      # routes + map JPGs (--scale 0.6, --map, -
 python3 -I tools/make_images.py       # 36 rotated arrow frames per arrow, area rings
 lua5.1 tools/test_loc.lua             # tests for parsing, geometry and route state
 python3 -I tools/package.py           # dist/Pathfinder-<version>.zip
+python3 -I tools/summarize_changes.py # Markdown summary of the regenerated routes vs. HEAD
 ```
+
+`tools/map_sources.txt` records the hash of each map's source PNG; a map JPG
+is only encoded again when its PNG or the scale changes.
 
 The slayer areas need the map markers (`fetch_data.py --markers`): every
 spawn point, once per monster that may appear there. `build_routes.py`
@@ -41,6 +45,15 @@ packaging on every push to `main` and on pull requests; the ZIP is attached
 as a build artifact. To release, bump `<Version>` in
 `plugin/Pathfinder/Route.plugin` and push a matching tag (`v0.5`): the
 release workflow builds the ZIP and publishes a GitHub release with it.
+
+The data update workflow (`.github/workflows/data-update.yml`, Mondays or
+by hand via *Run workflow*) fetches the current LotroCompanion data including
+the markers, rebuilds routes, maps and slayer areas and, if anything changed,
+opens or updates a PR from the branch `data-update` whose text lists the
+changed routes, areas and maps. PRs opened by the workflow's token don't
+trigger CI, so the workflow runs the syntax check and the tests itself; it
+needs *Allow GitHub Actions to create and approve pull requests* in the
+repository's Actions settings.
 
 For local testing, link `plugin/Pathfinder` into the game's `Plugins` folder
 and run `/plugins load Pathfinder` in game.
