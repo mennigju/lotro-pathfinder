@@ -328,33 +328,67 @@ local function plain(text)
     return string.lower((text:gsub("<[^>]*>", "")))
 end
 
-local function contains(message, text)
-    return text ~= nil and #text >= MIN_CHAT_NAME and message:find(plain(text), 1, true) ~= nil
-end
-
 -- The chat comes in the client language, which may differ from the plugin
 -- language: check all name variants
 local CHAT_FIELDS = { "name", "deed", "name_en", "deed_en", "name_de", "deed_de" }
 
-local function mentions(message, point)
-    for _, field in ipairs(CHAT_FIELDS) do
-        if contains(message, point[field]) then
-            return true
+-- All chat names of the route, longest first: { { text, points = {...} }, ... }
+local function chatNames(route)
+    if route.chatNames ~= nil then
+        return route.chatNames
+    end
+    local names, byText = {}, {}
+    for _, point in ipairs(route.points) do
+        for _, field in ipairs(CHAT_FIELDS) do
+            local text = point[field] and plain(point[field])
+            if text ~= nil and #text >= MIN_CHAT_NAME then
+                local entry = byText[text]
+                if entry == nil then
+                    entry = { text = text, points = {} }
+                    byText[text] = entry
+                    table.insert(names, entry)
+                end
+                if entry.points[#entry.points] ~= point then
+                    table.insert(entry.points, point)
+                end
+            end
         end
     end
-    return false
+    table.sort(names, function(a, b) return #a.text > #b.text end)
+    route.chatNames = names
+    return names
+end
+
+-- Removes every occurrence of text; true if there was one
+local function cut(message, text)
+    local found = false
+    local start = message:find(text, 1, true)
+    while start ~= nil do
+        found = true
+        -- "\0" keeps the names before and after it apart
+        message = message:sub(1, start - 1) .. "\0" .. message:sub(start + #text)
+        start = message:find(text, start + 1, true)
+    end
+    return found, message
 end
 
 -- Discovery or deed completion messages name the landmark or the deed.
+-- The longest name wins: "Idagal Treasure Cache" does not also finish
+-- "Treasure Cache", even when the longer one is already done.
 -- Returns the number of newly finished points.
 function RouteState:MatchChat(message)
     message = plain(message)
     local count = 0
-    for _, point in ipairs(self.points) do
-        if not self.done[point.key]
-            and mentions(message, point) then
-            self:MarkDone(point)
-            count = count + 1
+    for _, entry in ipairs(chatNames(self.route)) do
+        local found
+        found, message = cut(message, entry.text)
+        if found then
+            for _, point in ipairs(entry.points) do
+                if not self.done[point.key] then
+                    self:MarkDone(point)
+                    count = count + 1
+                end
+            end
         end
     end
     return count

@@ -68,7 +68,7 @@ local route = {
     points = {
         { key = "a", lon = 0, lat = 0, name = "Alpha", deed = "Erkundung Eins" },
         { key = "b", lon = 0.5, lat = 0, name = "Beta", deed = "Erkundung Eins" },
-        { key = "c", lon = 1, lat = 0, name = "Gamma", deed = "Erkundung Zwei" },
+        { key = "c", lon = 1, lat = 0, name = "Gamma", deed = "Erkundung Zwei", deed_en = "Second Exploration" },
     },
 }
 local state = Pathfinder.RouteState.New(route, {})
@@ -103,9 +103,31 @@ check("chat markup", state:MatchChat("<rgb=#FFFF00>Neuer Ort: GAMMA</rgb>") == 1
 state:Reset()
 
 -- Chat in the other language: English deed name on a German route
-route.points[3].deed_en = "Second Exploration"
 check("chat english name", state:MatchChat("Completed:\nSecond Exploration") == 1)
 state:Reset()
+
+-- Short names inside longer ones (real route names): the longest name wins
+local overlap = {
+    id = "overlap", name = "Overlap", region = 1,
+    points = {
+        { key = "o1", lon = 0, lat = 0, name = "Schatzspeicher", deed = "Funde", name_en = "Treasure Cache", deed_en = "Finds" },
+        { key = "o2", lon = 1, lat = 0, name = "Idagâl-Schatzspeicher", deed = "Funde", name_en = "Idagâl Treasure Cache", deed_en = "Finds" },
+        { key = "o3", lon = 2, lat = 0, name = "Tentakel 1", deed_en = "Dances with Tentacles" },
+        { key = "o4", lon = 3, lat = 0, name = "Tentakel 2", deed_en = "Dances with Tentacles (Tier 2)" },
+    },
+}
+local overlapState = Pathfinder.RouteState.New(overlap, {})
+check("longer name only", overlapState:MatchChat("Neuer Ort entdeckt: Idagâl-Schatzspeicher") == 1
+    and overlapState:IsDone(overlap.points[2]) and not overlapState:IsDone(overlap.points[1]))
+check("longer done name still shadows", overlapState:MatchChat("Discovered: Idagâl Treasure Cache") == 0)
+check("short name alone", overlapState:MatchChat("Neuer Ort entdeckt: Schatzspeicher") == 1)
+check("tier deed", overlapState:MatchChat("Completed:\nDances with Tentacles (Tier 2)") == 1
+    and overlapState:IsDone(overlap.points[4]) and not overlapState:IsDone(overlap.points[3]))
+check("tier 1 deed", overlapState:MatchChat("Completed:\nDances with Tentacles") == 1)
+overlapState:Reset()
+-- German completion as the client writes it (format from DeedTracker)
+check("chat deed de", overlapState:MatchChat("Abgeschlossen:\nFunde") == 2)
+overlapState:Reset()
 
 -- Manual marking and deed grouping
 state:SetDone(route.points[1], true)
