@@ -8,4 +8,5 @@
     <Description>Routes to explorer and lore deeds with arrow and map, slayer areas / Routen zu Erkundungs- und Wissens-Taten mit Pfeil und Karte, Jagdgebiete</Description>
   </Information>
   <Package>Pathfinder.Route.Main</Package>
+  <Configuration Apartment="Pathfinder" />
 </Plugin>

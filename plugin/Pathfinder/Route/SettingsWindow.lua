@@ -6,12 +6,13 @@ Pathfinder = Pathfinder or {}
 local SettingsWindow = {}
 Pathfinder.SettingsWindow = SettingsWindow
 
-local WIDTH = 300
+local WIDTH = 360
 local MARGIN_X = 14
 local MARGIN_TOP = 40
 local ROW = 24
 local RADIUS_STEP = 5
 local AGE_STEP = 5
+local LANG_BUTTON = 76
 
 local COLOR_TEXT = Turbine.UI.Color(1, 0.9, 0.85, 0.7)
 local COLOR_HINT = Turbine.UI.Color(1, 0.7, 0.7, 0.7)
@@ -113,12 +114,13 @@ function SettingsWindow.Create(app, x, y)
     end
 
     top = top + 6
-    label(window, MARGIN_X, top, valueX - MARGIN_X, Pathfinder.L("settingLang"))
-    self.langDe = button(window, valueX, top, 58, "Deutsch", function()
+    local langX = WIDTH - MARGIN_X - 2 * LANG_BUTTON - 4
+    label(window, MARGIN_X, top, langX - MARGIN_X, Pathfinder.L("settingLang"))
+    self.langDe = button(window, langX, top, LANG_BUTTON, "Deutsch", function()
         app.SetLang("de")
         self:Refresh()
     end)
-    self.langEn = button(window, valueX + 62, top, 58, "English", function()
+    self.langEn = button(window, langX + LANG_BUTTON + 4, top, LANG_BUTTON, "English", function()
         app.SetLang("en")
         self:Refresh()
     end)

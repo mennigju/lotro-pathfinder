@@ -53,7 +53,7 @@ Slayer-Tat sammeln.
 
 Installation: ZIP entpacken nach
   Dokumente\The Lord of the Rings Online\Plugins\
-so dass es den Ordner Plugins\Pathfinder gibt. Im Spiel: /plugins load Pathfinder
+so dass es den Ordner Plugins\Pathfinder gibt. Im Spiel: /zusatzmodule laden Pathfinder
 
 Bedienung:
   - Pfeil anklicken: fuehrt /pos aus und aktualisiert die Position. Tipp: den
