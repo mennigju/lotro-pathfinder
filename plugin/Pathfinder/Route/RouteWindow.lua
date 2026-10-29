@@ -12,6 +12,8 @@ local MARGIN_X = 12
 local MARGIN_TOP = 38
 local ROW_HEIGHT = 18
 local SCROLL_WIDTH = 10
+-- The window's bottom corner ornaments cover text at the left edge
+local CORNER = 28
 
 local COLOR_ROUTE = Turbine.UI.Color(1, 0.9, 0.9, 0.9)
 local COLOR_ACTIVE = Turbine.UI.Color(1, 0.3, 1, 0.4)
@@ -64,8 +66,8 @@ function RouteWindow.Create(app, x, y)
 
     self.status = Turbine.UI.Label()
     self.status:SetParent(window)
-    self.status:SetPosition(MARGIN_X, HEIGHT - 26)
-    self.status:SetSize(WIDTH - 2 * MARGIN_X, 16)
+    self.status:SetPosition(CORNER, HEIGHT - 26)
+    self.status:SetSize(WIDTH - 2 * CORNER, 16)
     self.status:SetFont(Turbine.UI.Lotro.Font.Verdana10)
     self.status:SetForeColor(Turbine.UI.Color(1, 0.75, 0.75, 0.75))
 

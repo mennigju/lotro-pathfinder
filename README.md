@@ -109,7 +109,7 @@ zeigt außerdem, wo sich die Gegner von Slayer-Taten sammeln.
 ### Installation
 
 ZIP entpacken nach `Dokumente\The Lord of the Rings Online\Plugins\`, so dass
-es den Ordner `Plugins\Pathfinder` gibt. Im Spiel: `/plugins load Pathfinder`
+es den Ordner `Plugins\Pathfinder` gibt. Im Spiel: `/zusatzmodule laden Pathfinder`
 
 ### Bedienung
 
@@ -198,7 +198,9 @@ needs *Allow GitHub Actions to create and approve pull requests* in the
 repository's Actions settings.
 
 For local testing, link `plugin/Pathfinder` into the game's `Plugins` folder
-and run `/plugins load Pathfinder` in game.
+and run `/plugins load Pathfinder` in game (`/zusatzmodule laden Pathfinder`
+on German clients). To reload after a change: `/plugins unload Pathfinder`
+(`/zusatzmodule entfernen Pathfinder`), then load again.
 
 Notes on the LOTRO plugin API that shaped the design:
 
@@ -211,6 +213,10 @@ Notes on the LOTRO plugin API that shaped the design:
 - Discovering a single landmark writes nothing to chat; only a completed deed
   does (`Abgeschlossen:` / `Completed:`).
 - The German client's `tonumber()` expects a decimal comma.
+- The German client knows `/zusatzmodule` instead of `/plugins` (its usage
+  text still says `/plugins`). Unloading takes the script state, not the
+  plugin name, so `Route.plugin` declares `<Configuration Apartment="Pathfinder" />`;
+  the client reads `.plugin` files only at game start, a relog is not enough.
 
 ## Releasing
 

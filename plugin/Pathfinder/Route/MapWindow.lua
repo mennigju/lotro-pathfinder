@@ -11,6 +11,8 @@ local RESOURCES = "Pathfinder/Route/Resources/"
 local MARGIN_X = 12
 local MARGIN_TOP = 38
 local INFO_HEIGHT = 20
+-- The window's bottom corner ornaments cover text at the left edge
+local CORNER = 28
 -- The trail is drawn from the player through this many open points
 local TRAIL_POINTS = 6
 local TRAIL_SPACING = 9
@@ -73,8 +75,8 @@ function MapWindow.Create(app, x, y, scale)
 
     self.info = Turbine.UI.Label()
     self.info:SetParent(window)
-    self.info:SetPosition(MARGIN_X, MARGIN_TOP + self.height + 4)
-    self.info:SetSize(self.width, INFO_HEIGHT)
+    self.info:SetPosition(CORNER, MARGIN_TOP + self.height + 4)
+    self.info:SetSize(self.width + 2 * MARGIN_X - 2 * CORNER, INFO_HEIGHT)
     self.info:SetFont(Turbine.UI.Lotro.Font.Verdana12)
     self.info:SetForeColor(Turbine.UI.Color(1, 0.9, 0.85, 0.7))
     self.info:SetTextAlignment(Turbine.UI.ContentAlignment.MiddleLeft)
