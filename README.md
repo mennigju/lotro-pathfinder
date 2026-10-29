@@ -233,7 +233,7 @@ as a build artifact.
 
 ## License
 
-Code: [MIT](LICENSE), Copyright (c) 2026 jmennig.
+Code: [MIT](LICENSE), Copyright (c) 2026 mennigju.
 
 Deed coordinates, names and map images come from
 [LotroCompanion](https://github.com/LotroCompanion) (`lotro-data`,
