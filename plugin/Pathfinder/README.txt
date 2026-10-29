@@ -85,7 +85,7 @@ Sprache: richtet sich nach dem Spiel-Client (Deutsch oder Englisch),
 
 LICENSE / LIZENZ
 
-Code: MIT License, Copyright (c) 2026 jmennig (see LICENSE.txt).
+Code: MIT License, Copyright (c) 2026 mennigju (see LICENSE.txt).
 The map images and deed data are game content and not covered by the MIT
 license. / Kartenbilder und Tat-Daten sind Spielinhalte und fallen nicht
 unter die MIT-Lizenz.
