@@ -331,8 +331,23 @@ end
 -- The chat comes in the client language, which may differ from the plugin
 -- language: check all name variants
 local CHAT_FIELDS = { "name", "deed", "name_en", "deed_en", "name_de", "deed_de" }
+local DEED_FIELDS = { deed = true, deed_en = true, deed_de = true }
 
--- All chat names of the route, longest first: { { text, points = {...} }, ... }
+-- A deed name only finishes points in a completion message: the client also
+-- names a deed when it starts ("Neue Tat: ..." / "New Deed: ...")
+local COMPLETED = { "abgeschlossen", "completed" }
+
+local function isCompletion(message)
+    for _, word in ipairs(COMPLETED) do
+        if message:find(word, 1, true) ~= nil then
+            return true
+        end
+    end
+    return false
+end
+
+-- All chat names of the route, longest first:
+-- { { text, points = {...}, deedOnly = true|false }, ... }
 local function chatNames(route)
     if route.chatNames ~= nil then
         return route.chatNames
@@ -344,9 +359,12 @@ local function chatNames(route)
             if text ~= nil and #text >= MIN_CHAT_NAME then
                 local entry = byText[text]
                 if entry == nil then
-                    entry = { text = text, points = {} }
+                    entry = { text = text, points = {}, deedOnly = true }
                     byText[text] = entry
                     table.insert(names, entry)
+                end
+                if not DEED_FIELDS[field] then
+                    entry.deedOnly = false
                 end
                 if entry.points[#entry.points] ~= point then
                     table.insert(entry.points, point)
@@ -374,15 +392,17 @@ end
 
 -- Discovery or deed completion messages name the landmark or the deed.
 -- The longest name wins: "Idagal Treasure Cache" does not also finish
--- "Treasure Cache", even when the longer one is already done.
+-- "Treasure Cache", even when the longer one is already done. A deed name
+-- in a start message is cut too, so the landmark names inside it don't count.
 -- Returns the number of newly finished points.
 function RouteState:MatchChat(message)
     message = plain(message)
+    local completion = isCompletion(message)
     local count = 0
     for _, entry in ipairs(chatNames(self.route)) do
         local found
         found, message = cut(message, entry.text)
-        if found then
+        if found and (completion or not entry.deedOnly) then
             for _, point in ipairs(entry.points) do
                 if not self.done[point.key] then
                     self:MarkDone(point)
