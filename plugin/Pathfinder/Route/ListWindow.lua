@@ -132,6 +132,7 @@ function ListWindow:Row(text, indent, color, onChange, onToggle, sub)
         line:SetFont(Turbine.UI.Lotro.Font.Verdana10)
         line:SetForeColor(COLOR_REWARD)
         line:SetText(sub)
+        line:SetMouseVisible(false)
     end
     self.list:AddItem(row)
     return box, toggle

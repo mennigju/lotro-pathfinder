@@ -21,7 +21,8 @@ local COLOR_FINISHED = Turbine.UI.Color(1, 0.55, 0.55, 0.55)
 local COLOR_HOVER = Turbine.UI.Color(1, 1, 0.85, 0.4)
 
 -- app: { Find(text, hereOnly) -> routes, Progress(route) -> done, total,
---        OnSelect(route), OnMoved(x, y), OnClosed() }
+--        OpenLP(route) -> open LOTRO points, OnSelect(route), OnMoved(x, y),
+--        OnClosed() }
 function RouteWindow.Create(app, x, y)
     local self = setmetatable({}, { __index = RouteWindow })
     self.app = app
