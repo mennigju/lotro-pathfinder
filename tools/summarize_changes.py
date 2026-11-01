@@ -17,12 +17,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 ROUTES = "plugin/Pathfinder/Route/Routes"
 MAPS = "plugin/Pathfinder/Route/Resources/Maps"
+DEEDS = "plugin/Pathfinder/Route/Deeds.lua"
 MAPS_XML = ROOT / "cache" / "maps-db" / "maps" / "maps.xml"
 # Targets that moved less than this (lon/lat units, 200 m each) count as unchanged
 MOVE_MIN = 0.05
 NAMES_MAX = 10
 
 FIELD = re.compile(r'(\w+) = ("(?:[^"\\]|\\.)*"|-?[\d.]+)')
+DEED = re.compile(r"\s*\[(\d+)\] = ")
 
 
 def git(*args):
@@ -153,6 +155,20 @@ def area_changes(old, new, names):
     return lines
 
 
+def reward_changes():
+    """Count the deeds whose generated reward line differs from HEAD (or exists on one side only)."""
+    def deed_lines(text):
+        return {m.group(1): line.strip() for line in text.splitlines() if (m := DEED.match(line))}
+
+    try:
+        old = deed_lines(git("show", f"HEAD:{DEEDS}"))
+    except subprocess.CalledProcessError:
+        old = {}
+    new = deed_lines((ROOT / DEEDS).read_text(encoding="utf-8"))
+    changed = [k for k in set(old) | set(new) if old.get(k) != new.get(k)]
+    return [f"- Rewards changed for {len(changed)} deeds"] if changed else []
+
+
 def image_changes(names):
     lines = []
     kinds = {"M": "changed", "D": "removed", "??": "new", "A": "new"}
@@ -168,6 +184,7 @@ def main():
     names = map_names({**old, **new})
     sections = [("Routes", route_changes(old, new)),
                 ("Slayer areas", area_changes(old, new, names)),
+                ("Deed rewards", reward_changes()),
                 ("Map images", image_changes(names))]
     sections = [(title, lines) for title, lines in sections if lines]
     if not sections:
