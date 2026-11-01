@@ -8,7 +8,6 @@ Pathfinder.Routes.Register({
     points = {
         { key = "1879115179_1", lon = -69.63433, lat = -17.59525, name = "Gwaelband", deed = "Die Stadt der Könige", deed_en = "The City of the Kings" },
         { key = "1879115179_7", lon = -69.38108, lat = -17.57101, name = "Ariant", deed = "Die Stadt der Könige", deed_en = "The City of the Kings" },
-        { key = "1879093360_2", lon = -68.7722, lat = -17.43471, name = "Erkunder von Evendim (2)", deed = "Erkunder von Evendim", name_en = "Evendim Explorer (2)", deed_en = "Evendim Explorer" },
         { key = "1879115179_8", lon = -68.51314, lat = -17.63588, name = "Minathranc", deed = "Die Stadt der Könige", deed_en = "The City of the Kings" },
         { key = "1879115179_6", lon = -68.73782, lat = -18.51777, name = "Tirband", deed = "Die Stadt der Könige", deed_en = "The City of the Kings" },
         { key = "1879115179_5", lon = -69.05434, lat = -18.97846, name = "Clorhir", deed = "Die Stadt der Könige", deed_en = "The City of the Kings" },
