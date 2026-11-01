@@ -25,7 +25,8 @@ Use:
   - "Routes" button  search and choose routes, with progress
                      ("here only": routes at your position)
   - "List" button  tick off targets and whole deeds you already have;
-                   finished targets can be hidden, deeds folded
+                   finished targets can be hidden, deeds folded;
+                   rewards (LOTRO points, virtue XP, reputation) per deed
   - "Map" button   map with the route; click a point to toggle it, red
                    circles = slayer areas (/pf slayer turns them off)
   - "Options"      radius, arrow, slayer areas, windows, language
@@ -66,7 +67,8 @@ Bedienung:
   - Knopf "Routen"  Routen suchen und waehlen, mit Fortschritt
                     ("nur hier": Routen an deiner Position)
   - Knopf "Liste"   erledigte Ziele und ganze Taten abhaken; erledigte
-                    Ziele ausblendbar, Taten einklappbar
+                    Ziele ausblendbar, Taten einklappbar; Belohnungen
+                    (LOTRO-Punkte, Tugend-EP, Ruf) pro Tat
   - Knopf "Karte"   Karte mit Route; Punkt anklicken = erledigt an/aus,
                     rote Kreise = Jagdgebiete (/pf jagd schaltet sie aus)
   - "Optionen"      Radius, Pfeil, Jagdgebiete, Fenster, Sprache

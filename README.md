@@ -17,6 +17,8 @@ German and English clients are supported.
   targets can be hidden, deeds folded
 - **Slayer areas**: red circles on the map where many foes of a slayer deed
   gather
+- **Rewards**: LOTRO points, virtue XP and reputation per deed in the list;
+  open LOTRO points per route
 - **Reroute** the open targets from where you stand
 - German and English, following the game client
 
@@ -103,6 +105,8 @@ zeigt außerdem, wo sich die Gegner von Slayer-Taten sammeln.
   ausblendbar, Taten einklappbar
 - **Jagdgebiete**: rote Kreise auf der Karte, wo sich viele Gegner einer
   Slayer-Tat sammeln
+- **Belohnungen**: LOTRO-Punkte, Tugend-EP und Ruf pro Tat in der Liste;
+  offene LOTRO-Punkte pro Route
 - **Neu berechnen**: Reihenfolge der offenen Ziele ab deinem Standort
 - Deutsch und Englisch, je nach Spiel-Client
 

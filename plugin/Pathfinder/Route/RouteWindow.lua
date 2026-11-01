@@ -110,7 +110,12 @@ function RouteWindow:Row(route, active)
     row:SetFont(Turbine.UI.Lotro.Font.Verdana12)
     row:SetForeColor(color)
     row:SetTextAlignment(Turbine.UI.ContentAlignment.MiddleLeft)
-    row:SetText(string.format(" %s  (%d/%d)", route.name, done, total))
+    local text = string.format(" %s  (%d/%d)", route.name, done, total)
+    local lp = self.app.OpenLP(route)
+    if lp > 0 then
+        text = text .. "  " .. Pathfinder.L("routeLP", lp)
+    end
+    row:SetText(text)
     row.MouseEnter = function()
         row:SetForeColor(COLOR_HOVER)
     end
