@@ -87,6 +87,12 @@ state:Skip()
 check("skip", state:Current().key == "b")
 state:Back()
 check("back", state:Current().key == "a")
+-- Back skips done points like Skip and keeps them done
+state:SetDone(route.points[1], true)
+check("back keeps done", state:Current().key == "b")
+state:Back()
+check("back over done", state:Current().key == "c" and state:IsDone(route.points[1]))
+state:Reset()
 
 -- Passing a point between two clicks
 state:Reset()

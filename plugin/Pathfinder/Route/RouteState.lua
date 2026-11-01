@@ -201,8 +201,8 @@ local MAX_WORK = 2000000
 
 -- New walking order from pos: nearest neighbour through the open points,
 -- then 2-opt on the open path that starts at pos (as tools/build_routes.py
--- does for the built order). Done points stay in front in their old order,
--- so Back() reopens the last one. False if pos is elsewhere or nothing is open.
+-- does for the built order). Done points stay in front in their old order.
+-- False if pos is elsewhere or nothing is open.
 function RouteState:Reorder(pos)
     if not inRegion(self, pos) then
         return false
@@ -421,13 +421,22 @@ function RouteState:Skip()
     end
 end
 
--- Goes back one point and reopens it
+-- Goes back to the previous open point, wrapping around like Skip; done
+-- points stay done (reopening is up to the list or the map)
 function RouteState:Back()
     local _, i = self:Current()
-    i = i or self.index
-    local prev = (i - 2) % #self.points + 1
-    self.done[self.points[prev].key] = nil
-    self.index = prev
+    if i == nil then
+        return
+    end
+    local points = self.points
+    local n = #points
+    for step = 1, n - 1 do
+        local prev = (i - 1 - step) % n + 1
+        if not self.done[points[prev].key] then
+            self.index = prev
+            return
+        end
+    end
 end
 
 -- Clears the progress of this route (not of others sharing the set) and
