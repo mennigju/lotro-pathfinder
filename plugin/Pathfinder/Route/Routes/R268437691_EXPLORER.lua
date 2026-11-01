@@ -6,8 +6,7 @@ Pathfinder.Routes.Register({
     region = 1,
     map = { id = 268437691, image = 1090552111, factor = 41.25, lon = -11.89091, lat = -14.58182, file = "Pathfinder/Route/Resources/Maps/268437691.jpg" },
     points = {
-        { key = "1879093363_3", lon = -1.65949, lat = -17.69294, name = "Erkunder der Trollhöhen (3)", deed = "Erkunder der Trollhöhen", name_en = "Trollshaws Explorer (3)", deed_en = "Trollshaws Explorer" },
-        { key = "1879071652_4", lon = -1.88064, lat = -17.88571, name = "Der Bittersteg", deed = "Ruinen des Nebelgebirges", name_en = "The Bitter Stair", deed_en = "Ruins of the Misty Mountains" },
+        { key = "1879071652_4", lon = -2.35853, lat = -18.28611, name = "Der Bittersteg", deed = "Ruinen des Nebelgebirges", name_en = "The Bitter Stair", deed_en = "Ruins of the Misty Mountains" },
         { key = "1879321683_2", lon = -3.39291, lat = -20.53368, name = "Schatzspeicher", deed = "Schätze des Nebelgebirges", name_en = "Treasure Cache", deed_en = "Treasure of The Misty Mountains" },
         { key = "1879071652_3", lon = -4.4668, lat = -21.64604, name = "Iskelds Aussichtspunkt", deed = "Ruinen des Nebelgebirges", name_en = "Iskeld's Look-out", deed_en = "Ruins of the Misty Mountains" },
         { key = "1879321683_1", lon = -4.30673, lat = -23.35771, name = "Schatzspeicher", deed = "Schätze des Nebelgebirges", name_en = "Treasure Cache", deed_en = "Treasure of The Misty Mountains" },

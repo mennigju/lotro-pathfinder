@@ -99,13 +99,19 @@ def is_bestowal(cond, objective, objectives):
             and len(objective) == 1 and len(objectives) > 1)
 
 
+def is_chicken_play(deed):
+    """Chicken play deeds (Shire Explorer, Lone-lands Traveller, ...): only for
+    players in chicken form, all start at the same spot in the Shire."""
+    return any((p.get("key") or "").startswith("hotspot_chicken") for p in deed.iter("point"))
+
+
 def collect_targets(deeds_path, deed_names, marker_names, types):
     """Returns {(map_id, type): [target, ...]}; a target has 'options' (alternative points).
     map_id is None for deeds without a map, region 0 where the data has none."""
     groups = defaultdict(list)
     for deed in ET.parse(deeds_path).getroot().iter("deed"):
         deed_type = deed.get("type")
-        if deed_type not in types:
+        if deed_type not in types or is_chicken_play(deed):
             continue
         map_el = deed.find("map")
         if map_el is None:

@@ -19,7 +19,6 @@ Pathfinder.Routes.Register({
         { key = "1879071655_1", lon = -18.58898, lat = -26.11075, name = "Fallenspinnen-Nest", deed = "Ruinen der Trollhöhen", name_en = "Trapdoor Lair", deed_en = "Ruins of the Trollshaws" },
         { key = "1879071655_8", lon = -20.80738, lat = -31.35081, name = "Feste Dúrgonn", deed = "Ruinen der Trollhöhen", name_en = "Ost Dúrgonn", deed_en = "Ruins of the Trollshaws" },
         { key = "1879071654_1", lon = -23.11349, lat = -33.46674, name = "Die Letzte Brücke", deed = "Die Straße nach Bruchtal", name_en = "The Last Bridge", deed_en = "The Road to Rivendell" },
-        { key = "1879093361_3", lon = -23.03531, lat = -33.56742, name = "Erkunder der Einsamen Lande (3)", deed = "Erkunder der Einsamen Lande", name_en = "Lone-lands Explorer (3)", deed_en = "Lone-lands Explorer" },
         { key = "1879071654_2", lon = -20.20096, lat = -34.05908, name = "Barachens Lager", deed = "Die Straße nach Bruchtal", name_en = "Barachen's Camp", deed_en = "The Road to Rivendell" },
         { key = "1879099041_3", lon = -16.88448, lat = -35.51268, name = "Eryn Singor", deed = "Die Wildnis von Tâl Bruinen", deed_en = "The Wilds of Tâl Bruinen" },
         { key = "1879099041_4", lon = -16.20926, lat = -38.12955, name = "Echad Gauradan", deed = "Die Wildnis von Tâl Bruinen", deed_en = "The Wilds of Tâl Bruinen" },
