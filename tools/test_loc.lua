@@ -102,6 +102,22 @@ state:Reset()
 check("chat markup", state:MatchChat("<rgb=#FFFF00>Neuer Ort: GAMMA</rgb>") == 1)
 state:Reset()
 
+-- A started deed is not a finished one (format from Script.log), and the
+-- landmark names inside the deed name don't count either
+local started = {
+    id = "started", name = "Started", region = 1,
+    points = {
+        { key = "s1", lon = 0, lat = 0, name = "Grimmhands", deed = "Das Auskundschaften der Grimmhands", deed_en = "Scouting the Dourhands" },
+        { key = "s2", lon = 1, lat = 0, name = "Turm von Kheledûl", deed = "Das Auskundschaften der Grimmhands", deed_en = "Scouting the Dourhands" },
+    },
+}
+local startedState = Pathfinder.RouteState.New(started, {})
+check("new deed de", startedState:MatchChat("Neue Tat: Das Auskundschaften der Grimmhands") == 0)
+check("new deed en", startedState:MatchChat("New Deed: Scouting the Dourhands") == 0)
+check("landmark still", startedState:MatchChat("Neuer Ort entdeckt: Turm von Kheledûl") == 1)
+check("deed completed", startedState:MatchChat("Abgeschlossen:\nDas Auskundschaften der Grimmhands") == 1
+    and startedState:DoneCount() == 2)
+
 -- Chat in the other language: English deed name on a German route
 check("chat english name", state:MatchChat("Completed:\nSecond Exploration") == 1)
 state:Reset()
