@@ -628,6 +628,58 @@ def chain_sections(sections):
     return result
 
 
+def load_factions(path, names_de):
+    """Returns {faction_id: (name_de, name_en)}."""
+    factions = {}
+    for faction in ET.parse(path).getroot().iter("faction"):
+        name_en = faction.get("name", "")
+        factions[faction.get("id")] = (names_de.get(faction.get("id")) or name_en, name_en)
+    return factions
+
+
+def collect_rewards(deeds_path, deed_ids, factions):
+    """Returns {deed_id: {"lp": int, "vxp": int, "rep": [(de, en, amount)]}} for the given
+    deeds; keys without a reward are left out, and so are deeds without any."""
+    rewards = {}
+    for deed in ET.parse(deeds_path).getroot().iter("deed"):
+        deed_id = int(deed.get("id"))
+        reward_el = deed.find("rewards")
+        if deed_id not in deed_ids or reward_el is None:
+            continue
+        reward = {
+            "lp": sum(int(e.get("quantity", "0")) for e in reward_el.iter("lotroPoints")),
+            "vxp": sum(int(e.get("quantity", "0")) for e in reward_el.iter("virtueXP")),
+            "rep": [],
+        }
+        for item in reward_el.iter("reputationItem"):
+            fallback = item.get("faction", "")
+            name_de, name_en = factions.get(item.get("factionId"), (fallback, fallback))
+            reward["rep"].append((name_de, name_en, int(item.get("amount", "0"))))
+        reward = {key: value for key, value in reward.items() if value}
+        if reward:
+            rewards[deed_id] = reward
+    return rewards
+
+
+def write_deeds(path, rewards):
+    """Writes Pathfinder.Deeds, one line per deed, sorted by id."""
+    lines = ["-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.",
+             "Pathfinder.Deeds = {"]
+    for deed_id, reward in sorted(rewards.items()):
+        fields = []
+        if "lp" in reward:
+            fields.append(f"lp = {reward['lp']}")
+        if "vxp" in reward:
+            fields.append(f"vxp = {reward['vxp']}")
+        if "rep" in reward:
+            items = ", ".join(f"{{ {lua_str(de)}, {lua_str(en)}, {amount} }}"
+                              for de, en, amount in reward["rep"])
+            fields.append(f"rep = {{ {items} }}")
+        lines.append(f"    [{deed_id}] = {{ {', '.join(fields)} }},")
+    lines.append("}")
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--types", default="EXPLORER,LORE", help="deed types, comma separated")
@@ -656,6 +708,7 @@ def main():
     used_images = set()
     map_sources = load_map_sources()
     total_targets = 0
+    written_deeds = set()
 
     def image_for(map_id):
         if args.no_images or map_id not in maps:
@@ -686,6 +739,7 @@ def main():
         name = (f"{map_name} - {type_de}", f"{map_name_en} - {type_en}")
         write_route(OUT / f"{module}.lua", module, name, regions[map_id], map_info, ordered, image_for(map_id))
         modules.append(module)
+        written_deeds.update(t["deedId"] for t in ordered)
         total_targets += len(ordered)
         print(f"{name[0]}: {len(ordered)} Ziele, {length_m / 1000:.1f} km")
 
@@ -705,8 +759,16 @@ def main():
         write_route(OUT / f"{module}.lua", module, name, region, maps[first], ordered,
                     section_maps[first][1], section_maps)
         modules.append(module)
+        written_deeds.update(t["deedId"] for t in ordered)
         length_m = path_length([t["point"] for t in ordered]) * METERS_PER_UNIT
         print(f"{name[0]}: {len(ordered)} Ziele auf {len(parts)} Karten, {length_m / 1000:.1f} km")
+
+    if not args.map:
+        factions = load_factions(CACHE / "lotro-data/factions.xml",
+                                 load_labels(CACHE / "lotro-data/labels/de/factions.xml"))
+        rewards = collect_rewards(CACHE / "lotro-data/deeds.xml", written_deeds, factions)
+        write_deeds(OUT.parent / "Deeds.lua", rewards)
+        print(f"{len(rewards)} Taten mit Belohnungen -> Deeds.lua")
 
     if not args.no_images and not args.map:
         for old in MAPS_OUT.glob("*.jpg"):
@@ -728,7 +790,8 @@ def main():
     area_modules = sorted(path.stem for path in OUT.glob("A*.lua"))
 
     init = ["-- Generiert von tools/build_routes.py. Laedt alle Routen.",
-            f"Pathfinder.Routes.MAP_SCALE = {lua_num(args.scale)}"]
+            f"Pathfinder.Routes.MAP_SCALE = {lua_num(args.scale)}",
+            'import "Pathfinder.Route.Deeds"']
     init += [f'import "{PACKAGE}.{m}"' for m in modules + area_modules]
     (OUT / "__init__.lua").write_text("\n".join(init) + "\n", encoding="utf-8")
     print(f"{len(modules)} Routen, {total_targets} Ziele auf Karten -> {OUT}")
