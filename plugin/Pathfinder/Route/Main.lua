@@ -370,6 +370,9 @@ routeWindow = Pathfinder.RouteWindow.Create({
         return result
     end,
     Progress = routeProgress,
+    OpenLP = function(route)
+        return Routes.OpenLP(route, progress.done)
+    end,
     OnSelect = function(route)
         selectRoute(route)
     end,

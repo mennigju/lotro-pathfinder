@@ -21,7 +21,8 @@ local COLOR_FINISHED = Turbine.UI.Color(1, 0.55, 0.55, 0.55)
 local COLOR_HOVER = Turbine.UI.Color(1, 1, 0.85, 0.4)
 
 -- app: { Find(text, hereOnly) -> routes, Progress(route) -> done, total,
---        OnSelect(route), OnMoved(x, y), OnClosed() }
+--        OpenLP(route) -> open LOTRO points, OnSelect(route), OnMoved(x, y),
+--        OnClosed() }
 function RouteWindow.Create(app, x, y)
     local self = setmetatable({}, { __index = RouteWindow })
     self.app = app
@@ -110,7 +111,12 @@ function RouteWindow:Row(route, active)
     row:SetFont(Turbine.UI.Lotro.Font.Verdana12)
     row:SetForeColor(color)
     row:SetTextAlignment(Turbine.UI.ContentAlignment.MiddleLeft)
-    row:SetText(string.format(" %s  (%d/%d)", route.name, done, total))
+    local text = string.format(" %s  (%d/%d)", route.name, done, total)
+    local lp = self.app.OpenLP(route)
+    if lp > 0 then
+        text = text .. "  " .. Pathfinder.L("routeLP", lp)
+    end
+    row:SetText(text)
     row.MouseEnter = function()
         row:SetForeColor(COLOR_HOVER)
     end

@@ -16,10 +16,12 @@ local ROW_HEIGHT = 20
 local SCROLL_WIDTH = 10
 local TOGGLE_WIDTH = 16
 local POINT_INDENT = 34
+local SUB_HEIGHT = 14
 
 local COLOR_DEED = Turbine.UI.Color(1, 0.95, 0.8, 0.4)
 local COLOR_POINT = Turbine.UI.Color(1, 0.9, 0.9, 0.9)
 local COLOR_CURRENT = Turbine.UI.Color(1, 0.3, 1, 0.4)
+local COLOR_REWARD = Turbine.UI.Color(1, 0.7, 0.7, 0.7)
 
 -- app: { OnChanged(), OnFilterChanged(openOnly), OnMoved(x, y), OnClosed() }
 -- openOnly: hide finished targets
@@ -92,10 +94,11 @@ function ListWindow:IsVisible()
     return self.window:IsVisible()
 end
 
--- One row: optional +/- toggle in front, then a check box
-function ListWindow:Row(text, indent, color, onChange, onToggle)
+-- One row: optional +/- toggle in front, then a check box; sub = optional
+-- second line (rewards) below the check box
+function ListWindow:Row(text, indent, color, onChange, onToggle, sub)
     local row = Turbine.UI.Control()
-    row:SetSize(self.list:GetWidth(), ROW_HEIGHT)
+    row:SetSize(self.list:GetWidth(), sub and ROW_HEIGHT + SUB_HEIGHT or ROW_HEIGHT)
     local toggle
     if onToggle ~= nil then
         toggle = Turbine.UI.Label()
@@ -121,6 +124,16 @@ function ListWindow:Row(text, indent, color, onChange, onToggle)
     end
     box:SetParent(row)
     box:SetPosition(indent, 0)
+    if sub ~= nil then
+        local line = Turbine.UI.Label()
+        line:SetParent(row)
+        line:SetPosition(indent + 18, ROW_HEIGHT - 2)
+        line:SetSize(self.list:GetWidth() - indent - 18, SUB_HEIGHT)
+        line:SetFont(Turbine.UI.Lotro.Font.Verdana10)
+        line:SetForeColor(COLOR_REWARD)
+        line:SetText(sub)
+        line:SetMouseVisible(false)
+    end
     self.list:AddItem(row)
     return box, toggle
 end
@@ -153,6 +166,10 @@ function ListWindow:Build(state)
             self.collapsed[deed.name] = done == total
         end
         local collapsed = self.collapsed[deed.name]
+        local reward = Pathfinder.RewardText(Pathfinder.DeedOf(deed.points[1].key))
+        if reward == "" then
+            reward = nil
+        end
         local deedBox, toggle = self:Row(deed.name, 0, COLOR_DEED, function(checked)
             for _, point in ipairs(deed.points) do
                 state:SetDone(point, checked)
@@ -162,7 +179,7 @@ function ListWindow:Build(state)
             self.collapsed[deed.name] = not self.collapsed[deed.name]
             self:Build(state)
             self:Refresh(state)
-        end)
+        end, reward)
         toggle:SetText(collapsed and "+" or "-")
         table.insert(self.rows, { box = deedBox, deed = deed })
         if not collapsed then

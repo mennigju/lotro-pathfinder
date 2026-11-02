@@ -106,3 +106,46 @@ function Routes.Find(text)
     table.sort(result, function(a, b) return a.name < b.name end)
     return result
 end
+
+-- Reward entry of the deed a point key belongs to (key = "<deed id>_<n>")
+function Pathfinder.DeedOf(key)
+    if Pathfinder.Deeds == nil then
+        return nil
+    end
+    local id = tonumber(key:match("^(%d+)_"))
+    return id and Pathfinder.Deeds[id] or nil
+end
+
+-- "5 LP · 2000 Virtue XP · Faction +500"; nil without an entry
+function Pathfinder.RewardText(entry)
+    if entry == nil then
+        return nil
+    end
+    local parts = {}
+    if entry.lp then
+        table.insert(parts, Pathfinder.L("rewardLP", entry.lp))
+    end
+    if entry.vxp then
+        table.insert(parts, Pathfinder.L("rewardVXP", entry.vxp))
+    end
+    for _, rep in ipairs(entry.rep or {}) do
+        table.insert(parts, Pathfinder.L("rewardRep", Pathfinder.Lang == "en" and rep[2] or rep[1], rep[3]))
+    end
+    return table.concat(parts, " \194\183 ")
+end
+
+-- LOTRO points of the deeds on the route that still have an open target
+function Routes.OpenLP(route, done)
+    local seen, total = {}, 0
+    for _, point in ipairs(route.points) do
+        if not done[point.key] then
+            local id = tonumber(point.key:match("^(%d+)_"))
+            if id and not seen[id] then
+                seen[id] = true
+                local entry = Pathfinder.DeedOf(point.key)
+                total = total + (entry and entry.lp or 0)
+            end
+        end
+    end
+    return total
+end

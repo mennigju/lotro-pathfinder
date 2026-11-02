@@ -22,10 +22,12 @@ Use:
     at the open target nearest to you
   - /pf reroute    new order of the open targets from where you stand
                    (/pf reset brings back the original order)
-  - "Routes" button  search and choose routes, with progress
+  - "Routes" button  search and choose routes, with progress and
+                     open LOTRO points per route
                      ("here only": routes at your position)
   - "List" button  tick off targets and whole deeds you already have;
-                   finished targets can be hidden, deeds folded
+                   finished targets can be hidden, deeds folded;
+                   rewards (LOTRO points, virtue XP, reputation) per deed
   - "Map" button   map with the route; click a point to toggle it, red
                    circles = slayer areas (/pf slayer turns them off)
   - "Options"      radius, arrow, slayer areas, windows, language
@@ -63,10 +65,12 @@ Bedienung:
     beginnt beim offenen Ziel, das dir am naechsten ist
   - /pf neu         Reihenfolge der offenen Ziele ab deinem Standort neu
                     berechnen (/pf reset stellt die urspruengliche wieder her)
-  - Knopf "Routen"  Routen suchen und waehlen, mit Fortschritt
+  - Knopf "Routen"  Routen suchen und waehlen, mit Fortschritt und
+                    offenen LOTRO-Punkten je Route
                     ("nur hier": Routen an deiner Position)
   - Knopf "Liste"   erledigte Ziele und ganze Taten abhaken; erledigte
-                    Ziele ausblendbar, Taten einklappbar
+                    Ziele ausblendbar, Taten einklappbar; Belohnungen
+                    (LOTRO-Punkte, Tugend-EP, Ruf) pro Tat
   - Knopf "Karte"   Karte mit Route; Punkt anklicken = erledigt an/aus,
                     rote Kreise = Jagdgebiete (/pf jagd schaltet sie aus)
   - "Optionen"      Radius, Pfeil, Jagdgebiete, Fenster, Sprache

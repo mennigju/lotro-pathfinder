@@ -4,6 +4,7 @@ local dir = arg[0]:match("^(.*)/tools/") or "."
 dofile(dir .. "/plugin/Pathfinder/Route/Loc.lua")
 dofile(dir .. "/plugin/Pathfinder/Route/RouteState.lua")
 dofile(dir .. "/plugin/Pathfinder/Route/Registry.lua")
+dofile(dir .. "/plugin/Pathfinder/Route/Strings.lua")
 
 local Loc = Pathfinder.Loc
 local failures = 0
@@ -254,6 +255,33 @@ local inRegion = Routes.At({ region = 2, lon = 205, lat = 5 })
 check("region route on second map", #inRegion == 1 and inRegion[1].id == "g2")
 inRegion = Routes.At({ region = 2, lon = 5, lat = 5 })
 check("region route last", #inRegion == 3 and inRegion[3].id == "g2")
+
+-- Deed rewards
+Pathfinder.Deeds = {
+    [11] = { lp = 5, vxp = 2000, rep = { { "Elben von Bruchtal", "Elves of Rivendell", 500 } } },
+    [12] = { lp = 10 },
+    [13] = { vxp = 1000, rep = { { "Menschen von Bree", "Men of Bree", 300 }, { "Rat des Nordens", "Council of the North", 700 } } },
+}
+check("deed of key", Pathfinder.DeedOf("11_3") == Pathfinder.Deeds[11])
+check("deed of unknown", Pathfinder.DeedOf("99_1") == nil)
+Pathfinder.Lang = "en"
+check("reward all", Pathfinder.RewardText(Pathfinder.Deeds[11]) == "5 LP \194\183 2000 Virtue XP \194\183 Elves of Rivendell +500")
+check("reward lp only", Pathfinder.RewardText(Pathfinder.Deeds[12]) == "10 LP")
+check("reward two factions", Pathfinder.RewardText(Pathfinder.Deeds[13]) == "1000 Virtue XP \194\183 Men of Bree +300 \194\183 Council of the North +700")
+check("reward nil", Pathfinder.RewardText(nil) == nil)
+Pathfinder.Lang = "de"
+check("reward de", Pathfinder.RewardText(Pathfinder.Deeds[11]) == "5 LP \194\183 2000 Tugend-EP \194\183 Elben von Bruchtal +500")
+local lpRoute = { points = { { key = "11_1" }, { key = "11_2" }, { key = "12_1" }, { key = "13_1" }, { key = "99_1" } } }
+check("open lp none done", Pathfinder.Routes.OpenLP(lpRoute, {}) == 15)
+check("open lp deed half done", Pathfinder.Routes.OpenLP(lpRoute, { ["11_1"] = true }) == 15)
+check("open lp deed done", Pathfinder.Routes.OpenLP(lpRoute, { ["11_1"] = true, ["11_2"] = true }) == 10)
+check("open lp all done", Pathfinder.Routes.OpenLP(lpRoute, { ["11_1"] = true, ["11_2"] = true, ["12_1"] = true }) == 0)
+-- Same deed on another route counts there by its own points
+check("open lp other route", Pathfinder.Routes.OpenLP({ points = { { key = "11_3" } } }, { ["11_1"] = true, ["11_2"] = true }) == 5)
+-- Two deeds sharing a name still count once each, by id
+check("open lp per deed id", Pathfinder.Routes.OpenLP({ points = { { key = "11_1", deed = "X" }, { key = "12_1", deed = "X" } } }, {}) == 15)
+Pathfinder.Deeds = nil
+check("no deeds file", Pathfinder.DeedOf("11_1") == nil and Pathfinder.Routes.OpenLP(lpRoute, {}) == 0)
 
 if failures == 0 then
     print("OK")

@@ -1,5 +1,6 @@
 -- Generiert von tools/build_routes.py. Laedt alle Routen.
 Pathfinder.Routes.MAP_SCALE = 0.6
+import "Pathfinder.Route.Deeds"
 import "Pathfinder.Route.Routes.R268451074_EXPLORER"
 import "Pathfinder.Route.Routes.R268451575_LORE"
 import "Pathfinder.Route.Routes.R268454949_EXPLORER"
