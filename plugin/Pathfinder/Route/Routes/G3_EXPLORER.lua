@@ -190,7 +190,7 @@ Pathfinder.Routes.Register({
         { key = "1879329671_6", lon = -18.89902, lat = -64.10687, map = 268451105, name = "Das Hammer und Zangen", deed = "Gasthäuser der Weißen Stadt", name_en = "The Hammer and Tongs", deed_en = "Taverns of the White City" },
         { key = "1879329671_9", lon = -19.44154, lat = -64.22475, map = 268451105, name = "Das Ziegel und Mörtel", deed = "Gasthäuser der Weißen Stadt", name_en = "The Brick and Mortar", deed_en = "Taverns of the White City" },
         { key = "1879327959_2", lon = -19.49101, lat = -64.11293, map = 268451105, name = "Bauarbeiter-Halle", deed = "Hallen von Minas Tirith", name_en = "Builders’ Fellow-hall", deed_en = "Minas Tirith Fellow-halls" },
-        { key = "1879329669_2", lon = -19.80091, lat = -63.86488, map = 268451105, name = "Städtisches Gefängnis", deed = "Verwaltung der Weißen Stadt", name_en = "City Gaol", deed_en = "Workings of the White City" },
+        { key = "1879329669_2", lon = -19.80091, lat = -63.86488, map = 268451105, name = "Stadtgefängnis", deed = "Verwaltung der Weißen Stadt", name_en = "City Jail", deed_en = "Workings of the White City" },
         { key = "1879327949_4", lon = -19.93547, lat = -64.68774, map = 268451105, name = "Rathon", deed = "Die Hüter von Minas Tirith", deed_en = "Wardens of Minas Tirith" },
         { key = "1879329671_13", lon = -19.35788, lat = -64.97572, map = 268451105, name = "Das Adler und Sichel", deed = "Gasthäuser der Weißen Stadt", name_en = "The Eagle and Sickle", deed_en = "Taverns of the White City" },
         { key = "1879329669_4", lon = -19.14609, lat = -65.13016, map = 268451105, name = "Stadtkammer", deed = "Verwaltung der Weißen Stadt", name_en = "Chambers of the City", deed_en = "Workings of the White City" },
