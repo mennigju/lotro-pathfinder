@@ -1,0 +1,26 @@
+-- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.
+Pathfinder.Routes.RegisterAreas({
+    map = 268455274,
+    region = 6,
+    areas = {
+        { lon = -94.30004, lat = -53.80581, radius = 119, count = 131, deed = "Die Feindschaft der Kultisten", deed_en = "Enmity of the Cultists" },
+        { lon = -93.4478, lat = -51.49612, radius = 136, count = 72, deed = "Die Feindschaft der Kultisten", deed_en = "Enmity of the Cultists" },
+        { lon = -91.364, lat = -52.49026, radius = 133, count = 68, deed = "Die Feindschaft der Kultisten", deed_en = "Enmity of the Cultists" },
+        { lon = -79.58371, lat = -47.53467, radius = 130, count = 67, deed = "Geißel der Wölfe des Nan Ogol", deed_en = "Wolf-bane of Nan Ogol" },
+        { lon = -84.84406, lat = -51.66045, radius = 136, count = 65, deed = "Geißel des Feuers von Heledhris", deed_en = "Fire-bane of Heledhris" },
+        { lon = -84.84406, lat = -51.66045, radius = 136, count = 65, deed = "Olog-hai-Bezwinger / Olog-hai-Bezwingerin von Heledhris", deed_en = "Olog-hai Slayer of Heledhris" },
+        { lon = -82.23054, lat = -51.55333, radius = 134, count = 64, deed = "Geißel des Feuers von Heledhris", deed_en = "Fire-bane of Heledhris" },
+        { lon = -82.23054, lat = -51.55333, radius = 134, count = 64, deed = "Olog-hai-Bezwinger / Olog-hai-Bezwingerin von Heledhris", deed_en = "Olog-hai Slayer of Heledhris" },
+        { lon = -84.18269, lat = -39.51501, radius = 138, count = 64, deed = "Nagekiefer-Bezwinger / Nagekiefer-Bezwingerin des Nan Ogol", deed_en = "Gnawlock-slayer of Nan Ogol" },
+        { lon = -84.18269, lat = -39.51501, radius = 138, count = 64, deed = "Sumpfmaden-Bezwinger] / Sumpfmaden-Bezwingerin des Nan Ogol", deed_en = "Mire-maggot Slayer of Nan Ogol" },
+        { lon = -97.2693, lat = -54.90781, radius = 130, count = 63, deed = "Waldtroll-Bezwinger / Waldtroll-Bezwingerin von Heledhris", deed_en = "Wood-troll Slayer of Heledhris" },
+        { lon = -94.60338, lat = -40.40507, radius = 126, count = 61, deed = "Sumpfmaden-Bezwinger] / Sumpfmaden-Bezwingerin des Nan Ogol", deed_en = "Mire-maggot Slayer of Nan Ogol" },
+        { lon = -99.7461, lat = -57.66404, radius = 130, count = 60, deed = "Waldtroll-Bezwinger / Waldtroll-Bezwingerin von Heledhris", deed_en = "Wood-troll Slayer of Heledhris" },
+        { lon = -81.8998, lat = -51.7545, radius = 129, count = 59, deed = "Waldtroll-Bezwinger / Waldtroll-Bezwingerin von Heledhris", deed_en = "Wood-troll Slayer of Heledhris" },
+        { lon = -84.20944, lat = -41.21983, radius = 122, count = 58, deed = "Nagekiefer-Bezwinger / Nagekiefer-Bezwingerin des Nan Ogol", deed_en = "Gnawlock-slayer of Nan Ogol" },
+        { lon = -96.42329, lat = -41.34795, radius = 132, count = 55, deed = "Geißel der Wölfe des Nan Ogol", deed_en = "Wolf-bane of Nan Ogol" },
+        { lon = -83.64669, lat = -52.58874, radius = 117, count = 50, deed = "Geißel der Wölfe von Heledhris", deed_en = "Wolf-bane of Heledhris" },
+        { lon = -85.37968, lat = -49.77153, radius = 69, count = 36, deed = "Geißel der Wölfe von Heledhris", deed_en = "Wolf-bane of Heledhris" },
+        { lon = -99.91949, lat = -55.89667, radius = 135, count = 16, deed = "Geißel der Wölfe von Heledhris", deed_en = "Wolf-bane of Heledhris" },
+    },
+})

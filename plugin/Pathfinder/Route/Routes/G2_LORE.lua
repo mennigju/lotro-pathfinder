@@ -16,7 +16,7 @@ Pathfinder.Routes.Register({
         { key = "1879147165_2", lon = -115.19299, lat = -20.30489, map = 268442343, name = "Durchweichter Kaufmann", deed = "In den Tiefen verschollen", name_en = "Sodden Merchant", deed_en = "Lost to the Deeps" },
         { key = "1879147165_4", lon = -115.23736, lat = -20.4229, map = 268442343, name = "Verschimmelter Abenteurer", deed = "In den Tiefen verschollen", name_en = "Moulding Adventurer", deed_en = "Lost to the Deeps" },
         { key = "1879147165_5", lon = -114.99247, lat = -20.66311, map = 268442343, name = "Gefallener Krieger", deed = "In den Tiefen verschollen", name_en = "Broken Warrior", deed_en = "Lost to the Deeps" },
-        { key = "1879147165_3", lon = -115.34663, lat = -20.98042, map = 268442343, name = "Ertrunkener Minenbauer", deed = "In den Tiefen verschollen", name_en = "Drowned Miner", deed_en = "Lost to the Deeps" },
+        { key = "1879147165_3", lon = -115.34663, lat = -20.98042, map = 268442343, name = "Ertrunkener Bergarbeiter", deed = "In den Tiefen verschollen", name_en = "Drowned Miner", deed_en = "Lost to the Deeps" },
         { key = "1879259563_6", lon = -73.09542, lat = -32.18014, map = 268449335, name = "Wilde Waldlilie", deed = "Im Schnee blühen", name_en = "Wild Wood Lily", deed_en = "Blooming in the Snow" },
         { key = "1879259563_2", lon = -64.62243, lat = -30.34495, map = 268449335, name = "Wilder Fingerhut", deed = "Im Schnee blühen", name_en = "Wild Foxglove", deed_en = "Blooming in the Snow" },
         { key = "1879259563_1", lon = -59.94352, lat = -36.19139, map = 268449335, name = "Wilde Distel", deed = "Im Schnee blühen", name_en = "Wild Thistle", deed_en = "Blooming in the Snow" },
