@@ -30,7 +30,7 @@ Pathfinder.Routes.Register({
         { key = "1879354854_4", lon = 30.3242, lat = -48.81083, name = "Schatzspeicher", deed = "Schätze des Agarnaith", name_en = "Treasure Cache", deed_en = "Treasure of Agarnaith" },
         { key = "1879354854_3", lon = 28.65373, lat = -49.73235, name = "Schatzspeicher", deed = "Schätze des Agarnaith", name_en = "Treasure Cache", deed_en = "Treasure of Agarnaith" },
         { key = "1879353947_4", lon = 29.6159, lat = -50.4198, name = "Faltor Gâm", deed = "Pfadfinder / Pfadfinderin des Agarnaith", deed_en = "Agarnaith Pathfinder" },
-        { key = "1879354854_6", lon = 32.67527, lat = -51.15997, name = "Schatzspeicher", deed = "Schätze des Agarnaith", name_en = "Treasure Cache", deed_en = "Treasure of Agarnaith" },
+        { key = "1879354854_6", lon = 32.69164, lat = -51.09738, name = "Schatzspeicher", deed = "Schätze des Agarnaith", name_en = "Treasure Cache", deed_en = "Treasure of Agarnaith" },
         { key = "1879353947_2", lon = 32.03975, lat = -54.35444, name = "Bhol Rûdh", deed = "Pfadfinder / Pfadfinderin des Agarnaith", deed_en = "Agarnaith Pathfinder" },
         { key = "1879353967_1", lon = 29.91101, lat = -52.41634, name = "Kletterer / Kletterin der Türme von Kala-gijak (1)", deed = "Kletterer / Kletterin der Türme von Kala-gijak", name_en = "Kala-gijak Tower-climber (1)", deed_en = "Kala-gijak Tower-climber" },
         { key = "1879353967_2", lon = 29.83473, lat = -52.30922, name = "Kletterer / Kletterin der Türme von Kala-gijak (2)", deed = "Kletterer / Kletterin der Türme von Kala-gijak", name_en = "Kala-gijak Tower-climber (2)", deed_en = "Kala-gijak Tower-climber" },

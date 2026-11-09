@@ -1,8 +1,8 @@
 -- Generiert von tools/build_routes.py aus LotroCompanion-Daten. Nicht von Hand aendern.
 Pathfinder.Routes.Register({
     id = "G6_EXPLORER",
-    name = "Rhûn - Erkundung (Region)",
-    name_en = "Rhûn - Exploration (region)",
+    name = "Mordor (Außenbereich) - Erkundung (Region)",
+    name_en = "Mordor (Outer) - Exploration (region)",
     region = 6,
     map = { id = 268455274, image = 1093159307, factor = 32.1875, lon = -108.39999, lat = -39.7398, file = "Pathfinder/Route/Resources/Maps/268455274.jpg" },
     maps = {
